@@ -14,6 +14,8 @@
 		F96141702135DBFA00A3A8BE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F961416E2135DBFA00A3A8BE /* LaunchScreen.storyboard */; };
 		F961417B2135DBFA00A3A8BE /* Assignment1Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F961417A2135DBFA00A3A8BE /* Assignment1Tests.swift */; };
 		F96141862135DBFA00A3A8BE /* Assignment1UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F96141852135DBFA00A3A8BE /* Assignment1UITests.swift */; };
+		F96141942135DC3000A3A8BE /* Student.swift in Sources */ = {isa = PBXBuildFile; fileRef = F96141932135DC3000A3A8BE /* Student.swift */; };
+		F96141962135DC7C00A3A8BE /* PriorityQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = F96141952135DC7C00A3A8BE /* PriorityQueue.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +49,8 @@
 		F96141812135DBFA00A3A8BE /* Assignment1UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Assignment1UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F96141852135DBFA00A3A8BE /* Assignment1UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assignment1UITests.swift; sourceTree = "<group>"; };
 		F96141872135DBFA00A3A8BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F96141932135DC3000A3A8BE /* Student.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Student.swift; sourceTree = "<group>"; };
+		F96141952135DC7C00A3A8BE /* PriorityQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriorityQueue.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +101,8 @@
 		F96141642135DBF900A3A8BE /* Assignment1 */ = {
 			isa = PBXGroup;
 			children = (
+				F96141952135DC7C00A3A8BE /* PriorityQueue.swift */,
+				F96141932135DC3000A3A8BE /* Student.swift */,
 				F96141652135DBF900A3A8BE /* AppDelegate.swift */,
 				F96141672135DBF900A3A8BE /* ViewController.swift */,
 				F96141692135DBF900A3A8BE /* Main.storyboard */,
@@ -257,6 +263,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				F96141682135DBF900A3A8BE /* ViewController.swift in Sources */,
+				F96141962135DC7C00A3A8BE /* PriorityQueue.swift in Sources */,
+				F96141942135DC3000A3A8BE /* Student.swift in Sources */,
 				F96141662135DBF900A3A8BE /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
