@@ -10,18 +10,18 @@ import Foundation
 
 struct Heap {
     
-    var students: [Student]
+    var queue: [Student]
     
     var isEmpty: Bool {
-        return students.isEmpty
+        return queue.isEmpty
     }
     
     var count: Int {
-        return students.count
+        return queue.count
     }
     
     func getHighestPriority() -> Student? {
-        return students.first
+        return queue.first
     }
     
     func isRoot(index: Int) -> Bool {
@@ -41,7 +41,7 @@ struct Heap {
     }
     
     func isHigherPriority(at firstIndex: Int, than secondIndex: Int) -> Bool {
-        return students[firstIndex].priority() > students[secondIndex].priority()
+        return queue[firstIndex].priority() > queue[secondIndex].priority()
     }
     
     func highestPriorityIndex(of parentIndex: Int, and childIndex: Int) -> Int {
@@ -57,11 +57,11 @@ struct Heap {
     
     mutating func swapElement(at firstIndex: Int, with secondIndex: Int) {
         if firstIndex == secondIndex { return }
-        students.swapAt(firstIndex, secondIndex)
+        queue.swapAt(firstIndex, secondIndex)
     }
     
     mutating func enqueue(student: Student) {
-        students.append(student)
+        queue.append(student)
         shiftUp(elementAtIndex: count - 1)
     }
     
@@ -77,7 +77,7 @@ struct Heap {
     mutating func dequeue() -> Student? {
         if isEmpty { return nil }
         swapElement(at: 0, with: count - 1)
-        let element = students.removeLast()
+        let element = queue.removeLast()
         if !isEmpty {
             shiftDown(elementAtIndex: 0)
         }
@@ -92,7 +92,7 @@ struct Heap {
     }
     
     init(students: [Student] = []) {
-        self.students = students
+        self.queue = students
         buildHeap()
     }
     
