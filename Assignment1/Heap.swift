@@ -11,7 +11,6 @@ import Foundation
 struct Heap {
     
     var students: [Student]
-    let priority: (Student, Student) -> Bool
     
     var isEmpty: Bool {
         return students.isEmpty
@@ -42,7 +41,7 @@ struct Heap {
     }
     
     func isHigherPriority(at firstIndex: Int, than secondIndex: Int) -> Bool {
-        return priority(students[firstIndex], students[secondIndex])
+        return students[firstIndex].priority() > students[secondIndex].priority()
     }
     
     func highestPriorityIndex(of parentIndex: Int, and childIndex: Int) -> Int {
@@ -92,9 +91,8 @@ struct Heap {
         shiftDown(elementAtIndex: childIndex)
     }
     
-    init(students: [Student] = [], priority: @escaping (Student, Student) -> Bool) {
+    init(students: [Student] = []) {
         self.students = students
-        self.priority = priority
         buildHeap()
     }
     
