@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Student {
+struct Student: Equatable {
     var name: String
     var redId: String
     var email: String
@@ -20,3 +20,9 @@ struct Student {
         return Double(unitsTaken) * 0.7 + gpa * 0.3
     }
 }
+
+//extension Student: Equatable {
+//    static func ==(lhs: Student, rhs: Student) -> Bool {
+//        return lhs.name == rhs.name && lhs.redId == rhs.redId && lhs.email == rhs.email && lhs.unitsTaken == rhs.unitsTaken && lhs.gpa == rhs.gpa
+//    }
+//}
