@@ -102,4 +102,11 @@ struct Heap {
         }
     }
     
+    func printQueue(){
+        //TODO need to print in order, not like this
+        for student in queue {
+            print("Red ID: \(student.redId). Name: \(student.name)")
+        }
+    }
+    
 }
