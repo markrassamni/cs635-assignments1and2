@@ -18,11 +18,6 @@ struct PriorityQueue {
         }
     }
     
-    /// Check if the heap is empty
-    var isEmpty: Bool {
-        return heap.isEmpty
-    }
-    
     /// Return how many elements are in the heap
     var count: Int {
         return heap.count
@@ -110,10 +105,10 @@ struct PriorityQueue {
     
     /// Remove the element with highest priority
     mutating func dequeue() -> Student? {
-        if isEmpty { return nil }
+        if heap.isEmpty { return nil }
         swapElement(at: 0, with: count - 1)
         let element = heap.removeLast()
-        if !isEmpty {
+        if !heap.isEmpty {
             shiftDown(elementAtIndex: 0)
         }
         return element
