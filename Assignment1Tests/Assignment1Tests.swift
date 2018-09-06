@@ -11,7 +11,7 @@ import XCTest
 
 class Assignment1Tests: XCTestCase {
     
-    let testElementCount = 10000
+    let testCount = 10000
     
     // Students to test with, in ascending priority order
     let student1: Student = Student(name: "Ryan", redId: "1230", email: "ryan@ryan.com", unitsTaken: 20, gpa: 0.7)!
@@ -42,7 +42,7 @@ class Assignment1Tests: XCTestCase {
         XCTAssertEqual(priorityQueue.count, 0)
         currentID = 1
         // Add provided amount of random students to the queue to test with
-        enqueueRandomStudents(count: testElementCount)
+        enqueueRandomStudents(count: testCount)
     }
     
     override func tearDown() {
@@ -71,7 +71,7 @@ class Assignment1Tests: XCTestCase {
     /// Test to ensure that the priority queue size grows when adding students
     func testEnqueueGrowsQueue(){
         var heapCount = priorityQueue.count
-        for _ in 0..<testElementCount {
+        for _ in 0..<testCount {
             enqueueRandomStudents(count: 1)
             XCTAssertEqual(heapCount + 1, priorityQueue.count)
             heapCount += 1
@@ -204,6 +204,39 @@ class Assignment1Tests: XCTestCase {
         for student in priorityQueue.Heap {
             XCTAssertLessThanOrEqual(student.gpa, 4.0)
             XCTAssertGreaterThanOrEqual(student.gpa, 0.0)
+        }
+    }
+    
+    /// Verify that you cannot add a student with a GPA outside of 0.0 to 4.0
+    func testInvalidGPA(){
+        for i in 0..<testCount {
+            let gpa: Double
+            if i % 2 == 0 {
+                // Creates a random number between 4.001 and max possible value
+                gpa = Double(arc4random()) / Double(UInt32.max) * abs(4.001 - Double(UInt32.max)) + min(4.001, Double(UInt32.max))
+            } else {
+                // Creates a random number between -0.001 and min possible value
+                gpa = -1 * Double(arc4random()) / Double(UInt32.max) * abs(0.001 - Double(UInt32.max)) + min(0.1, Double(UInt32.max))
+            }
+            let student = Student(name: "Gary", redId: "12492", email: "gary@gary.com", unitsTaken: 48, gpa: gpa)
+            XCTAssertNil(student)
+        }
+        
+    }
+    
+    /// Verify that you cannot add a student with a units taken outside of 0 to 150
+    func testInvalidUnitsTaken(){
+        for i in 0..<testCount {
+            let units: Int
+            if i % 2 == 0 {
+                // Creates a random number between 151 and max possible value
+                units = Int(arc4random_uniform(UInt32.max - 151)) + 151
+            } else {
+                // Creates a random number between -1 and min possible value
+                units = -1 * Int(arc4random_uniform(UInt32.max - 1)) + 1
+            }
+            let student = Student(name: "Gary", redId: "12492", email: "gary@gary.com", unitsTaken: units, gpa: 0.5)
+            XCTAssertNil(student)
         }
     }
 }
