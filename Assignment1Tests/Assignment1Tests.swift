@@ -14,14 +14,14 @@ class Assignment1Tests: XCTestCase {
     let testElementCount = 100
     
     
-    var heap: PriorityQueue!
+    var priorityQueue: PriorityQueue!
     
     var currentID: Int!
     
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        heap = PriorityQueue()
+        priorityQueue = PriorityQueue()
         currentID = 1
 
         enqueueRandomStudents(count: testElementCount)
@@ -38,13 +38,13 @@ class Assignment1Tests: XCTestCase {
             let gpa = (Double(arc4random()) / 0xFFFFFFFF) * 4.0
             let student = Student(name: name, redId: redID, email: email, unitsTaken: unitsTaken, gpa: gpa)
             currentID! += 1
-            heap.enqueue(student: student)
+            priorityQueue.enqueue(student: student)
         }
     }
     
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
-        heap = nil
+        priorityQueue = nil
         currentID = nil
         super.tearDown()
         
@@ -52,8 +52,8 @@ class Assignment1Tests: XCTestCase {
     
     func testDequeueOrder(){
         var queue = [Double]()
-        for i in 0..<heap.count {
-            let student = heap.getHighestPriority()
+        for i in 0..<priorityQueue.count {
+            let student = priorityQueue.getHighestPriority()
             queue.append((student?.priority())!)
             if i > 0 {
                 XCTAssertGreaterThanOrEqual(queue[i-1], queue[i])
@@ -62,11 +62,11 @@ class Assignment1Tests: XCTestCase {
     }
     
     func testGetHighestElement() {
-        let shouldBeHighest = heap.getHighestPriority()?.priority()
+        let shouldBeHighest = priorityQueue.getHighestPriority()?.priority()
         var actualHighest: Double = 0.0
-        for i in 0..<heap.count {
-            if heap.heap[i].priority() > actualHighest {
-                actualHighest = heap.heap[i].priority()
+        for i in 0..<priorityQueue.count {
+            if priorityQueue.heap[i].priority() > actualHighest {
+                actualHighest = priorityQueue.heap[i].priority()
             }
         }
         XCTAssertEqual(shouldBeHighest, actualHighest)
@@ -74,7 +74,7 @@ class Assignment1Tests: XCTestCase {
     
     func testDequeuePerformance() {
         self.measure {
-            let _ = heap.dequeue()
+            let _ = priorityQueue.dequeue()
         }
     }
     
