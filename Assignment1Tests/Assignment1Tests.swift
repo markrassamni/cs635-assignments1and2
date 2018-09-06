@@ -111,7 +111,7 @@ class Assignment1Tests: XCTestCase {
     }
     
     /// Test to verify when elements are added in priority order that the priority queue prioritizes them correctly
-    func testAddInOrerElements(){
+    func testAddInOrderElements(){
         priorityQueue.clear()
         XCTAssertEqual(priorityQueue.count, 0)
         priorityQueue.add(student: student5)
