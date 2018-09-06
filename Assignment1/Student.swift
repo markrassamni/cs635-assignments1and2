@@ -16,7 +16,27 @@ struct Student {
     var gpa: Double
     
     func priority() -> Double {
-        //TODO: is this how to determine priority?
+
         return Double(unitsTaken) * 0.7 + gpa * 0.3
+    }
+    
+    init?(name: String, redId: String, email: String, unitsTaken: Int, gpa: Double) {
+        // Check for valid units taken and gpa to intialize, otherwise fail to init
+        var validParameters = true
+        if unitsTaken < 0 || unitsTaken > 150 {
+            validParameters = false
+            print("Units taken must be between 0 and 150")
+        }
+        if gpa < 0.0 || gpa > 4.0 {
+            validParameters = false
+            print("GPA must be between 0.0 and 4.0")
+        }
+        guard validParameters else { return nil }
+        
+        self.name = name
+        self.redId = redId
+        self.email = email
+        self.unitsTaken = unitsTaken
+        self.gpa = gpa
     }
 }
