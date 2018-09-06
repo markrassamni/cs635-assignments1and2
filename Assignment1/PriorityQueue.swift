@@ -136,10 +136,10 @@ struct PriorityQueue {
         // Create a copy of the original heap. Loop removing the highest priority and printing it. Restore heap when done.
         let heapCopy = heap
         var students = [Student]()
-        for _ in heap {
+        for (index, _) in heap.enumerated() {
             if let student = removeHighest(){
                 students.append(student)
-                print("Red ID: \(student.redId). Name: \(student.name)")
+                print("\(index + 1). Red ID: \(student.redId), Name: \(student.name).")
             }
         }
         heap = heapCopy
