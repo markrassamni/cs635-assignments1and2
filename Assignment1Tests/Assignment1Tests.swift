@@ -31,14 +31,15 @@ class Assignment1Tests: XCTestCase {
     
     func enqueueRandomStudents(count: Int) {
         for _ in 0..<count {
-            let name = "Name \(currentID)"
+            let name = "Name_\(currentID)"
             let redID = "\(currentID)"
             let email = "\(name)@gmail.com"
             let unitsTaken = Int(arc4random_uniform(151))
             let gpa = (Double(arc4random()) / 0xFFFFFFFF) * 4.0
-            let student = Student(name: name, redId: redID, email: email, unitsTaken: unitsTaken, gpa: gpa)
-            currentID! += 1
-            priorityQueue.enqueue(student: student)
+            if let student = Student(name: name, redId: redID, email: email, unitsTaken: unitsTaken, gpa: gpa){
+                currentID! += 1
+                priorityQueue.enqueue(student: student)
+            }
         }
     }
     
