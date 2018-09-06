@@ -177,4 +177,17 @@ class Assignment1Tests: XCTestCase {
         XCTAssertEqual(dequeue4?.priority(), priority2)
         XCTAssertEqual(dequeue5?.priority(), priority1)
     }
+    
+    /// Test to verify the root node has higher priority than both its children
+    func testRootPriorityOverChildren() {
+        XCTAssertEqual(priorityQueue.highestPriorityIndex(for: 0), 0)
+    }
+    
+    /// Test to verify that dequeing an empty queue return nil
+    func testDequeueEmptyQueue() {
+        priorityQueue.clear()
+        XCTAssertEqual(priorityQueue.count, 0)
+        let dequeuedStudent = priorityQueue.dequeue()
+        XCTAssertNil(dequeuedStudent)
+    }
 }
