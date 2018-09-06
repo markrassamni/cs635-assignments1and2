@@ -87,7 +87,7 @@ class Assignment1Tests: XCTestCase {
         }
     }
 
-    /// Test to verify that dequeueing students always removes the highest priority first
+    /// Test to verify that removing students always removes the highest priority first
     func testRemoveOrder(){
         var queue = [Double]()
         for i in 0..<priorityQueue.count {
@@ -182,7 +182,7 @@ class Assignment1Tests: XCTestCase {
         XCTAssertEqual(priorityQueue.highestPriorityIndex(for: 0), 0)
     }
     
-    /// Test to verify that dequeing an empty queue return nil
+    /// Test to verify that removing from an empty queue return nil
     func testRemoveEmptyQueue() {
         priorityQueue.clear()
         XCTAssertEqual(priorityQueue.count, 0)
