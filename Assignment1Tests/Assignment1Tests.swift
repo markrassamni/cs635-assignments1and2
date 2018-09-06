@@ -14,14 +14,14 @@ class Assignment1Tests: XCTestCase {
     let testElementCount = 100
     
     
-    var heap: Heap!
+    var heap: PriorityQueue!
     
     var currentID: Int!
     
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        heap = Heap()
+        heap = PriorityQueue()
         currentID = 1
 
         enqueueRandomStudents(count: testElementCount)
@@ -65,8 +65,8 @@ class Assignment1Tests: XCTestCase {
         let shouldBeHighest = heap.getHighestPriority()?.priority()
         var actualHighest: Double = 0.0
         for i in 0..<heap.count {
-            if heap.queue[i].priority() > actualHighest {
-                actualHighest = heap.queue[i].priority()
+            if heap.heap[i].priority() > actualHighest {
+                actualHighest = heap.heap[i].priority()
             }
         }
         XCTAssertEqual(shouldBeHighest, actualHighest)
