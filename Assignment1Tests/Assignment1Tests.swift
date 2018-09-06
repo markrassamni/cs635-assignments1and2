@@ -41,7 +41,7 @@ class Assignment1Tests: XCTestCase {
         XCTAssertEqual(priorityQueue.count, 0)
         currentID = 1
         // Add provided amount of random students to the queue to test with
-        enqueueRandomStudents(count: testCount)
+        addRandomStudents(count: testCount)
     }
     
     override func tearDown() {
@@ -53,7 +53,7 @@ class Assignment1Tests: XCTestCase {
     }
     
     /// Create count students with ascending redID numbers, names, and emails with random GPAs and units taken within the given ranges 0.0-4.0 and 0-150 respectively
-    func enqueueRandomStudents(count: Int) {
+    func addRandomStudents(count: Int) {
         for _ in 0..<count {
             let name = "Name_\(currentID)"
             let redID = "\(currentID)"
@@ -68,17 +68,17 @@ class Assignment1Tests: XCTestCase {
     }
     
     /// Test to ensure that the priority queue size grows when adding students
-    func testEnqueueGrowsQueue(){
+    func testAddGrowsQueue(){
         var heapCount = priorityQueue.count
         for _ in 0..<testCount {
-            enqueueRandomStudents(count: 1)
+            addRandomStudents(count: 1)
             XCTAssertEqual(heapCount + 1, priorityQueue.count)
             heapCount += 1
         }
     }
     
     /// Test to ensure that the priority queue size shrinks when removing students
-    func testDequeueShrinksQueue(){
+    func testRemoveShrinksQueue(){
         var heapCount = priorityQueue.count
         for _ in 0..<priorityQueue.count {
             let _ = priorityQueue.removeHighest()
@@ -88,7 +88,7 @@ class Assignment1Tests: XCTestCase {
     }
 
     /// Test to verify that dequeueing students always removes the highest priority first
-    func testDequeueOrder(){
+    func testRemoveOrder(){
         var queue = [Double]()
         for i in 0..<priorityQueue.count {
             let student = priorityQueue.getHighestPriority()
@@ -183,7 +183,7 @@ class Assignment1Tests: XCTestCase {
     }
     
     /// Test to verify that dequeing an empty queue return nil
-    func testDequeueEmptyQueue() {
+    func testRemoveEmptyQueue() {
         priorityQueue.clear()
         XCTAssertEqual(priorityQueue.count, 0)
         let dequeuedStudent = priorityQueue.removeHighest()
@@ -191,7 +191,7 @@ class Assignment1Tests: XCTestCase {
     }
     
     /// Verify that all students in the priority queue have between 0 and 150 units taken
-    func testValidUnits(){
+    func testValidUnitsTaken(){
         for student in priorityQueue.Heap {
             XCTAssertLessThanOrEqual(student.unitsTaken, 150)
             XCTAssertGreaterThanOrEqual(student.unitsTaken, 0)
