@@ -10,7 +10,13 @@ import Foundation
 
 struct PriorityQueue {
     
-    var heap: [Student]
+    private var heap: [Student]
+    
+    var Heap: [Student] {
+        get {
+            return heap
+        }
+    }
     
     /// Check if the heap is empty
     var isEmpty: Bool {
@@ -20,6 +26,11 @@ struct PriorityQueue {
     /// Return how many elements are in the heap
     var count: Int {
         return heap.count
+    }
+    
+    /// Remove all of the elements from the heap
+    mutating func clear(){
+        heap = [Student]()
     }
     
     /// Return the student with the highest priority.
@@ -88,7 +99,6 @@ struct PriorityQueue {
         heap.append(student)
         shiftUp(elementAtIndex: count - 1)
     }
-    
     
     /// Takes a newly added student from its bottom position and moves it up to its appropriate priority position. Recursive function repeats until student is located at correct index.
     mutating func shiftUp(elementAtIndex index: Int) {
