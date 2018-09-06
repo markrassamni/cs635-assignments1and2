@@ -190,6 +190,14 @@ class Assignment1Tests: XCTestCase {
         XCTAssertNil(dequeuedStudent)
     }
     
+    func testAddToEmptyQueue() {
+        priorityQueue.clear()
+        XCTAssertEqual(priorityQueue.count, 0)
+        priorityQueue.add(student: student3)
+        XCTAssertEqual(priorityQueue.count, 1)
+        XCTAssertEqual(priorityQueue.Heap[0], student3)
+    }
+    
     /// Verify that all students in the priority queue have between 0 and 150 units taken
     func testValidUnitsTaken(){
         for student in priorityQueue.Heap {
