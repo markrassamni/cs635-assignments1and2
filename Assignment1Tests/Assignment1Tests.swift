@@ -63,7 +63,7 @@ class Assignment1Tests: XCTestCase {
             let gpa = (Double(arc4random()) / 0xFFFFFFFF) * 4.0
             if let student = Student(name: name, redId: redID, email: email, unitsTaken: unitsTaken, gpa: gpa){
                 currentID! += 1
-                priorityQueue.enqueue(student: student)
+                priorityQueue.add(student: student)
             }
         }
     }
@@ -82,7 +82,7 @@ class Assignment1Tests: XCTestCase {
     func testDequeueShrinksQueue(){
         var heapCount = priorityQueue.count
         for _ in 0..<priorityQueue.count {
-            let _ = priorityQueue.dequeue()
+            let _ = priorityQueue.removeHighest()
             XCTAssertEqual(heapCount - 1, priorityQueue.count)
             heapCount -= 1
         }
@@ -115,16 +115,16 @@ class Assignment1Tests: XCTestCase {
     func testAddInOrerElements(){
         priorityQueue.clear()
         XCTAssertEqual(priorityQueue.count, 0)
-        priorityQueue.enqueue(student: student5)
-        priorityQueue.enqueue(student: student4)
-        priorityQueue.enqueue(student: student3)
-        priorityQueue.enqueue(student: student2)
-        priorityQueue.enqueue(student: student1)
-        let dequeue1 = priorityQueue.dequeue()
-        let dequeue2 = priorityQueue.dequeue()
-        let dequeue3 = priorityQueue.dequeue()
-        let dequeue4 = priorityQueue.dequeue()
-        let dequeue5 = priorityQueue.dequeue()
+        priorityQueue.add(student: student5)
+        priorityQueue.add(student: student4)
+        priorityQueue.add(student: student3)
+        priorityQueue.add(student: student2)
+        priorityQueue.add(student: student1)
+        let dequeue1 = priorityQueue.removeHighest()
+        let dequeue2 = priorityQueue.removeHighest()
+        let dequeue3 = priorityQueue.removeHighest()
+        let dequeue4 = priorityQueue.removeHighest()
+        let dequeue5 = priorityQueue.removeHighest()
         
         XCTAssertEqual(dequeue1?.priority(), priority5)
         XCTAssertEqual(dequeue2?.priority(), priority4)
@@ -137,16 +137,16 @@ class Assignment1Tests: XCTestCase {
     func testAddReverseOrderElements(){
         priorityQueue.clear()
         XCTAssertEqual(priorityQueue.count, 0)
-        priorityQueue.enqueue(student: student1)
-        priorityQueue.enqueue(student: student2)
-        priorityQueue.enqueue(student: student3)
-        priorityQueue.enqueue(student: student4)
-        priorityQueue.enqueue(student: student5)
-        let dequeue1 = priorityQueue.dequeue()
-        let dequeue2 = priorityQueue.dequeue()
-        let dequeue3 = priorityQueue.dequeue()
-        let dequeue4 = priorityQueue.dequeue()
-        let dequeue5 = priorityQueue.dequeue()
+        priorityQueue.add(student: student1)
+        priorityQueue.add(student: student2)
+        priorityQueue.add(student: student3)
+        priorityQueue.add(student: student4)
+        priorityQueue.add(student: student5)
+        let dequeue1 = priorityQueue.removeHighest()
+        let dequeue2 = priorityQueue.removeHighest()
+        let dequeue3 = priorityQueue.removeHighest()
+        let dequeue4 = priorityQueue.removeHighest()
+        let dequeue5 = priorityQueue.removeHighest()
         
         XCTAssertEqual(dequeue1?.priority(), priority5)
         XCTAssertEqual(dequeue2?.priority(), priority4)
@@ -162,15 +162,15 @@ class Assignment1Tests: XCTestCase {
         var students = [student1, student2, student3, student4, student5]
         for _ in 0..<students.count {
             let index = Int(arc4random_uniform(UInt32(students.count)))
-            priorityQueue.enqueue(student: students[index])
+            priorityQueue.add(student: students[index])
             students.remove(at: index)
             print(index)
         }
-        let dequeue1 = priorityQueue.dequeue()
-        let dequeue2 = priorityQueue.dequeue()
-        let dequeue3 = priorityQueue.dequeue()
-        let dequeue4 = priorityQueue.dequeue()
-        let dequeue5 = priorityQueue.dequeue()
+        let dequeue1 = priorityQueue.removeHighest()
+        let dequeue2 = priorityQueue.removeHighest()
+        let dequeue3 = priorityQueue.removeHighest()
+        let dequeue4 = priorityQueue.removeHighest()
+        let dequeue5 = priorityQueue.removeHighest()
         XCTAssertEqual(dequeue1?.priority(), priority5)
         XCTAssertEqual(dequeue2?.priority(), priority4)
         XCTAssertEqual(dequeue3?.priority(), priority3)
@@ -187,7 +187,7 @@ class Assignment1Tests: XCTestCase {
     func testDequeueEmptyQueue() {
         priorityQueue.clear()
         XCTAssertEqual(priorityQueue.count, 0)
-        let dequeuedStudent = priorityQueue.dequeue()
+        let dequeuedStudent = priorityQueue.removeHighest()
         XCTAssertNil(dequeuedStudent)
     }
     
