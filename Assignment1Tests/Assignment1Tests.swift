@@ -190,4 +190,20 @@ class Assignment1Tests: XCTestCase {
         let dequeuedStudent = priorityQueue.dequeue()
         XCTAssertNil(dequeuedStudent)
     }
+    
+    /// Verify that all students in the priority queue have between 0 and 150 units taken
+    func testValidUnits(){
+        for student in priorityQueue.Heap {
+            XCTAssertLessThanOrEqual(student.unitsTaken, 150)
+            XCTAssertGreaterThanOrEqual(student.unitsTaken, 0)
+        }
+    }
+    
+    /// Verify that all students in the priority queue have between a 0.0 and 4.0 GPA
+    func testValidGPA(){
+        for student in priorityQueue.Heap {
+            XCTAssertLessThanOrEqual(student.gpa, 4.0)
+            XCTAssertGreaterThanOrEqual(student.gpa, 0.0)
+        }
+    }
 }
