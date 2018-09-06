@@ -39,6 +39,7 @@ class Assignment1Tests: XCTestCase {
         XCTAssertNil(currentID)
         // Init the priority queue and start numbering RedIDs at 1
         priorityQueue = PriorityQueue()
+        XCTAssertEqual(priorityQueue.count, 0)
         currentID = 1
         // Add provided amount of random students to the queue to test with
         enqueueRandomStudents(count: testElementCount)
@@ -101,19 +102,19 @@ class Assignment1Tests: XCTestCase {
     
     /// Test to verify that code can return the correct highest priority element with random elements added in random priority order
     func testGetHighestElement() {
-        let shouldBeHighest = priorityQueue.getHighestPriority()?.priority()
-        var actualHighest: Double = 0.0
+        var highest: Double = 0.0
         for i in 0..<priorityQueue.count {
-            if priorityQueue.Heap[i].priority() > actualHighest {
-                actualHighest = priorityQueue.Heap[i].priority()
+            if priorityQueue.Heap[i].priority() > highest {
+                highest = priorityQueue.Heap[i].priority()
             }
         }
-        XCTAssertEqual(shouldBeHighest, actualHighest)
+        XCTAssertEqual(priorityQueue.getHighestPriority()?.priority(), highest)
     }
     
     /// Test to verify when elements are added in priority order that the priority queue prioritizes them correctly
     func testAddInOrerElements(){
         priorityQueue.clear()
+        XCTAssertEqual(priorityQueue.count, 0)
         priorityQueue.enqueue(student: student5)
         priorityQueue.enqueue(student: student4)
         priorityQueue.enqueue(student: student3)
@@ -135,6 +136,7 @@ class Assignment1Tests: XCTestCase {
     /// Test to verify when elements are added in reverse priority order that the priority queue prioritizes them correctly
     func testAddReverseOrderElements(){
         priorityQueue.clear()
+        XCTAssertEqual(priorityQueue.count, 0)
         priorityQueue.enqueue(student: student1)
         priorityQueue.enqueue(student: student2)
         priorityQueue.enqueue(student: student3)
@@ -156,6 +158,7 @@ class Assignment1Tests: XCTestCase {
     /// Test to verify when elements are added in random priority order that the priority queue prioritizes them correctly
     func testAddRandomOrderElements(){
         priorityQueue.clear()
+        XCTAssertEqual(priorityQueue.count, 0)
         var students = [student1, student2, student3, student4, student5]
         for _ in 0..<students.count {
             let index = Int(arc4random_uniform(UInt32(students.count)))
