@@ -133,8 +133,6 @@ struct PriorityQueue {
     
     /// Prints the name and red ID of all students in the heap in priority order. Returns the students in a priority order sorted array.
     mutating func printQueue() -> [Student]{
-        //TODO need to print in order, not like this
-        // TODO add function to test this
         // Create a copy of the original heap. Loop removing the highest priority and printing it. Restore heap when done.
         let heapCopy = heap
         var students = [Student]()

@@ -239,4 +239,14 @@ class Assignment1Tests: XCTestCase {
             XCTAssertNil(student)
         }
     }
+    
+    /// Test to see if the order students were printed in is the correct priority order.
+    func testPrintQueueInOrder(){
+        let students = priorityQueue.printQueue()
+        guard var previousPriority = students.first?.priority() else { return }
+        for student in students {
+            XCTAssertGreaterThanOrEqual(previousPriority, student.priority())
+            previousPriority = student.priority()
+        }
+    }
 }
