@@ -29,14 +29,13 @@ class Assignment1Tests: XCTestCase {
     
     
     var priorityQueue: PriorityQueue!
-    var currentID: Int!
+    var currentID: Int = 1
     
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        // Make sure priorityQueue and currentID are nil before each test run configures them below.
+        // Make sure priorityQueue is nil before each test run configures it below.
         XCTAssertNil(priorityQueue)
-        XCTAssertNil(currentID)
         // Init the priority queue and start numbering RedIDs at 1
         priorityQueue = PriorityQueue()
         XCTAssertEqual(priorityQueue.count, 0)
@@ -47,9 +46,9 @@ class Assignment1Tests: XCTestCase {
     
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
-        // Nullify currentID and priorityQueue to ensure values don't remain for future tests
+        // Nullify priorityQueue and reset currentID to ensure values don't remain for future tests
         priorityQueue = nil
-        currentID = nil
+        currentID = 1
         super.tearDown()
     }
     
@@ -62,7 +61,7 @@ class Assignment1Tests: XCTestCase {
             let unitsTaken = Int(arc4random_uniform(151))
             let gpa = (Double(arc4random()) / 0xFFFFFFFF) * 4.0
             if let student = Student(name: name, redId: redID, email: email, unitsTaken: unitsTaken, gpa: gpa){
-                currentID! += 1
+                currentID += 1
                 priorityQueue.add(student: student)
             }
         }
