@@ -139,7 +139,7 @@ struct PriorityQueue {
         for (index, _) in heap.enumerated() {
             if let student = removeHighest(){
                 students.append(student)
-                print("\(index + 1). Red ID: \(student.redId), Name: \(student.name).")
+                print("\(index + 1). Red ID: \(student.RedID), Name: \(student.Name).")
             }
         }
         heap = heapCopy
