@@ -12,48 +12,39 @@ struct PriorityQueue {
     
     var heap: [Student]
     
-    /// Return how many elements are in the heap
     var count: Int {
         return heap.count
     }
     
-    /// Initialize the priority queue with the given students. If no students provided, create an empty heap.
     init(students: [Student] = []) {
         self.heap = students
         createHeap()
     }
     
-    /// Remove all of the elements from the heap
     mutating func clear(){
         heap = [Student]()
     }
     
-    /// Return the student with the highest priority. If the heap is empty, return nil.
     func getHighestPriority() -> Student? {
         return heap.first
     }
     
-    /// A boolean value indicating if index is the root node of the heap.
     func isRoot(index: Int) -> Bool {
         return index == 0
     }
     
-    /// Given a parent index, get the index of the left child node.
     func getLeftChildIndex(of index: Int) -> Int {
         return 2 * index + 1
     }
     
-    /// Given a parent index, get the index of the right child node.
     func getRightChildIndex(of index: Int) -> Int {
         return 2 * index + 2
     }
     
-    /// Given the index of a child, return the parent index.
     func getParentIndex(of index: Int) -> Int {
         return (index - 1) / 2
     }
     
-    /// Return a boolean indicating if the node at the first index is higher priority than the second index node.
     func isHigherPriority(at firstIndex: Int, than secondIndex: Int) -> Bool {
         return heap[firstIndex].priority() > heap[secondIndex].priority()
     }
@@ -79,7 +70,6 @@ struct PriorityQueue {
         return nil
     }
     
-    /// Add a new element to the heap
     mutating func add(student: Student) {
         heap.append(student)
         moveUp(studentAtIndex: count - 1) // Move the new student into its correct position
