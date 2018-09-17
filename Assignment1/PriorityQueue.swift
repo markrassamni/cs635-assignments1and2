@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct PriorityQueue {
+class PriorityQueue {
     
     var heap: [Student]
     
@@ -21,7 +21,7 @@ struct PriorityQueue {
         createHeap()
     }
     
-    mutating func clear(){
+    func clear(){
         heap = [Student]()
     }
     
@@ -70,13 +70,13 @@ struct PriorityQueue {
         return nil
     }
     
-    mutating func add(student: Student) {
+    func add(student: Student) {
         heap.append(student)
         moveUp(studentAtIndex: count - 1) // Move the new student into its correct position
     }
     
     /// Takes a newly added student from its bottom position and moves it up to its appropriate priority position. Recursive function repeats until student is located at correct index.
-    mutating func moveUp(studentAtIndex index: Int) {
+    func moveUp(studentAtIndex index: Int) {
         let parent = getParentIndex(of: index)
         if isRoot(index: index) || !isHigherPriority(at: index, than: parent) { return } // Stops recursive calling
         swapElement(at: index, with: parent)
@@ -84,7 +84,7 @@ struct PriorityQueue {
     }
     
     /// Remove and return the student with highest priority
-    mutating func removeHighest() -> Student? {
+    func removeHighest() -> Student? {
         if heap.isEmpty { return nil }
         swapElement(at: 0, with: count - 1) // Swap highest priority student with last student in the heap
         let student = heap.removeLast()
@@ -93,7 +93,7 @@ struct PriorityQueue {
     }
     
     /// Create the heap given the students provided at initialization time.
-    mutating func createHeap() {
+    func createHeap() {
         // Move all parent elements down to their correct positionss
         for index in (0 ..< count / 2).reversed() {
             moveDown(studentAtIndex: index)
@@ -101,7 +101,7 @@ struct PriorityQueue {
     }
     
     /// Moves a low priority student from the top of the heap down to its correct priority position. Recursive function repeats until student is located at correct index.
-    mutating func moveDown(studentAtIndex index: Int) {
+    func moveDown(studentAtIndex index: Int) {
         guard count > 0 else { return }
         if let childIndex = highestPriorityIndex(for: index){
             if index == childIndex { return } // Stops recursive calling
@@ -111,12 +111,12 @@ struct PriorityQueue {
     }
     
     /// Swap positions in the heap of the first index with the second index.
-    mutating func swapElement(at firstIndex: Int, with secondIndex: Int) {
+    func swapElement(at firstIndex: Int, with secondIndex: Int) {
         heap.swapAt(firstIndex, secondIndex)
     }
     
     /// Prints the name and red ID of all students in the heap in priority order. Returns the students in a priority order sorted array.
-    mutating func printQueue() -> [Student]{
+    func printQueue() -> [Student]{
         // Create a copy of the original heap. Loop removing the highest priority and printing it. Restore heap when done.
         let heapCopy = heap
         var students = [Student]()
