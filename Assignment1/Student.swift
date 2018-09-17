@@ -24,11 +24,9 @@ struct Student: Equatable {
         var validParameters = true
         if unitsTaken < 0 || unitsTaken > 150 {
             validParameters = false
-            print("Units taken must be between 0 and 150")
         }
         if gpa < 0.0 || gpa > 4.0 {
             validParameters = false
-            print("GPA must be between 0.0 and 4.0")
         }
         guard validParameters else { return nil }
         

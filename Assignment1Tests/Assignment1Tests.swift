@@ -163,7 +163,6 @@ class Assignment1Tests: XCTestCase {
             let index = Int(arc4random_uniform(UInt32(students.count)))
             priorityQueue.add(student: students[index])
             students.remove(at: index)
-            print(index)
         }
         let dequeue1 = priorityQueue.removeHighest()
         let dequeue2 = priorityQueue.removeHighest()
