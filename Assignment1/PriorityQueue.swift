@@ -10,13 +10,7 @@ import Foundation
 
 struct PriorityQueue {
     
-    private var heap: [Student]
-    
-    var Heap: [Student] {
-        get {
-            return heap
-        }
-    }
+    var heap: [Student]
     
     /// Return how many elements are in the heap
     var count: Int {
@@ -139,7 +133,7 @@ struct PriorityQueue {
         for (index, _) in heap.enumerated() {
             if let student = removeHighest(){
                 students.append(student)
-                print("\(index + 1). Red ID: \(student.RedID), Name: \(student.Name).")
+                print("\(index + 1). Red ID: \(student.redID), Name: \(student.name).")
             }
         }
         heap = heapCopy

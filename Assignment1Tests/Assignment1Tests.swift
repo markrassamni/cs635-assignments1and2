@@ -103,8 +103,8 @@ class Assignment1Tests: XCTestCase {
     func testGetHighestElement() {
         var highest: Double = 0.0
         for i in 0..<priorityQueue.count {
-            if priorityQueue.Heap[i].priority() > highest {
-                highest = priorityQueue.Heap[i].priority()
+            if priorityQueue.heap[i].priority() > highest {
+                highest = priorityQueue.heap[i].priority()
             }
         }
         XCTAssertEqual(priorityQueue.getHighestPriority()?.priority(), highest)
@@ -195,22 +195,22 @@ class Assignment1Tests: XCTestCase {
         XCTAssertEqual(priorityQueue.count, 0)
         priorityQueue.add(student: student3)
         XCTAssertEqual(priorityQueue.count, 1)
-        XCTAssertEqual(priorityQueue.Heap[0], student3)
+        XCTAssertEqual(priorityQueue.heap[0], student3)
     }
     
     /// Verify that all students in the priority queue have between 0 and 150 units taken
     func testValidUnitsTaken(){
-        for student in priorityQueue.Heap {
-            XCTAssertLessThanOrEqual(student.UnitsTaken, 150)
-            XCTAssertGreaterThanOrEqual(student.UnitsTaken, 0)
+        for student in priorityQueue.heap {
+            XCTAssertLessThanOrEqual(student.unitsTaken, 150)
+            XCTAssertGreaterThanOrEqual(student.unitsTaken, 0)
         }
     }
     
     /// Verify that all students in the priority queue have between a 0.0 and 4.0 GPA
     func testValidGPA(){
-        for student in priorityQueue.Heap {
-            XCTAssertLessThanOrEqual(student.GPA, 4.0)
-            XCTAssertGreaterThanOrEqual(student.GPA, 0.0)
+        for student in priorityQueue.heap {
+            XCTAssertLessThanOrEqual(student.gpa, 4.0)
+            XCTAssertGreaterThanOrEqual(student.gpa, 0.0)
         }
     }
     

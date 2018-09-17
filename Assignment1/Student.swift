@@ -9,41 +9,11 @@
 import Foundation
 
 struct Student: Equatable {
-    private var name: String
-    private var redID: String
-    private var email: String
-    private var unitsTaken: Int
-    private var gpa: Double
-    
-    var Name: String {
-        get {
-            return name
-        }
-    }
-    
-    var RedID: String {
-        get {
-            return redID
-        }
-    }
-    
-    var Email: String {
-        get {
-            return email
-        }
-    }
-    
-    var UnitsTaken: Int {
-        get {
-            return unitsTaken
-        }
-    }
-    
-    var GPA: Double {
-        get {
-            return gpa
-        }
-    }
+    var name: String
+    var redID: String
+    var email: String
+    var unitsTaken: Int
+    var gpa: Double
     
     func priority() -> Double {
         return Double(unitsTaken) * 0.7 + gpa * 0.3
