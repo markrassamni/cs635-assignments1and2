@@ -15,6 +15,7 @@
 		F961417B2135DBFA00A3A8BE /* Assignment1Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F961417A2135DBFA00A3A8BE /* Assignment1Tests.swift */; };
 		F96141862135DBFA00A3A8BE /* Assignment1UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F96141852135DBFA00A3A8BE /* Assignment1UITests.swift */; };
 		F96141942135DC3000A3A8BE /* Student.swift in Sources */ = {isa = PBXBuildFile; fileRef = F96141932135DC3000A3A8BE /* Student.swift */; };
+		F96495D121504D0D007287B8 /* Association.swift in Sources */ = {isa = PBXBuildFile; fileRef = F96495D021504D0D007287B8 /* Association.swift */; };
 		F9B66C0F213C766900120AB1 /* PriorityQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B66C0E213C766900120AB1 /* PriorityQueue.swift */; };
 /* End PBXBuildFile section */
 
@@ -50,6 +51,7 @@
 		F96141852135DBFA00A3A8BE /* Assignment1UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assignment1UITests.swift; sourceTree = "<group>"; };
 		F96141872135DBFA00A3A8BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F96141932135DC3000A3A8BE /* Student.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Student.swift; sourceTree = "<group>"; };
+		F96495D021504D0D007287B8 /* Association.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Association.swift; sourceTree = "<group>"; };
 		F9B66C0E213C766900120AB1 /* PriorityQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriorityQueue.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -109,6 +111,7 @@
 				F961416C2135DBFA00A3A8BE /* Assets.xcassets */,
 				F961416E2135DBFA00A3A8BE /* LaunchScreen.storyboard */,
 				F96141712135DBFA00A3A8BE /* Info.plist */,
+				F96495D021504D0D007287B8 /* Association.swift */,
 			);
 			path = Assignment1;
 			sourceTree = "<group>";
@@ -267,6 +270,7 @@
 			files = (
 				F96141682135DBF900A3A8BE /* ViewController.swift in Sources */,
 				F9B66C0F213C766900120AB1 /* PriorityQueue.swift in Sources */,
+				F96495D121504D0D007287B8 /* Association.swift in Sources */,
 				F96141942135DC3000A3A8BE /* Student.swift in Sources */,
 				F96141662135DBF900A3A8BE /* AppDelegate.swift in Sources */,
 			);

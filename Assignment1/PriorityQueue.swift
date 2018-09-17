@@ -8,25 +8,25 @@
 
 import Foundation
 
-class PriorityQueue {
+class PriorityQueue<Element> {
     
-    var heap: [Student]
+    var heap: [Association<Double, Element>]
     
     var count: Int {
         return heap.count
     }
     
-    init(students: [Student] = []) {
+    init(students: [Association<Double, Element>] = []) {
         self.heap = students
         createHeap()
     }
     
     func clear(){
-        heap = [Student]()
+        heap = [Association<Double, Element>]()
     }
     
-    func getHighestPriority() -> Student? {
-        return heap.first
+    func getHighestPriority() -> Element? {
+        return heap.first?.value
     }
     
     func isRoot(index: Int) -> Bool {
@@ -46,7 +46,7 @@ class PriorityQueue {
     }
     
     func isHigherPriority(at firstIndex: Int, than secondIndex: Int) -> Bool {
-        return heap[firstIndex].priority() > heap[secondIndex].priority()
+        return heap[firstIndex].key > heap[secondIndex].key
     }
     
     /// Returns the index with higher priority between the parent and child indices. Returns nil if the parent index is not contained in the heap.
@@ -70,8 +70,15 @@ class PriorityQueue {
         return nil
     }
     
-    func add(student: Student) {
-        heap.append(student)
+    func add(element: Element, priority: Double) {
+        let association = Association(key: priority, value: element)
+        heap.append(association)
+        moveUp(studentAtIndex: count - 1) // Move the new student into its correct position
+    }
+    
+    // TODO: possibly dont need this, can hardcode in values my way. dont need both methods
+    func add(association: Association<Double, Element>){
+        heap.append(association)
         moveUp(studentAtIndex: count - 1) // Move the new student into its correct position
     }
     
@@ -84,10 +91,10 @@ class PriorityQueue {
     }
     
     /// Remove and return the student with highest priority
-    func removeHighest() -> Student? {
+    func removeHighest() -> Element? {
         if heap.isEmpty { return nil }
         swapElement(at: 0, with: count - 1) // Swap highest priority student with last student in the heap
-        let student = heap.removeLast()
+        let student = heap.removeLast().value
         moveDown(studentAtIndex: 0) // Move the newly placed first student into its correct position
         return student
     }
@@ -116,10 +123,10 @@ class PriorityQueue {
     }
     
     /// Prints the name and red ID of all students in the heap in priority order. Returns the students in a priority order sorted array.
-    func printQueue() -> [Student]{
+    func printQueue() -> [Element]{
         // Create a copy of the original heap. Loop removing the highest priority and printing it. Restore heap when done.
         let heapCopy = heap
-        var students = [Student]()
+        var students = [Element]()
         for _ in heap { // TODO: Check if this function operates correctly
             if let student = removeHighest(){
                 students.append(student)
