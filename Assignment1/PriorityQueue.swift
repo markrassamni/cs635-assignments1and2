@@ -12,6 +12,10 @@ class PriorityQueue<Element> {
     
     var heap: [Association<Double, Element>]
     
+    var isEmpty: Bool {
+        return heap.isEmpty
+    }
+    
     var count: Int {
         return heap.count
     }
@@ -19,6 +23,10 @@ class PriorityQueue<Element> {
     init(students: [Association<Double, Element>] = []) {
         self.heap = students
         createHeap()
+    }
+    
+    func peek() -> Element? {
+        return heap.first?.value
     }
     
     func clear(){
@@ -72,8 +80,7 @@ class PriorityQueue<Element> {
     
     func add(element: Element, priority: Double) {
         let association = Association(key: priority, value: element)
-        heap.append(association)
-        moveUp(studentAtIndex: count - 1) // Move the new student into its correct position
+        add(association: association)
     }
     
     // TODO: possibly dont need this, can hardcode in values my way. dont need both methods
