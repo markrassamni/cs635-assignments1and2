@@ -28,7 +28,7 @@ class Assignment1Tests: XCTestCase {
     let priority5 = 85.2
     
     
-    var priorityQueue: PriorityQueue!
+    var priorityQueue: PriorityQueue<Student>!
     var currentID: Int = 1
     
     override func setUp() {
@@ -62,7 +62,7 @@ class Assignment1Tests: XCTestCase {
             let gpa = (Double(arc4random()) / 0xFFFFFFFF) * 4.0
             if let student = Student(name: name, redId: redID, email: email, unitsTaken: unitsTaken, gpa: gpa){
                 currentID += 1
-                priorityQueue.add(student: student)
+                priorityQueue.add(element: student, priority: student.priority())
             }
         }
     }
@@ -103,8 +103,8 @@ class Assignment1Tests: XCTestCase {
     func testGetHighestElement() {
         var highest: Double = 0.0
         for i in 0..<priorityQueue.count {
-            if priorityQueue.heap[i].priority() > highest {
-                highest = priorityQueue.heap[i].priority()
+            if priorityQueue.heap[i].key > highest {
+                highest = priorityQueue.heap[i].key
             }
         }
         XCTAssertEqual(priorityQueue.getHighestPriority()?.priority(), highest)
@@ -114,11 +114,11 @@ class Assignment1Tests: XCTestCase {
     func testAddInOrderElements(){
         priorityQueue.clear()
         XCTAssertEqual(priorityQueue.count, 0)
-        priorityQueue.add(student: student5)
-        priorityQueue.add(student: student4)
-        priorityQueue.add(student: student3)
-        priorityQueue.add(student: student2)
-        priorityQueue.add(student: student1)
+        priorityQueue.add(element: student5, priority: student5.priority())
+        priorityQueue.add(element: student4, priority: student4.priority())
+        priorityQueue.add(element: student3, priority: student3.priority())
+        priorityQueue.add(element: student2, priority: student2.priority())
+        priorityQueue.add(element: student1, priority: student1.priority())
         let dequeue1 = priorityQueue.removeHighest()
         let dequeue2 = priorityQueue.removeHighest()
         let dequeue3 = priorityQueue.removeHighest()
@@ -136,11 +136,11 @@ class Assignment1Tests: XCTestCase {
     func testAddReverseOrderElements(){
         priorityQueue.clear()
         XCTAssertEqual(priorityQueue.count, 0)
-        priorityQueue.add(student: student1)
-        priorityQueue.add(student: student2)
-        priorityQueue.add(student: student3)
-        priorityQueue.add(student: student4)
-        priorityQueue.add(student: student5)
+        priorityQueue.add(element: student1, priority: student1.priority())
+        priorityQueue.add(element: student2, priority: student2.priority())
+        priorityQueue.add(element: student3, priority: student3.priority())
+        priorityQueue.add(element: student4, priority: student4.priority())
+        priorityQueue.add(element: student5, priority: student5.priority())
         let dequeue1 = priorityQueue.removeHighest()
         let dequeue2 = priorityQueue.removeHighest()
         let dequeue3 = priorityQueue.removeHighest()
@@ -161,7 +161,7 @@ class Assignment1Tests: XCTestCase {
         var students = [student1, student2, student3, student4, student5]
         for _ in 0..<students.count {
             let index = Int(arc4random_uniform(UInt32(students.count)))
-            priorityQueue.add(student: students[index])
+            priorityQueue.add(element: students[index], priority: students[index].priority())
             students.remove(at: index)
         }
         let dequeue1 = priorityQueue.removeHighest()
@@ -192,24 +192,24 @@ class Assignment1Tests: XCTestCase {
     func testAddToEmptyQueue() {
         priorityQueue.clear()
         XCTAssertEqual(priorityQueue.count, 0)
-        priorityQueue.add(student: student3)
+        priorityQueue.add(element: student3, priority: student3.priority())
         XCTAssertEqual(priorityQueue.count, 1)
-        XCTAssertEqual(priorityQueue.heap[0], student3)
+        XCTAssertEqual(priorityQueue.heap[0].value, student3)
     }
     
     /// Verify that all students in the priority queue have between 0 and 150 units taken
     func testValidUnitsTaken(){
         for student in priorityQueue.heap {
-            XCTAssertLessThanOrEqual(student.unitsTaken, 150)
-            XCTAssertGreaterThanOrEqual(student.unitsTaken, 0)
+            XCTAssertLessThanOrEqual(student.value.unitsTaken, 150)
+            XCTAssertGreaterThanOrEqual(student.value.unitsTaken, 0)
         }
     }
     
     /// Verify that all students in the priority queue have between a 0.0 and 4.0 GPA
     func testValidGPA(){
         for student in priorityQueue.heap {
-            XCTAssertLessThanOrEqual(student.gpa, 4.0)
-            XCTAssertGreaterThanOrEqual(student.gpa, 0.0)
+            XCTAssertLessThanOrEqual(student.value.gpa, 4.0)
+            XCTAssertGreaterThanOrEqual(student.value.gpa, 0.0)
         }
     }
     
