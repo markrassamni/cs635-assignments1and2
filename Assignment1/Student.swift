@@ -21,8 +21,8 @@ struct Student: Equatable {
     private let maxGPA = 4.0
     private let minGPA = 0.0
     
-    // TODO do not hard code in priority function to all students
-    func priority() -> Double {
+    // TODO do not hard code in priority function to all students?
+    var priority: Double {
         return Double(unitsTaken) * unitsWeight / Double(maxUnits) + gpa * gpaWeight / maxGPA
     }
     

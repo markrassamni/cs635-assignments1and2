@@ -62,7 +62,7 @@ class Assignment1Tests: XCTestCase {
             let gpa = (Double(arc4random()) / 0xFFFFFFFF) * 4.0
             if let student = Student(name: name, redId: redID, email: email, unitsTaken: unitsTaken, gpa: gpa){
                 currentID += 1
-                priorityQueue.add(element: student, priority: student.priority())
+                priorityQueue.add(element: student, priority: student.priority)
             }
         }
     }
@@ -92,7 +92,7 @@ class Assignment1Tests: XCTestCase {
         var queue = [Double]()
         for i in 0..<priorityQueue.count {
             let student = priorityQueue.getHighestPriority()
-            queue.append((student?.priority())!)
+            queue.append((student?.priority)!)
             if i > 0 {
                 XCTAssertGreaterThanOrEqual(queue[i-1], queue[i])
             }
@@ -107,51 +107,51 @@ class Assignment1Tests: XCTestCase {
                 highest = priorityQueue.heap[i].key
             }
         }
-        XCTAssertEqual(priorityQueue.getHighestPriority()?.priority(), highest)
+        XCTAssertEqual(priorityQueue.getHighestPriority()?.priority, highest)
     }
     
     /// Test to verify when elements are added in priority order that the priority queue prioritizes them correctly
     func testAddInOrderElements(){
         priorityQueue.clear()
         XCTAssertEqual(priorityQueue.count, 0)
-        priorityQueue.add(element: student5, priority: student5.priority())
-        priorityQueue.add(element: student4, priority: student4.priority())
-        priorityQueue.add(element: student3, priority: student3.priority())
-        priorityQueue.add(element: student2, priority: student2.priority())
-        priorityQueue.add(element: student1, priority: student1.priority())
+        priorityQueue.add(element: student5, priority: student5.priority)
+        priorityQueue.add(element: student4, priority: student4.priority)
+        priorityQueue.add(element: student3, priority: student3.priority)
+        priorityQueue.add(element: student2, priority: student2.priority)
+        priorityQueue.add(element: student1, priority: student1.priority)
         let dequeue1 = priorityQueue.removeHighest()
         let dequeue2 = priorityQueue.removeHighest()
         let dequeue3 = priorityQueue.removeHighest()
         let dequeue4 = priorityQueue.removeHighest()
         let dequeue5 = priorityQueue.removeHighest()
         
-        XCTAssertEqual(dequeue1?.priority(), priority5)
-        XCTAssertEqual(dequeue2?.priority(), priority4)
-        XCTAssertEqual(dequeue3?.priority(), priority3)
-        XCTAssertEqual(dequeue4?.priority(), priority2)
-        XCTAssertEqual(dequeue5?.priority(), priority1)
+        XCTAssertEqual(dequeue1?.priority, priority5)
+        XCTAssertEqual(dequeue2?.priority, priority4)
+        XCTAssertEqual(dequeue3?.priority, priority3)
+        XCTAssertEqual(dequeue4?.priority, priority2)
+        XCTAssertEqual(dequeue5?.priority, priority1)
     }
     
     /// Test to verify when elements are added in reverse priority order that the priority queue prioritizes them correctly
     func testAddReverseOrderElements(){
         priorityQueue.clear()
         XCTAssertEqual(priorityQueue.count, 0)
-        priorityQueue.add(element: student1, priority: student1.priority())
-        priorityQueue.add(element: student2, priority: student2.priority())
-        priorityQueue.add(element: student3, priority: student3.priority())
-        priorityQueue.add(element: student4, priority: student4.priority())
-        priorityQueue.add(element: student5, priority: student5.priority())
+        priorityQueue.add(element: student1, priority: student1.priority)
+        priorityQueue.add(element: student2, priority: student2.priority)
+        priorityQueue.add(element: student3, priority: student3.priority)
+        priorityQueue.add(element: student4, priority: student4.priority)
+        priorityQueue.add(element: student5, priority: student5.priority)
         let dequeue1 = priorityQueue.removeHighest()
         let dequeue2 = priorityQueue.removeHighest()
         let dequeue3 = priorityQueue.removeHighest()
         let dequeue4 = priorityQueue.removeHighest()
         let dequeue5 = priorityQueue.removeHighest()
         
-        XCTAssertEqual(dequeue1?.priority(), priority5)
-        XCTAssertEqual(dequeue2?.priority(), priority4)
-        XCTAssertEqual(dequeue3?.priority(), priority3)
-        XCTAssertEqual(dequeue4?.priority(), priority2)
-        XCTAssertEqual(dequeue5?.priority(), priority1)
+        XCTAssertEqual(dequeue1?.priority, priority5)
+        XCTAssertEqual(dequeue2?.priority, priority4)
+        XCTAssertEqual(dequeue3?.priority, priority3)
+        XCTAssertEqual(dequeue4?.priority, priority2)
+        XCTAssertEqual(dequeue5?.priority, priority1)
     }
     
     /// Test to verify when elements are added in random priority order that the priority queue prioritizes them correctly
@@ -161,7 +161,7 @@ class Assignment1Tests: XCTestCase {
         var students = [student1, student2, student3, student4, student5]
         for _ in 0..<students.count {
             let index = Int(arc4random_uniform(UInt32(students.count)))
-            priorityQueue.add(element: students[index], priority: students[index].priority())
+            priorityQueue.add(element: students[index], priority: students[index].priority)
             students.remove(at: index)
         }
         let dequeue1 = priorityQueue.removeHighest()
@@ -169,11 +169,11 @@ class Assignment1Tests: XCTestCase {
         let dequeue3 = priorityQueue.removeHighest()
         let dequeue4 = priorityQueue.removeHighest()
         let dequeue5 = priorityQueue.removeHighest()
-        XCTAssertEqual(dequeue1?.priority(), priority5)
-        XCTAssertEqual(dequeue2?.priority(), priority4)
-        XCTAssertEqual(dequeue3?.priority(), priority3)
-        XCTAssertEqual(dequeue4?.priority(), priority2)
-        XCTAssertEqual(dequeue5?.priority(), priority1)
+        XCTAssertEqual(dequeue1?.priority, priority5)
+        XCTAssertEqual(dequeue2?.priority, priority4)
+        XCTAssertEqual(dequeue3?.priority, priority3)
+        XCTAssertEqual(dequeue4?.priority, priority2)
+        XCTAssertEqual(dequeue5?.priority, priority1)
     }
     
     /// Test to verify the root node has higher priority than both its children
@@ -192,7 +192,7 @@ class Assignment1Tests: XCTestCase {
     func testAddToEmptyQueue() {
         priorityQueue.clear()
         XCTAssertEqual(priorityQueue.count, 0)
-        priorityQueue.add(element: student3, priority: student3.priority())
+        priorityQueue.add(element: student3, priority: student3.priority)
         XCTAssertEqual(priorityQueue.count, 1)
         XCTAssertEqual(priorityQueue.heap[0].value, student3)
     }
