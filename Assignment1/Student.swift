@@ -9,27 +9,28 @@
 import Foundation
 
 struct Student: Equatable {
-    var name: String
-    var redID: String
-    var email: String
-    var unitsTaken: Int
-    var gpa: Double
+    var name: String!
+    var redID: String!
+    var email: String!
+    var unitsTaken: Int!
+    var gpa: Double!
     
+    let unitsWeight = 0.7
+    let maxUnits = 150
+    let minUnits = 0
+    let gpaWeight = 0.3
+    let maxGPA = 4.0
+    let minGPA = 0.0
+    
+    // TODO do not hard code in priority function to all students
     func priority() -> Double {
-        return Double(unitsTaken) * 0.7 + gpa * 0.3
+        return Double(unitsTaken) * unitsWeight / Double(maxUnits) + gpa * gpaWeight / maxGPA
     }
     
     init?(name: String, redId: String, email: String, unitsTaken: Int, gpa: Double) {
-        // Check for valid units taken and gpa to intialize, otherwise fail to init
-        var validParameters = true
-        if unitsTaken < 0 || unitsTaken > 150 {
-            validParameters = false
+        guard unitsTaken >= minUnits && unitsTaken <= maxUnits && gpa >= minGPA && gpa <= maxGPA else {
+            return nil
         }
-        if gpa < 0.0 || gpa > 4.0 {
-            validParameters = false
-        }
-        guard validParameters else { return nil }
-        
         self.name = name
         self.redID = redId
         self.email = email
