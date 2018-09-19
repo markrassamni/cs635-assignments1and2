@@ -9,18 +9,17 @@
 import Foundation
 
 struct Student: Equatable {
-    var name: String!
-    var redID: String!
-    var email: String!
-    var unitsTaken: Int!
-    var gpa: Double!
-    
-    let unitsWeight = 0.7
-    let maxUnits = 150
-    let minUnits = 0
-    let gpaWeight = 0.3
-    let maxGPA = 4.0
-    let minGPA = 0.0
+    private(set) var name: String!
+    private(set) var redID: String!
+    private(set) var email: String!
+    private(set) var unitsTaken: Int!
+    private(set) var gpa: Double!
+    private let unitsWeight = 0.7
+    private let maxUnits = 150
+    private let minUnits = 0
+    private let gpaWeight = 0.3
+    private let maxGPA = 4.0
+    private let minGPA = 0.0
     
     // TODO do not hard code in priority function to all students
     func priority() -> Double {

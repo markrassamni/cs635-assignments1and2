@@ -10,7 +10,7 @@ import Foundation
 
 class PriorityQueue<Element>: Collection {
     
-    var heap: [Association<Double, Element>]
+    private(set) var heap: [Association<Double, Element>]
     
     var isEmpty: Bool {
         return heap.isEmpty

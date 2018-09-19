@@ -103,6 +103,7 @@
 		F96141642135DBF900A3A8BE /* Assignment1 */ = {
 			isa = PBXGroup;
 			children = (
+				F96495D021504D0D007287B8 /* Association.swift */,
 				F9B66C0E213C766900120AB1 /* PriorityQueue.swift */,
 				F96141932135DC3000A3A8BE /* Student.swift */,
 				F96141652135DBF900A3A8BE /* AppDelegate.swift */,
@@ -111,7 +112,6 @@
 				F961416C2135DBFA00A3A8BE /* Assets.xcassets */,
 				F961416E2135DBFA00A3A8BE /* LaunchScreen.storyboard */,
 				F96141712135DBFA00A3A8BE /* Info.plist */,
-				F96495D021504D0D007287B8 /* Association.swift */,
 			);
 			path = Assignment1;
 			sourceTree = "<group>";
