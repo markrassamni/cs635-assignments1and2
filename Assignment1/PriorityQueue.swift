@@ -8,7 +8,7 @@
 
 import Foundation
 
-class PriorityQueue<Element: Hashable>: Collection {
+class PriorityQueue<Element>: Collection {
     
     var heap: [Association<Double, Element>]
     

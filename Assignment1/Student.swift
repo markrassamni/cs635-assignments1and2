@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Student: Equatable, Hashable {
+struct Student: Equatable {
     var name: String!
     var redID: String!
     var email: String!
