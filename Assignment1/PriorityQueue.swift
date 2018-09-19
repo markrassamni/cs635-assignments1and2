@@ -8,7 +8,7 @@
 
 import Foundation
 
-class PriorityQueue<Element> {
+class PriorityQueue<Element: Hashable>: Collection {
     
     var heap: [Association<Double, Element>]
     
@@ -18,6 +18,14 @@ class PriorityQueue<Element> {
     
     var count: Int {
         return heap.count
+    }
+
+    var startIndex: Int {
+        return heap.startIndex
+    }
+    
+    var endIndex: Int {
+        return heap.endIndex
     }
     
     init(students: [Association<Double, Element>] = []) {
@@ -29,8 +37,23 @@ class PriorityQueue<Element> {
         return heap.first?.value
     }
     
+    // TODO return index of next element in priority order
+    func index(after i: Int) -> Int {
+        return i+1
+    }
+    
+    // TODO Rename to removeAll?
     func clear(){
-        heap = [Association<Double, Element>]()
+        heap.removeAll()
+    }
+
+    // TODO: Return association or key or value?
+    subscript(position: Int) -> Association<Double, Element>? {
+//        precondition(indices.contains(position), "out of bounds")
+        guard indices.contains(position) else { return nil }
+//        let dictionaryElement = heap[position]
+        return heap[position]
+//        return (element: dictionaryElement.key, count: dictionaryElement.value)
     }
     
     func getHighestPriority() -> Element? {
@@ -83,7 +106,6 @@ class PriorityQueue<Element> {
         add(association: association)
     }
     
-    // TODO: possibly dont need this, can hardcode in values my way. dont need both methods
     func add(association: Association<Double, Element>){
         heap.append(association)
         moveUp(studentAtIndex: count - 1) // Move the new student into its correct position
@@ -129,17 +151,21 @@ class PriorityQueue<Element> {
         heap.swapAt(firstIndex, secondIndex)
     }
     
+    
+    /*
+ // TODO: Need to move this method outside of PQ class
     /// Prints the name and red ID of all students in the heap in priority order. Returns the students in a priority order sorted array.
     func printQueue() -> [Element]{
         // Create a copy of the original heap. Loop removing the highest priority and printing it. Restore heap when done.
         let heapCopy = heap
         var students = [Element]()
         for _ in heap { // TODO: Check if this function operates correctly
-            if let student = removeHighest(){
+            if let student = removeHighest() {
                 students.append(student)
             }
         }
         heap = heapCopy
         return students
     }
+     */
 }
