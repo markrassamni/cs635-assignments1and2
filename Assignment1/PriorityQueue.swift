@@ -20,6 +20,7 @@ class PriorityQueue<Element>: Collection {
         return heap.count
     }
 
+    // TODO start and end index based on priority? or just of heap?
     var startIndex: Int {
         return heap.startIndex
     }
@@ -33,9 +34,14 @@ class PriorityQueue<Element>: Collection {
         createHeap()
     }
     
-    func peek() -> Element? {
+    func first() -> Element? {
         return heap.first?.value
     }
+    
+    // TODO: Why does uncommenting this cause errors
+    //    var first: Element? {
+    //        return heap.first?.value
+    //    }
     
     // TODO return index of next element in priority order
     func index(after i: Int) -> Int {
@@ -49,12 +55,14 @@ class PriorityQueue<Element>: Collection {
 
     // TODO: Return association or key or value?
     subscript(position: Int) -> Association<Double, Element>? {
-//        precondition(indices.contains(position), "out of bounds")
         guard indices.contains(position) else { return nil }
-//        let dictionaryElement = heap[position]
         return heap[position]
-//        return (element: dictionaryElement.key, count: dictionaryElement.value)
     }
+    
+    // TODO subscript has to return element if setting a first var??
+//    subscript(position: Int) -> Element {
+//        return heap[position].value
+//    }
     
     func getHighestPriority() -> Element? {
         return heap.first?.value
