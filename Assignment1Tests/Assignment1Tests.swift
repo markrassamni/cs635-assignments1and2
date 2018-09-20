@@ -21,11 +21,11 @@ class Assignment1Tests: XCTestCase {
     let student5: Student = Student(name: "Mark", redId: "81723", email: "mark@mark.com", unitsTaken: 120, gpa: 4.0)!
     
     // Priorities of the above students
-    let priority1 = 14.21
-    let priority2 = 35.33
-    let priority3 = 56.75
-    let priority4 = 70.96
-    let priority5 = 85.2
+    let priority1 = 0.1458
+    let priority2 = 0.3158
+    let priority3 = 0.5608
+    let priority4 = 0.7066
+    let priority5 = 0.86
     
     
     var priorityQueue: PriorityQueue<Student>!
@@ -125,11 +125,11 @@ class Assignment1Tests: XCTestCase {
         let dequeue4 = priorityQueue.removeHighest()
         let dequeue5 = priorityQueue.removeHighest()
         
-        XCTAssertEqual(dequeue1?.priority, priority5)
-        XCTAssertEqual(dequeue2?.priority, priority4)
-        XCTAssertEqual(dequeue3?.priority, priority3)
-        XCTAssertEqual(dequeue4?.priority, priority2)
-        XCTAssertEqual(dequeue5?.priority, priority1)
+        XCTAssertEqual((dequeue1?.priority)!, priority5, accuracy: 0.0001)
+        XCTAssertEqual((dequeue2?.priority)!, priority4, accuracy: 0.0001)
+        XCTAssertEqual((dequeue3?.priority)!, priority3, accuracy: 0.0001)
+        XCTAssertEqual((dequeue4?.priority)!, priority2, accuracy: 0.0001)
+        XCTAssertEqual((dequeue5?.priority)!, priority1, accuracy: 0.0001)
     }
     
     /// Test to verify when elements are added in reverse priority order that the priority queue prioritizes them correctly
@@ -147,11 +147,11 @@ class Assignment1Tests: XCTestCase {
         let dequeue4 = priorityQueue.removeHighest()
         let dequeue5 = priorityQueue.removeHighest()
         
-        XCTAssertEqual(dequeue1?.priority, priority5)
-        XCTAssertEqual(dequeue2?.priority, priority4)
-        XCTAssertEqual(dequeue3?.priority, priority3)
-        XCTAssertEqual(dequeue4?.priority, priority2)
-        XCTAssertEqual(dequeue5?.priority, priority1)
+        XCTAssertEqual((dequeue1?.priority)!, priority5, accuracy: 0.0001)
+        XCTAssertEqual((dequeue2?.priority)!, priority4, accuracy: 0.0001)
+        XCTAssertEqual((dequeue3?.priority)!, priority3, accuracy: 0.0001)
+        XCTAssertEqual((dequeue4?.priority)!, priority2, accuracy: 0.0001)
+        XCTAssertEqual((dequeue5?.priority)!, priority1, accuracy: 0.0001)
     }
     
     /// Test to verify when elements are added in random priority order that the priority queue prioritizes them correctly
@@ -169,11 +169,11 @@ class Assignment1Tests: XCTestCase {
         let dequeue3 = priorityQueue.removeHighest()
         let dequeue4 = priorityQueue.removeHighest()
         let dequeue5 = priorityQueue.removeHighest()
-        XCTAssertEqual(dequeue1?.priority, priority5)
-        XCTAssertEqual(dequeue2?.priority, priority4)
-        XCTAssertEqual(dequeue3?.priority, priority3)
-        XCTAssertEqual(dequeue4?.priority, priority2)
-        XCTAssertEqual(dequeue5?.priority, priority1)
+        XCTAssertEqual((dequeue1?.priority)!, priority5, accuracy: 0.0001)
+        XCTAssertEqual((dequeue2?.priority)!, priority4, accuracy: 0.0001)
+        XCTAssertEqual((dequeue3?.priority)!, priority3, accuracy: 0.0001)
+        XCTAssertEqual((dequeue4?.priority)!, priority2, accuracy: 0.0001)
+        XCTAssertEqual((dequeue5?.priority)!, priority1, accuracy: 0.0001)
     }
     
     /// Test to verify the root node has higher priority than both its children
