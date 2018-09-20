@@ -112,7 +112,7 @@ class Assignment1Tests: XCTestCase {
     
     /// Test to verify when elements are added in priority order that the priority queue prioritizes them correctly
     func testAddInOrderElements(){
-        priorityQueue.clear()
+        priorityQueue.removeAll()
         XCTAssertEqual(priorityQueue.count, 0)
         priorityQueue.add(element: student5, priority: student5.priority)
         priorityQueue.add(element: student4, priority: student4.priority)
@@ -134,7 +134,7 @@ class Assignment1Tests: XCTestCase {
     
     /// Test to verify when elements are added in reverse priority order that the priority queue prioritizes them correctly
     func testAddReverseOrderElements(){
-        priorityQueue.clear()
+        priorityQueue.removeAll()
         XCTAssertEqual(priorityQueue.count, 0)
         priorityQueue.add(element: student1, priority: student1.priority)
         priorityQueue.add(element: student2, priority: student2.priority)
@@ -156,7 +156,7 @@ class Assignment1Tests: XCTestCase {
     
     /// Test to verify when elements are added in random priority order that the priority queue prioritizes them correctly
     func testAddRandomOrderElements(){
-        priorityQueue.clear()
+        priorityQueue.removeAll()
         XCTAssertEqual(priorityQueue.count, 0)
         var students = [student1, student2, student3, student4, student5]
         for _ in 0..<students.count {
@@ -183,14 +183,14 @@ class Assignment1Tests: XCTestCase {
     
     /// Test to verify that removing from an empty queue return nil
     func testRemoveEmptyQueue() {
-        priorityQueue.clear()
+        priorityQueue.removeAll()
         XCTAssertEqual(priorityQueue.count, 0)
         let dequeuedStudent = priorityQueue.removeHighest()
         XCTAssertNil(dequeuedStudent)
     }
     
     func testAddToEmptyQueue() {
-        priorityQueue.clear()
+        priorityQueue.removeAll()
         XCTAssertEqual(priorityQueue.count, 0)
         priorityQueue.add(element: student3, priority: student3.priority)
         XCTAssertEqual(priorityQueue.count, 1)

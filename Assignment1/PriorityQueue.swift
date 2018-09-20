@@ -34,35 +34,23 @@ class PriorityQueue<Element>: Collection {
         createHeap()
     }
     
-    func first() -> Element? {
+    var first: Element? {
         return heap.first?.value
     }
-    
-    // TODO: Why does uncommenting this cause errors
-    //    var first: Element? {
-    //        return heap.first?.value
-    //    }
     
     // TODO return index of next element in priority order
     func index(after i: Int) -> Int {
         return i+1
     }
     
-    // TODO Rename to removeAll?
-    func clear(){
+    func removeAll(){
         heap.removeAll()
     }
 
-    // TODO: Return association or key or value?
-    subscript(position: Int) -> Association<Double, Element>? {
-        guard indices.contains(position) else { return nil }
-        return heap[position]
+    // TODO: Should return priority order not just position in array
+    subscript(position: Int) -> Element {
+        return heap[position].value
     }
-    
-    // TODO subscript has to return element if setting a first var??
-//    subscript(position: Int) -> Element {
-//        return heap[position].value
-//    }
     
     func getHighestPriority() -> Element? {
         return heap.first?.value
