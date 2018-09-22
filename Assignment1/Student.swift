@@ -9,11 +9,11 @@
 import Foundation
 
 struct Student: Equatable {
-    private(set) var name: String!
-    private(set) var redID: String!
-    private(set) var email: String!
-    private(set) var unitsTaken: Int!
-    private(set) var gpa: Double!
+    private(set) var name: String
+    private(set) var redID: String
+    private(set) var email: String
+    private(set) var unitsTaken: Int
+    private(set) var gpa: Double
     private let unitsWeight = 0.7
     private let maxUnits = 150
     private let minUnits = 0
@@ -27,7 +27,7 @@ struct Student: Equatable {
     }
     
     init?(name: String, redId: String, email: String, unitsTaken: Int, gpa: Double) {
-        guard unitsTaken >= minUnits && unitsTaken <= maxUnits && gpa >= minGPA && gpa <= maxGPA else {
+        guard unitsTaken >= minUnits, unitsTaken <= maxUnits, gpa >= minGPA, gpa <= maxGPA else {
             return nil
         }
         self.name = name
