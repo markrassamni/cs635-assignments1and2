@@ -21,11 +21,23 @@ class Assignment1Tests<C: CombinationStrategy, G: GPAStrategy, U: UnitsStrategy>
     let student5: Student = Student(name: "Mark", redId: "81723", email: "mark@mark.com", unitsTaken: 120, gpa: 4.0)!
     
     // Respective priorities to the above students
-    let priority1 = 0.1458
-    let priority2 = 0.3158
-    let priority3 = 0.5608
-    let priority4 = 0.7066
-    let priority5 = 0.86
+    let combinationPriority1 = 0.1458
+    let combinationPriority2 = 0.3158
+    let combinationPriority3 = 0.5608
+    let combinationPriority4 = 0.7066
+    let combinationPriority5 = 0.86
+    
+    let gpaPriority1 = 4.0
+    let gpaPriority2 = 3.2
+    let gpaPriority3 = 2.5
+    let gpaPriority4 = 1.1
+    let gpaPriority5 = 0.7
+    
+    let unitsPriority1 = 120
+    let unitsPriority2 = 100
+    let unitsPriority3 = 80
+    let unitsPriority4 = 50
+    let unitsPriority5 = 20
     
     
     var combinationPriorityQueue: PriorityQueue<Student, C>!
@@ -38,10 +50,10 @@ class Assignment1Tests<C: CombinationStrategy, G: GPAStrategy, U: UnitsStrategy>
         // Put setup code here. This method is called before the invocation of each test method in the class.
         // Make sure priority queues are nil before each test run configures them below.
         XCTAssertNil(combinationPriorityQueue)
-//        XCTAssertNil(gpaPriorityQueue)
-//        XCTAssertNil(unitsPriorityQueue)
+        XCTAssertNil(gpaPriorityQueue)
+        XCTAssertNil(unitsPriorityQueue)
         // Init the priority queues and start numbering RedIDs at 1
-        combinationPriorityQueue = PriorityQueue<Student, C>(priorityStrategy: CombinationStrategy() as! C)
+        combinationPriorityQueue = PriorityQueue(priorityStrategy: CombinationStrategy() as! C)
         gpaPriorityQueue = PriorityQueue(priorityStrategy: GPAStrategy() as! G)
         unitsPriorityQueue = PriorityQueue(priorityStrategy: UnitsStrategy() as! U)
         XCTAssertEqual(combinationPriorityQueue.count, 0)
