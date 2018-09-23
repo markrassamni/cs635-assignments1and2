@@ -63,8 +63,8 @@ class Heap<Element: Equatable>: Collection {
     
     // TODO test this function. PQ is passing in a association not an element
     func add(_ element: Element){
-        let value = priorityStrategy(element)
-        let association = Association(key: value, value: element)
+        let priority = priorityStrategy(element)
+        let association = Association(key: priority, value: element)
         nodes.append(association)
         moveUp(nodeAtIndex: count - 1)
     }
