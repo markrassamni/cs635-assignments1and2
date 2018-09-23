@@ -8,9 +8,9 @@
 
 import Foundation
 
-class PriorityQueue<Element: Equatable, S: Strategy>: Collection where S.Element == Element {
+class PriorityQueue<Element: Equatable>: Collection {
     
-    private(set) var heap: Heap<Element, S>
+    private(set) var heap: Heap<Element>
     
     var isEmpty: Bool {
         return heap.isEmpty
@@ -32,8 +32,9 @@ class PriorityQueue<Element: Equatable, S: Strategy>: Collection where S.Element
         return heap.first
     }
     
-    init(priorityStrategy: S){
-        heap = Heap<Element, S>(strategy: priorityStrategy)
+    init?<T: Equatable>(priorityStrategy: @escaping (T) -> Double){
+        guard let heap = Heap<Element>(priorityStrategy: priorityStrategy) else { return nil }
+        self.heap = heap
     }
     
     func index(after i: Int) -> Int {

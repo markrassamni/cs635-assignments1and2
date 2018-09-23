@@ -8,12 +8,12 @@
 
 import Foundation
 
-class AddCommand<Element: Equatable, S: Strategy>: Command where Element == S.Element{
+class AddCommand<Element: Equatable>: Command {
     
-    var priorityQueue: PriorityQueue<Element, S>
+    var priorityQueue: PriorityQueue<Element>
     var element: Element
     
-    init(priorityQueue: PriorityQueue<Element, S>, element: Element) {
+    init(priorityQueue: PriorityQueue<Element>, element: Element) {
         self.priorityQueue = priorityQueue
         self.element = element
     }

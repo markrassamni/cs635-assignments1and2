@@ -9,10 +9,10 @@
 import Foundation
 
 
-class Heap<Element: Equatable, S: Strategy>: Collection where S.Element == Element {
+class Heap<Element: Equatable>: Collection {
     
     private(set) var nodes = [Association<Double, Element>]()
-    private(set) var priorityStrategy: S
+    private(set) var priorityStrategy: (Element) -> Double
     
     var isEmpty: Bool {
         return nodes.isEmpty
@@ -35,7 +35,8 @@ class Heap<Element: Equatable, S: Strategy>: Collection where S.Element == Eleme
         return nodes.endIndex
     }
     
-    init(strategy: S) {
+    init?<T: Equatable>(priorityStrategy: @escaping (T) -> Double) {
+        guard let strategy = priorityStrategy as? (Element) -> Double else { return nil }
         self.priorityStrategy = strategy
     }
     
@@ -62,7 +63,7 @@ class Heap<Element: Equatable, S: Strategy>: Collection where S.Element == Eleme
     
     // TODO test this function. PQ is passing in a association not an element
     func add(_ element: Element){
-        let value = priorityStrategy.priority(element: element)
+        let value = priorityStrategy(element)
         let association = Association(key: value, value: element)
         nodes.append(association)
         moveUp(nodeAtIndex: count - 1)
