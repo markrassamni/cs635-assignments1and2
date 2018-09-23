@@ -13,11 +13,6 @@ class CommandProcessor {
     var pastStack = [Command]()
     var futureStack = [Command]()
     
-    func add(){
-//        let addCommand = AddCommand(priorityQueue: <#T##PriorityQueue<_, _>#>, element: <#T##_#>)
-//        addCommand.execute()
-    }
-    
     func execute(command: Command){
         command.execute()
         pastStack.append(command)
@@ -36,5 +31,4 @@ class CommandProcessor {
         command.execute()
         pastStack.append(command)
     }
-    
 }
