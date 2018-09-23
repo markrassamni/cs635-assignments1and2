@@ -99,8 +99,8 @@ class Assignment1Tests: XCTestCase{
             if let student = Student(name: name, redId: redID, email: email, unitsTaken: unitsTaken, gpa: gpa){
                 currentID += 1
                 combinationPriorityQueue.enqueue(student)
-//                gpaPriorityQueue.enqueue(student)
-//                unitsPriorityQueue.enqueue(student)
+                gpaPriorityQueue.enqueue(student)
+                unitsPriorityQueue.enqueue(student)
             }
         }
     }
