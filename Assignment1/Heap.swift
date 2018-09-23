@@ -9,9 +9,10 @@
 import Foundation
 
 
-class Heap<Element>: Collection {
+class Heap<Element, S: Strategy>: Collection {
     
     private(set) var nodes = [Element]()
+    private(set) var priorityStrategy: S
     
     var isEmpty: Bool {
         return nodes.isEmpty
@@ -30,9 +31,8 @@ class Heap<Element>: Collection {
         return nodes.endIndex
     }
     
-    // TODO: Should return priority order not just position in array
-    subscript(position: Int) -> Element {
-        return nodes[position]
+    init(strategy: S) {
+        self.priorityStrategy = strategy
     }
     
     // TODO return index of next element in priority order
@@ -103,6 +103,7 @@ class Heap<Element>: Collection {
     // TODO: Implement priority and return higher one
     func isHigherPriority(at firstIndex: Int, than secondIndex: Int) -> Bool {
         //        return nodes[firstIndex].key > nodes[secondIndex].key
+//        let a = priorityStrategy(nodes[firstIndex])
         return true
     }
     
@@ -148,4 +149,8 @@ class Heap<Element>: Collection {
         return stringRepresentation
     }
     
+    // TODO: Should return priority order not just position in array
+    subscript(position: Int) -> Element {
+        return nodes[position]
+    }
 }
