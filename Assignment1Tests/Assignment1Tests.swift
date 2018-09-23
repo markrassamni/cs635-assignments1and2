@@ -10,7 +10,6 @@ import XCTest
 @testable import Assignment1
 
 class Assignment1Tests<C: CombinationStrategy, G: GPAStrategy, U: UnitsStrategy>: XCTestCase where C.Element == Student, G.Element == Student, U.Element == Student{
-//class Assignment1Tests<S: Strategy>: XCTestCase where S.Element == Student{
 
     let testCount = 10000
     
@@ -88,29 +87,65 @@ class Assignment1Tests<C: CombinationStrategy, G: GPAStrategy, U: UnitsStrategy>
             heapCount += 1
         }
     }
-    /*
+    
     /// Test to ensure that the priority queue size shrinks when removing students
     func testRemoveShrinksQueue(){
         var heapCount = combinationPriorityQueue.count
         for _ in 0..<combinationPriorityQueue.count {
-            let _ = combinationPriorityQueue.removeHighest()
+            let _ = combinationPriorityQueue.dequeue()
             XCTAssertEqual(heapCount - 1, combinationPriorityQueue.count)
             heapCount -= 1
         }
     }
-
-    /// Test to verify that removing students always removes the highest priority first
-    func testRemoveOrder(){
+    
+    //MARK: - Tests to verify that removing students always removes the highest priority first
+    func testRemoveOrderCombination(){
         var queue = [Double]()
         for i in 0..<combinationPriorityQueue.count {
-            let student = combinationPriorityQueue.getHighestPriority()
-            queue.append((student?.priority)!)
-            if i > 0 {
-                XCTAssertGreaterThanOrEqual(queue[i-1], queue[i])
+            if let student = combinationPriorityQueue.dequeue() {
+                let priority = CombinationStrategy().priority(element: student)
+                queue.append(priority)
+                if i > 0 {
+                    XCTAssertGreaterThanOrEqual(queue[i-1], queue[i])
+                }
+            } else {
+                XCTAssertTrue(false)
             }
         }
     }
     
+    func testRemoveOrderGPA(){
+        var queue = [Double]()
+        for i in 0..<gpaPriorityQueue.count {
+            if let student = gpaPriorityQueue.dequeue() {
+                let priority = GPAStrategy().priority(element: student)
+                queue.append(priority)
+                if i > 0 {
+                    XCTAssertGreaterThanOrEqual(queue[i-1], queue[i])
+                }
+            } else {
+                XCTAssertTrue(false)
+            }
+        }
+    }
+    
+    func testRemoveOrderUnits(){
+        var queue = [Double]()
+        for i in 0..<unitsPriorityQueue.count {
+            if let student = unitsPriorityQueue.dequeue() {
+                let priority = UnitsStrategy().priority(element: student)
+                queue.append(priority)
+                if i > 0 {
+                    XCTAssertGreaterThanOrEqual(queue[i-1], queue[i])
+                }
+            } else {
+                XCTAssertTrue(false)
+            }
+        }
+    }
+    
+    
+    /*
     /// Test to verify that code can return the correct highest priority element with random elements added in random priority order
     func testGetHighestElement() {
         var highest: Double = 0.0
