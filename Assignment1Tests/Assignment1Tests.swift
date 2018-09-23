@@ -104,7 +104,7 @@ class Assignment1Tests: XCTestCase{
             }
         }
     }
-    /*
+    
     /*
     func testGetPriority(){
         let p = priority(for: student1, with: GPAStrategy() as! S)
@@ -118,13 +118,19 @@ class Assignment1Tests: XCTestCase{
     }
  */
     
-    /// Test to ensure that the priority queue size grows when adding students
+    /// Test to ensure that the priority queue sizes grow when adding students
     func testAddGrowsQueue(){
-        var heapCount = combinationPriorityQueue.count
+        var combinationCount = combinationPriorityQueue.count
+        var gpaCount = gpaPriorityQueue.count
+        var unitsCount = gpaPriorityQueue.count
         for _ in 0..<testCount {
             addRandomStudents(count: 1)
-            XCTAssertEqual(heapCount + 1, combinationPriorityQueue.count)
-            heapCount += 1
+            XCTAssertEqual(combinationCount + 1, combinationPriorityQueue.count)
+            XCTAssertEqual(gpaCount + 1, gpaPriorityQueue.count)
+            XCTAssertEqual(unitsCount + 1, unitsPriorityQueue.count)
+            combinationCount += 1
+            gpaCount += 1
+            unitsCount += 1
         }
     }
     
@@ -344,7 +350,6 @@ class Assignment1Tests: XCTestCase{
 //            previousPriority = student.priority()
 //        }
 //    }
- */
  */
 }
 
