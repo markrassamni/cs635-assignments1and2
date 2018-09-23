@@ -9,9 +9,9 @@
 import Foundation
 
 
-class Heap<Element, S: Strategy>: Collection {
+class Heap<Element, S: Strategy>: Collection where S.Element == Element {
     
-    private(set) var nodes = [Element]()
+    private(set) var nodes = [Association<Double, Element>]()
     private(set) var priorityStrategy: S
     
     var isEmpty: Bool {
@@ -56,12 +56,16 @@ class Heap<Element, S: Strategy>: Collection {
         return (index - 1) / 2
     }
     
+    // TODO: Test. Why does this return an element but PQ gets back an association
     func peek() -> Element? {
-        return nodes.first
+        return nodes.first?.value
     }
     
-    func add(_ node: Element){
-        nodes.append(node)
+    // TODO test this function. PQ is passing in a association not an element
+    func add(_ element: Element){
+        let value = priorityStrategy.priority(element: element)
+        let association = Association(key: value, value: element)
+        nodes.append(association)
         moveUp(nodeAtIndex: count - 1)
     }
     
@@ -77,10 +81,10 @@ class Heap<Element, S: Strategy>: Collection {
     func remove() -> Element?{
         if isEmpty { return nil }
         if count == 1 {
-            return nodes.removeLast()
+            return nodes.removeLast().value
         }
         swapElement(at: 0, with: count - 1) // Swap highest priority node with last node in the heap
-        let node = nodes.removeLast()
+        let node = nodes.removeLast().value
         moveDown(nodeAtIndex: 0) // Move the newly placed first node into its correct position
         return node
     }
@@ -100,11 +104,8 @@ class Heap<Element, S: Strategy>: Collection {
         nodes.swapAt(firstIndex, secondIndex)
     }
     
-    // TODO: Implement priority and return higher one
     func isHigherPriority(at firstIndex: Int, than secondIndex: Int) -> Bool {
-        //        return nodes[firstIndex].key > nodes[secondIndex].key
-//        let a = priorityStrategy(nodes[firstIndex])
-        return true
+        return nodes[firstIndex].key > nodes[secondIndex].key
     }
     
     /// Returns the index with higher priority between the parent and child indices. Returns nil if the parent index is not contained in the heap.
@@ -128,10 +129,18 @@ class Heap<Element, S: Strategy>: Collection {
         return nil
     }
     
-    // TODO: Implement function
-    func toArray() -> [Element]{
-        return nodes
-    }
+//     TODO: Implement function
+//    func toArray() -> [Element]{
+//        var nodesAsArray: [Element]
+//        for node in nodes {
+//            let val = node.value
+//            nodesAsArray.append(val)
+////            if let element = node.value as? Element {
+////                nodesAsArray.append(element)
+////            }
+//        }
+//        return nodesAsArray
+//    }
     
     // TODO: Implement function
     // https://docs.oracle.com/javase/7/docs/api/java/util/AbstractCollection.html#toString()
@@ -149,8 +158,9 @@ class Heap<Element, S: Strategy>: Collection {
         return stringRepresentation
     }
     
-    // TODO: Should return priority order not just position in array
-    subscript(position: Int) -> Element {
+    // TODO: Should return priority order not just position in array.
+    // Also, should return just element, or association?
+    subscript(position: Int) -> Association<Double, Element> {
         return nodes[position]
     }
 }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-class PriorityQueue<Element, S: Strategy>: Collection {
+class PriorityQueue<Element, S: Strategy>: Collection where S.Element == Element {
     
     private(set) var heap: Heap<Element, S>
     
@@ -37,26 +37,29 @@ class PriorityQueue<Element, S: Strategy>: Collection {
     }
     
     func peek() -> Element? {
-        return heap.peek()
+        return heap.peek()?.value
     }
     
     func enqueue(_ element: Element){
-        heap.add(element)
+        // Weird compile error if just passing an element to heap.add(). Must pass association with dummy priority.
+        let association = Association(key: 0.0, value: element)
+        heap.add(association)
     }
     
     func dequeue() -> Element? {
-        return heap.remove()
+        return heap.remove()?.value
     }
     
-    func toArray() -> [Element] {
-        return heap.toArray()
-    }
+    // TODO: Implement toArray
+//    func toArray() -> [Element] {
+//        return heap.toArray()
+//    }
     
     func toString() -> String {
         return heap.toString()
     }
     
     subscript(position: Int) -> Element {
-        return heap[position]
+        return heap[position].value
     }
 }
