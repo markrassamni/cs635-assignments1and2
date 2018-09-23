@@ -9,7 +9,6 @@
 import XCTest
 @testable import Assignment1
 
-//class Assignment1Tests<C: CombinationStrategy, G: GPAStrategy, U: UnitsStrategy, S: Strategy>: XCTestCase where C.Element == Student, G.Element == Student, U.Element == Student{
 class Assignment1Tests: XCTestCase{
 
     let testCount = 10000
@@ -57,28 +56,6 @@ class Assignment1Tests: XCTestCase{
     var unitsPriorityQueue: PriorityQueue<Student>!
     var currentID: Int = 1
     
-    
-//    var a: PriorityQueue<Student, S>!
-    
-    func genericHelper<T>(strat: T){
-        let p = priority(for: student1, with: GPAStrategy())
-//        self.a = PriorityQueue(priorityStrategy: T)
-    }
-    
-//    @objc override class func initialize(){
-//
-//    }
-    
-
-    
-    func ab(){
-        genericHelper(strat: GPAStrategy())
-    }
-    
-    func priority(for: Student, with: GPAStrategy){
-        
-    }
-    
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -98,32 +75,15 @@ class Assignment1Tests: XCTestCase{
         XCTAssertEqual(unitsPriorityQueue.count, 0)
         currentID = 1
         // Add provided amount of random students to the queues to test with
-//        addRandomStudents(count: testCount)
+        addRandomStudents(count: testCount)
     }
-    
-    func testAdd(){
-        print(1)
-        print(2)
-    }
-    
-    func newPQ(){
-        let student1: Student = Student(name: "Ryan", redId: "1230", email: "ryan@ryan.com", unitsTaken: 20, gpa: 0.7)!
-        let priorityFunction = { (student: Student) -> Double in
-            student.gpa
-        }
-//        let pq = PriorityQueue<Student, S>(priorityFunction: priorityFunction)
-//        combinationPriorityQueue = PriorityQueue(priorityStrategy: priorityFunction)
-//        pq.enqueue(student1)
-//        combinationPriorityQueue.enqueue(student1)
-    }
-    
     
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         // Nullify priority queues and reset currentID to ensure values don't remain for future tests
-//        combinationPriorityQueue = nil
-//        gpaPriorityQueue = nil
-//        unitsPriorityQueue = nil
+        combinationPriorityQueue = nil
+        gpaPriorityQueue = nil
+        unitsPriorityQueue = nil
         currentID = 1
         super.tearDown()
     }
