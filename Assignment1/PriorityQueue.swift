@@ -8,9 +8,12 @@
 
 import Foundation
 
-class PriorityQueue<Element>: Collection {
+class PriorityQueue<Element, S: Strategy>: Collection {
     
     private(set) var heap: Heap<Element>
+//    private(set) var priorityFunction: (Element) -> Double
+//    private(set) var priorityFunction: (Element, Element) -> Bool
+    private(set) var priorityStrategy: S
     
     var isEmpty: Bool {
         return heap.isEmpty
@@ -28,8 +31,102 @@ class PriorityQueue<Element>: Collection {
         return heap.endIndex
     }
     
-    init(){
+    init(priorityStrategy: S){
         heap = Heap<Element>()
+        self.priorityStrategy = priorityStrategy
+    }
+    
+//    init(strategy2: @escaping (Element, Element) -> Bool){
+//        heap = Heap<Element>()
+//        priorityFunction = strategy2
+//    }
+    
+//    func test5(){
+//        let p = PriorityQueue(strategy2: >)
+//        let student1 = Student(name: "name", redId: "redID", email: "email", unitsTaken: 101, gpa: 2.7)!
+//        let student2 = Student(name: "name", redId: "redID", email: "email", unitsTaken: 101, gpa: 2.7)!
+//        priorityFunction(student1, student2)
+//    }
+    
+//    init(strategy1: @escaping (Element) -> Double) {
+//        heap = Heap<Element>()
+//        priorityFunction = strategy1
+//
+//        let student = Student(name: "name", redId: "redID", email: "email", unitsTaken: 101, gpa: 2.7)!
+//        if let element = student as? Element {
+//            let studentPriority = priorityFunction(element)
+//        }
+//
+//    }
+    
+    
+//    func test4(){
+//        let student = Student(name: "name", redId: "redID", email: "email", unitsTaken: 101, gpa: 2.7)!
+//        let o = PriorityQueue { (priority) -> Double in
+//            return 4.0
+//        }
+//        if let element = student as? Element {
+////            let studentPriority = priorityFunction(element)
+//            let b = o.priorityFunction(element)
+//        }
+//
+//        if let element2 = student as? Element {
+//            let closure: (Student) -> Double = { (student) in
+//                return Double(student.unitsTaken) * Student.unitsWeight / Double(Student.maxUnits) + student.gpa * Student.gpaWeight / Student.maxGPA
+//            }
+//            let closure2: (Student) -> Double = { student in
+//                Double(student.unitsTaken) * Student.unitsWeight / Double(Student.maxUnits) + student.gpa * Student.gpaWeight / Student.maxGPA }
+////            let c = PriorityQueue(strategy1: closure2)
+//        }
+//
+//        let closure: (Student) -> Double = { (student) in
+//            return Double(student.unitsTaken) * Student.unitsWeight / Double(Student.maxUnits) + student.gpa * Student.gpaWeight / Student.maxGPA
+//        }
+//
+//
+//    }
+    
+//    init(strategy: S) {
+//        heap = Heap<Element>()
+//        let student = Student(name: "name", redId: "redID", email: "email", unitsTaken: 101, gpa: 2.7)!
+//        let b = StudentStrategy(element: student)
+////        priorityFunction = strategy.calculatePriority(element: student)
+//    }
+    
+//    func test3(){
+//        let student = Student(name: "name", redId: "redID", email: "email", unitsTaken: 101, gpa: 2.7)!
+//        let b = StudentStrategy(element: student)
+////        test2(strategy: b)
+//
+//        let a = PriorityQueue { (testvar) -> Double in
+//            if let student = testvar as? Element {
+//
+//            }
+//            return 1
+//        }
+////        let b = testvar + 1
+//    }
+    
+    func test2(strategy: S){
+        
+    }
+    
+    func test(){
+        
+        let closure: (Student) -> Double = { (student) in
+            return Double(student.unitsTaken) * Student.unitsWeight / Double(Student.maxUnits) + student.gpa * Student.gpaWeight / Student.maxGPA
+        }
+//        let p = PriorityQueue(strategy: closure)
+        
+        
+//        let p = PriorityQueue { (student) -> Double in
+//            return 3.0
+//        }
+
+//        let b = PriorityQueue { (Student) -> Double in
+//            return Double(student.unitsTaken) * Student.unitsWeight / Double(Student.maxUnits) + student.gpa * Student.gpaWeight / Student.maxGPA
+            
+//        }
     }
 
     subscript(position: Int) -> Element {
