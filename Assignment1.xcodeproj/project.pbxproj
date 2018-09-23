@@ -18,10 +18,6 @@
 		F96495D121504D0D007287B8 /* Association.swift in Sources */ = {isa = PBXBuildFile; fileRef = F96495D021504D0D007287B8 /* Association.swift */; };
 		F9B66C0F213C766900120AB1 /* PriorityQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B66C0E213C766900120AB1 /* PriorityQueue.swift */; };
 		F9D3748921560FBF005EDB51 /* Heap.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9D3748821560FBF005EDB51 /* Heap.swift */; };
-		F9D3748B2156F91F005EDB51 /* Strategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9D3748A2156F91F005EDB51 /* Strategy.swift */; };
-		F9D3748D2156FF08005EDB51 /* CombinationStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9D3748C2156FF08005EDB51 /* CombinationStrategy.swift */; };
-		F9D37490215767E5005EDB51 /* GPAStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9D3748F215767E5005EDB51 /* GPAStrategy.swift */; };
-		F9D37492215767F1005EDB51 /* UnitsStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9D37491215767F1005EDB51 /* UnitsStrategy.swift */; };
 		F9D37496215794D6005EDB51 /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9D37495215794D6005EDB51 /* Command.swift */; };
 		F9D37498215794E4005EDB51 /* CommandProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9D37497215794E4005EDB51 /* CommandProcessor.swift */; };
 		F9D3749A21579596005EDB51 /* AddCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9D3749921579596005EDB51 /* AddCommand.swift */; };
@@ -63,10 +59,6 @@
 		F96495D021504D0D007287B8 /* Association.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Association.swift; sourceTree = "<group>"; };
 		F9B66C0E213C766900120AB1 /* PriorityQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriorityQueue.swift; sourceTree = "<group>"; };
 		F9D3748821560FBF005EDB51 /* Heap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Heap.swift; sourceTree = "<group>"; };
-		F9D3748A2156F91F005EDB51 /* Strategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strategy.swift; sourceTree = "<group>"; };
-		F9D3748C2156FF08005EDB51 /* CombinationStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CombinationStrategy.swift; path = ../CombinationStrategy.swift; sourceTree = "<group>"; };
-		F9D3748F215767E5005EDB51 /* GPAStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPAStrategy.swift; sourceTree = "<group>"; };
-		F9D37491215767F1005EDB51 /* UnitsStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitsStrategy.swift; sourceTree = "<group>"; };
 		F9D37495215794D6005EDB51 /* Command.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Command.swift; sourceTree = "<group>"; };
 		F9D37497215794E4005EDB51 /* CommandProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandProcessor.swift; sourceTree = "<group>"; };
 		F9D3749921579596005EDB51 /* AddCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCommand.swift; sourceTree = "<group>"; };
@@ -122,7 +114,6 @@
 			isa = PBXGroup;
 			children = (
 				F9D37494215794C4005EDB51 /* Commands */,
-				F9D3748E21576748005EDB51 /* Strategies */,
 				F96495D021504D0D007287B8 /* Association.swift */,
 				F9B66C0E213C766900120AB1 /* PriorityQueue.swift */,
 				F9D3748821560FBF005EDB51 /* Heap.swift */,
@@ -153,17 +144,6 @@
 				F96141872135DBFA00A3A8BE /* Info.plist */,
 			);
 			path = Assignment1UITests;
-			sourceTree = "<group>";
-		};
-		F9D3748E21576748005EDB51 /* Strategies */ = {
-			isa = PBXGroup;
-			children = (
-				F9D3748A2156F91F005EDB51 /* Strategy.swift */,
-				F9D3748C2156FF08005EDB51 /* CombinationStrategy.swift */,
-				F9D3748F215767E5005EDB51 /* GPAStrategy.swift */,
-				F9D37491215767F1005EDB51 /* UnitsStrategy.swift */,
-			);
-			path = Strategies;
 			sourceTree = "<group>";
 		};
 		F9D37494215794C4005EDB51 /* Commands */ = {
@@ -334,13 +314,9 @@
 			files = (
 				F96141682135DBF900A3A8BE /* ViewController.swift in Sources */,
 				F9B66C0F213C766900120AB1 /* PriorityQueue.swift in Sources */,
-				F9D37490215767E5005EDB51 /* GPAStrategy.swift in Sources */,
-				F9D3748D2156FF08005EDB51 /* CombinationStrategy.swift in Sources */,
 				F9D37498215794E4005EDB51 /* CommandProcessor.swift in Sources */,
-				F9D37492215767F1005EDB51 /* UnitsStrategy.swift in Sources */,
 				F96495D121504D0D007287B8 /* Association.swift in Sources */,
 				F9D3749C2157984A005EDB51 /* RemoveCommand.swift in Sources */,
-				F9D3748B2156F91F005EDB51 /* Strategy.swift in Sources */,
 				F9D3748921560FBF005EDB51 /* Heap.swift in Sources */,
 				F96141942135DC3000A3A8BE /* Student.swift in Sources */,
 				F9D3749A21579596005EDB51 /* AddCommand.swift in Sources */,
