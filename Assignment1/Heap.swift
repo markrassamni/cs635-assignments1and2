@@ -22,6 +22,10 @@ class Heap<Element, S: Strategy>: Collection where S.Element == Element {
         return nodes.count
     }
     
+    var first: Element?{
+        return nodes.first?.value
+    }
+    
     // TODO start and end index based on priority? or just of heap?
     var startIndex: Int {
         return nodes.startIndex
@@ -54,11 +58,6 @@ class Heap<Element, S: Strategy>: Collection where S.Element == Element {
     
     func parentIndex(of index: Int) -> Int {
         return (index - 1) / 2
-    }
-    
-    // TODO: Test. Why does this return an element but PQ gets back an association
-    func peek() -> Element? {
-        return nodes.first?.value
     }
     
     // TODO test this function. PQ is passing in a association not an element
@@ -162,5 +161,10 @@ class Heap<Element, S: Strategy>: Collection where S.Element == Element {
     // Also, should return just element, or association?
     subscript(position: Int) -> Association<Double, Element> {
         return nodes[position]
+    }
+    
+    // TODO: Pick a subscript to remove. Keep this one I think.
+    subscript(position: Int) -> Element {
+        return nodes[position].value
     }
 }

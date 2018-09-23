@@ -28,6 +28,10 @@ class PriorityQueue<Element, S: Strategy>: Collection where S.Element == Element
         return heap.endIndex
     }
     
+    var first: Element? {
+        return heap.first
+    }
+    
     init(priorityStrategy: S){
         heap = Heap<Element, S>(strategy: priorityStrategy)
     }
@@ -36,18 +40,12 @@ class PriorityQueue<Element, S: Strategy>: Collection where S.Element == Element
         return heap.index(after: i)
     }
     
-    func peek() -> Element? {
-        return heap.peek()?.value
-    }
-    
     func enqueue(_ element: Element){
-        // Weird compile error if just passing an element to heap.add(). Must pass association with dummy priority.
-        let association = Association(key: 0.0, value: element)
-        heap.add(association)
+        heap.add(element)
     }
     
     func dequeue() -> Element? {
-        return heap.remove()?.value
+        return heap.remove()
     }
     
     // TODO: Implement toArray
