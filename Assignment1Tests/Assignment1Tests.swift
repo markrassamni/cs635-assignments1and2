@@ -553,23 +553,53 @@ class Assignment1Tests: XCTestCase{
         XCTAssertEqual(gpaPriorityQueue.heap[0].value, student3)
         XCTAssertEqual(unitsPriorityQueue.heap[0].value, student3)
     }
+    
+    // MARK: - Verify that all students in the priority queues have between 0 and 150 units taken
+    func testValidUnitsTakenCombination(){
+        for student in combinationPriorityQueue.heap {
+            XCTAssertLessThanOrEqual(student.unitsTaken, 150)
+            XCTAssertGreaterThanOrEqual(student.unitsTaken, 0)
+        }
+    }
+    
+    func testValidUnitsTakenGPA(){
+        for student in gpaPriorityQueue.heap {
+            XCTAssertLessThanOrEqual(student.unitsTaken, 150)
+            XCTAssertGreaterThanOrEqual(student.unitsTaken, 0)
+        }
+    }
+    
+    func testValidUnitsTakenUnits(){
+        for student in unitsPriorityQueue.heap {
+            XCTAssertLessThanOrEqual(student.unitsTaken, 150)
+            XCTAssertGreaterThanOrEqual(student.unitsTaken, 0)
+        }
+    }
+    
+    
+    // MARK: - Verify that all students in the priority queues have between a 0.0 and 4.0 GPA
+    func testValidGPAInCombinationQueue(){
+        for student in combinationPriorityQueue.heap {
+            XCTAssertLessThanOrEqual(student.gpa, 4.0)
+            XCTAssertGreaterThanOrEqual(student.gpa, 0.0)
+        }
+    }
+    
+    func testValidGPAInGPAQueue(){
+        for student in gpaPriorityQueue.heap {
+            XCTAssertLessThanOrEqual(student.gpa, 4.0)
+            XCTAssertGreaterThanOrEqual(student.gpa, 0.0)
+        }
+    }
+    
+    func testValidGPAInUnitsQueue(){
+        for student in unitsPriorityQueue.heap {
+            XCTAssertLessThanOrEqual(student.gpa, 4.0)
+            XCTAssertGreaterThanOrEqual(student.gpa, 0.0)
+        }
+    }
+    
     /*
-    /// Verify that all students in the priority queue have between 0 and 150 units taken
-    func testValidUnitsTaken(){
-        for student in combinationPriorityQueue.heap {
-            XCTAssertLessThanOrEqual(student.value.unitsTaken, 150)
-            XCTAssertGreaterThanOrEqual(student.value.unitsTaken, 0)
-        }
-    }
-    
-    /// Verify that all students in the priority queue have between a 0.0 and 4.0 GPA
-    func testValidGPA(){
-        for student in combinationPriorityQueue.heap {
-            XCTAssertLessThanOrEqual(student.value.gpa, 4.0)
-            XCTAssertGreaterThanOrEqual(student.value.gpa, 0.0)
-        }
-    }
-    
     /// Verify that you cannot add a student with a GPA outside of 0.0 to 4.0
     func testInvalidGPA(){
         for i in 0..<testCount {
