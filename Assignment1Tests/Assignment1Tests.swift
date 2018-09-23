@@ -136,11 +136,26 @@ class Assignment1Tests: XCTestCase{
     
     /// Test to ensure that the priority queue size shrinks when removing students
     func testRemoveShrinksQueue(){
-        var heapCount = combinationPriorityQueue.count
-        for _ in 0..<combinationPriorityQueue.count {
-            let _ = combinationPriorityQueue.dequeue()
-            XCTAssertEqual(heapCount - 1, combinationPriorityQueue.count)
-            heapCount -= 1
+        var combinationCount = combinationPriorityQueue.count
+        var gpaCount = gpaPriorityQueue.count
+        var unitsCount = gpaPriorityQueue.count
+        let maxCount = max(combinationCount, max(gpaCount, unitsCount))
+        for _ in 0..<maxCount {
+            let combinationStudent = combinationPriorityQueue.dequeue()
+            let gpaStudent = gpaPriorityQueue.dequeue()
+            let unitsStudent = unitsPriorityQueue.dequeue()
+            XCTAssertEqual(combinationCount - 1, combinationPriorityQueue.count)
+            XCTAssertEqual(gpaCount - 1, gpaPriorityQueue.count)
+            XCTAssertEqual(unitsCount - 1, unitsPriorityQueue.count)
+            if combinationStudent != nil {
+                combinationCount -= 1
+            }
+            if gpaStudent != nil {
+                gpaCount -= 1
+            }
+            if unitsStudent != nil {
+                unitsCount -= 1
+            }
         }
     }
     
