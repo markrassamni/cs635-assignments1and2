@@ -8,7 +8,7 @@
 
 import Foundation
 
-class AddCommand<Element, S: Strategy>: Command where Element == S.Element{
+class AddCommand<Element: Equatable, S: Strategy>: Command where Element == S.Element{
     
     var priorityQueue: PriorityQueue<Element, S>
     var element: Element
@@ -22,8 +22,7 @@ class AddCommand<Element, S: Strategy>: Command where Element == S.Element{
         priorityQueue.enqueue(element)
     }
     
-    // TODO: Implement
     func undo(){
-        
+        let _ = priorityQueue.remove(element: element)
     }
 }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-class RemoveCommand<Element, S: Strategy>: Command where Element == S.Element{
+class RemoveCommand<Element: Equatable, S: Strategy>: Command where Element == S.Element{
     
     var priorityQueue: PriorityQueue<Element, S>
     var element: Element?

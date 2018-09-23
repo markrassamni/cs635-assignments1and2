@@ -9,7 +9,7 @@
 import Foundation
 
 
-class Heap<Element, S: Strategy>: Collection where S.Element == Element {
+class Heap<Element: Equatable, S: Strategy>: Collection where S.Element == Element {
     
     private(set) var nodes = [Association<Double, Element>]()
     private(set) var priorityStrategy: S
@@ -150,6 +150,22 @@ class Heap<Element, S: Strategy>: Collection where S.Element == Element {
             }
         }
         return stringRepresentation
+    }
+    
+    func remove(element: Element) -> Element? {
+        if let index = index(of: element){
+            return nodes.remove(at: index).value
+        }
+        return nil
+    }
+    
+    func index(of element: Element) -> Int?{
+        for (index, node) in nodes.enumerated(){
+            if node.value == element {
+                return index
+            }
+        }
+        return nil
     }
     
     // TODO: Should return priority order not just position in array.

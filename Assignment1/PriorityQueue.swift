@@ -8,7 +8,7 @@
 
 import Foundation
 
-class PriorityQueue<Element, S: Strategy>: Collection where S.Element == Element {
+class PriorityQueue<Element: Equatable, S: Strategy>: Collection where S.Element == Element {
     
     private(set) var heap: Heap<Element, S>
     
@@ -54,6 +54,10 @@ class PriorityQueue<Element, S: Strategy>: Collection where S.Element == Element
     
     func toString() -> String {
         return heap.toString()
+    }
+    
+    func remove(element: Element) -> Element?{
+        return heap.remove(element: element)
     }
     
     subscript(position: Int) -> Element {
