@@ -17,4 +17,9 @@ class Association <K, V> {
         self.key = key
         self.value = value
     }
+    
+//    init(element: V, strategy: Strategy) {
+//        self.value = v
+//        self.key = strategy.priority
+//    }
 }
