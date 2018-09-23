@@ -535,15 +535,25 @@ class Assignment1Tests: XCTestCase{
         XCTAssertNil(dequeuedGPA)
         XCTAssertNil(dequeuedUnits)
     }
-    /*
-    func testAddToEmptyQueue() {
-        priorityQueue.removeAll()
-        XCTAssertEqual(combinationPriorityQueue.count, 0)
-        priorityQueue.add(element: student3, priority: student3.priority)
-        XCTAssertEqual(combinationPriorityQueue.count, 1)
-        XCTAssertEqual(combinationPriorityQueue.heap[0].value, student3)
-    }
     
+    func testAddToEmptyQueue() {
+        combinationPriorityQueue = PriorityQueue(priorityStrategy: combinationStrategy)
+        gpaPriorityQueue = PriorityQueue(priorityStrategy: gpaStrategy)
+        unitsPriorityQueue = PriorityQueue(priorityStrategy: unitsStrategy)
+        XCTAssertEqual(combinationPriorityQueue.count, 0)
+        XCTAssertEqual(gpaPriorityQueue.count, 0)
+        XCTAssertEqual(unitsPriorityQueue.count, 0)
+        combinationPriorityQueue.enqueue(student3)
+        gpaPriorityQueue.enqueue(student3)
+        unitsPriorityQueue.enqueue(student3)
+        XCTAssertEqual(combinationPriorityQueue.count, 1)
+        XCTAssertEqual(gpaPriorityQueue.count, 1)
+        XCTAssertEqual(unitsPriorityQueue.count, 1)
+        XCTAssertEqual(combinationPriorityQueue.heap[0].value, student3)
+        XCTAssertEqual(gpaPriorityQueue.heap[0].value, student3)
+        XCTAssertEqual(unitsPriorityQueue.heap[0].value, student3)
+    }
+    /*
     /// Verify that all students in the priority queue have between 0 and 150 units taken
     func testValidUnitsTaken(){
         for student in combinationPriorityQueue.heap {
