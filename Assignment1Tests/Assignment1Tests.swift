@@ -631,8 +631,28 @@ class Assignment1Tests: XCTestCase{
         }
     }
     
+    func testConvertToArray(){
+        let studentsToAdd = [student4, student1, student5, student2, student3]
+        combinationPriorityQueue = PriorityQueue(priorityStrategy: combinationStrategy)
+        gpaPriorityQueue = PriorityQueue(priorityStrategy: gpaStrategy)
+        unitsPriorityQueue = PriorityQueue(priorityStrategy: unitsStrategy)
+        XCTAssertEqual(combinationPriorityQueue.count, 0)
+        XCTAssertEqual(gpaPriorityQueue.count, 0)
+        XCTAssertEqual(unitsPriorityQueue.count, 0)
+        for student in studentsToAdd{
+            combinationPriorityQueue.enqueue(student)
+            gpaPriorityQueue.enqueue(student)
+            unitsPriorityQueue.enqueue(student)
+        }
+        // Calculate by hand to find expected output
+        let expectedOutput = [student5, student3, student4, student1, student2]
+        XCTAssertEqual(expectedOutput, combinationPriorityQueue.toArray())
+        XCTAssertEqual(expectedOutput, gpaPriorityQueue.toArray())
+        XCTAssertEqual(expectedOutput, unitsPriorityQueue.toArray())
+    }
+    
     /*
-    // TODO recreate print method, not inside priority queue class
+     // TODO: recreate print method, not inside priority queue class
     /// Test to see if the order students were printed in is the correct priority order.
 //    func testPrintQueueInOrder(){
 //        let students = priorityQueue.printQueue()
