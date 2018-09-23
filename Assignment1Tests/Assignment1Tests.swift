@@ -599,8 +599,7 @@ class Assignment1Tests: XCTestCase{
         }
     }
     
-    /*
-    /// Verify that you cannot add a student with a GPA outside of 0.0 to 4.0
+    // Verify that you cannot create a student with a GPA outside of 0.0 to 4.0
     func testInvalidGPA(){
         for i in 0..<testCount {
             let gpa: Double
@@ -614,10 +613,9 @@ class Assignment1Tests: XCTestCase{
             let student = Student(name: "Gary", redId: "12492", email: "gary@gary.com", unitsTaken: 48, gpa: gpa)
             XCTAssertNil(student)
         }
-        
     }
     
-    /// Verify that you cannot add a student with a units taken outside of 0 to 150
+    // Verify that you cannot create a student with a units taken outside of 0 to 150
     func testInvalidUnitsTaken(){
         for i in 0..<testCount {
             let units: Int
@@ -633,6 +631,7 @@ class Assignment1Tests: XCTestCase{
         }
     }
     
+    /*
     // TODO recreate print method, not inside priority queue class
     /// Test to see if the order students were printed in is the correct priority order.
 //    func testPrintQueueInOrder(){
