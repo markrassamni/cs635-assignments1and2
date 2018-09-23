@@ -521,15 +521,21 @@ class Assignment1Tests: XCTestCase{
 //        XCTAssertEqual(unitsPriorityQueue.heap.highestPriorityIndex(for: 0), 0)
     }
     
-    /*
-    /// Test to verify that removing from an empty queue return nil
-    func testRemoveEmptyQueue() {
-        priorityQueue.removeAll()
+    func testRemoveEmptyQueueReturnsNil() {
+        combinationPriorityQueue = PriorityQueue(priorityStrategy: combinationStrategy)
+        gpaPriorityQueue = PriorityQueue(priorityStrategy: gpaStrategy)
+        unitsPriorityQueue = PriorityQueue(priorityStrategy: unitsStrategy)
         XCTAssertEqual(combinationPriorityQueue.count, 0)
-        let dequeuedStudent = priorityQueue.removeHighest()
-        XCTAssertNil(dequeuedStudent)
+        XCTAssertEqual(gpaPriorityQueue.count, 0)
+        XCTAssertEqual(unitsPriorityQueue.count, 0)
+        let dequeuedCombination = combinationPriorityQueue.dequeue()
+        let dequeuedGPA = gpaPriorityQueue.dequeue()
+        let dequeuedUnits = unitsPriorityQueue.dequeue()
+        XCTAssertNil(dequeuedCombination)
+        XCTAssertNil(dequeuedGPA)
+        XCTAssertNil(dequeuedUnits)
     }
-    
+    /*
     func testAddToEmptyQueue() {
         priorityQueue.removeAll()
         XCTAssertEqual(combinationPriorityQueue.count, 0)
