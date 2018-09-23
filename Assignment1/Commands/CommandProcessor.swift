@@ -10,8 +10,8 @@ import Foundation
 
 class CommandProcessor {
     
-    var pastStack = [Command]()
-    var futureStack = [Command]()
+    private(set) var pastStack = [Command]()
+    private(set) var futureStack = [Command]()
     
     func execute(command: Command){
         command.execute()
