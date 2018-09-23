@@ -27,17 +27,17 @@ class Assignment1Tests: XCTestCase{
     let combinationPriority4 = 0.7066
     let combinationPriority5 = 0.86
     
-    let gpaPriority1 = 4.0
-    let gpaPriority2 = 3.2
+    let gpaPriority1 = 0.7
+    let gpaPriority2 = 1.1
     let gpaPriority3 = 2.5
-    let gpaPriority4 = 1.1
-    let gpaPriority5 = 0.7
+    let gpaPriority4 = 3.2
+    let gpaPriority5 = 4.0
     
-    let unitsPriority1 = 120
-    let unitsPriority2 = 100
-    let unitsPriority3 = 80
-    let unitsPriority4 = 50
-    let unitsPriority5 = 20
+    let unitsPriority1 = 20.0
+    let unitsPriority2 = 50.0
+    let unitsPriority3 = 80.0
+    let unitsPriority4 = 100.0
+    let unitsPriority5 = 120.0
     
     
     // TODO: Move weights to here instead of in student class?
@@ -255,29 +255,94 @@ class Assignment1Tests: XCTestCase{
     
     
     
-    /*
-    /// Test to verify when elements are added in priority order that the priority queue prioritizes them correctly
-    func testAddInOrderElements(){
-        priorityQueue.removeAll()
+    
+    //MARK: - Tests to verify when elements are added in priority order that the priority queues prioritize them correctly
+    func testAddInOrderElementsCombination(){
+        // Create new PQ to clear all stored values to only use the 5 needed for testing
+        combinationPriorityQueue = PriorityQueue(priorityStrategy: combinationStrategy)
         XCTAssertEqual(combinationPriorityQueue.count, 0)
-        priorityQueue.add(element: student5, priority: student5.priority)
-        priorityQueue.add(element: student4, priority: student4.priority)
-        priorityQueue.add(element: student3, priority: student3.priority)
-        priorityQueue.add(element: student2, priority: student2.priority)
-        priorityQueue.add(element: student1, priority: student1.priority)
-        let dequeue1 = priorityQueue.removeHighest()
-        let dequeue2 = priorityQueue.removeHighest()
-        let dequeue3 = priorityQueue.removeHighest()
-        let dequeue4 = priorityQueue.removeHighest()
-        let dequeue5 = priorityQueue.removeHighest()
         
-        XCTAssertEqual((dequeue1?.priority)!, priority5, accuracy: 0.0001)
-        XCTAssertEqual((dequeue2?.priority)!, priority4, accuracy: 0.0001)
-        XCTAssertEqual((dequeue3?.priority)!, priority3, accuracy: 0.0001)
-        XCTAssertEqual((dequeue4?.priority)!, priority2, accuracy: 0.0001)
-        XCTAssertEqual((dequeue5?.priority)!, priority1, accuracy: 0.0001)
+        combinationPriorityQueue.enqueue(student5)
+        combinationPriorityQueue.enqueue(student4)
+        combinationPriorityQueue.enqueue(student3)
+        combinationPriorityQueue.enqueue(student2)
+        combinationPriorityQueue.enqueue(student1)
+        let dequeue1 = combinationPriorityQueue.dequeue()
+        let dequeue2 = combinationPriorityQueue.dequeue()
+        let dequeue3 = combinationPriorityQueue.dequeue()
+        let dequeue4 = combinationPriorityQueue.dequeue()
+        let dequeue5 = combinationPriorityQueue.dequeue()
+        let priority1 = combinationStrategy(dequeue1!)
+        let priority2 = combinationStrategy(dequeue2!)
+        let priority3 = combinationStrategy(dequeue3!)
+        let priority4 = combinationStrategy(dequeue4!)
+        let priority5 = combinationStrategy(dequeue5!)
+        
+        XCTAssertEqual(priority1, combinationPriority5, accuracy: 0.0001)
+        XCTAssertEqual(priority2, combinationPriority4, accuracy: 0.0001)
+        XCTAssertEqual(priority3, combinationPriority3, accuracy: 0.0001)
+        XCTAssertEqual(priority4, combinationPriority2, accuracy: 0.0001)
+        XCTAssertEqual(priority5, combinationPriority1, accuracy: 0.0001)
     }
     
+    func testAddInOrderElementsGPA(){
+        // Create new PQ to clear all stored values to only use the 5 needed for testing
+        gpaPriorityQueue = PriorityQueue(priorityStrategy: gpaStrategy)
+        XCTAssertEqual(gpaPriorityQueue.count, 0)
+        
+        gpaPriorityQueue.enqueue(student5)
+        gpaPriorityQueue.enqueue(student4)
+        gpaPriorityQueue.enqueue(student3)
+        gpaPriorityQueue.enqueue(student2)
+        gpaPriorityQueue.enqueue(student1)
+        let dequeue1 = gpaPriorityQueue.dequeue()
+        let dequeue2 = gpaPriorityQueue.dequeue()
+        let dequeue3 = gpaPriorityQueue.dequeue()
+        let dequeue4 = gpaPriorityQueue.dequeue()
+        let dequeue5 = gpaPriorityQueue.dequeue()
+        let priority1 = gpaStrategy(dequeue1!)
+        let priority2 = gpaStrategy(dequeue2!)
+        let priority3 = gpaStrategy(dequeue3!)
+        let priority4 = gpaStrategy(dequeue4!)
+        let priority5 = gpaStrategy(dequeue5!)
+        
+        XCTAssertEqual(priority1, gpaPriority5, accuracy: 0.0001)
+        XCTAssertEqual(priority2, gpaPriority4, accuracy: 0.0001)
+        XCTAssertEqual(priority3, gpaPriority3, accuracy: 0.0001)
+        XCTAssertEqual(priority4, gpaPriority2, accuracy: 0.0001)
+        XCTAssertEqual(priority5, gpaPriority1, accuracy: 0.0001)
+    }
+    
+    func testAddInOrderElementsUnits(){
+        // Create new PQ to clear all stored values to only use the 5 needed for testing
+        unitsPriorityQueue = PriorityQueue(priorityStrategy: unitsStrategy)
+        XCTAssertEqual(unitsPriorityQueue.count, 0)
+        
+        unitsPriorityQueue.enqueue(student5)
+        unitsPriorityQueue.enqueue(student4)
+        unitsPriorityQueue.enqueue(student3)
+        unitsPriorityQueue.enqueue(student2)
+        unitsPriorityQueue.enqueue(student1)
+        let dequeue1 = unitsPriorityQueue.dequeue()
+        let dequeue2 = unitsPriorityQueue.dequeue()
+        let dequeue3 = unitsPriorityQueue.dequeue()
+        let dequeue4 = unitsPriorityQueue.dequeue()
+        let dequeue5 = unitsPriorityQueue.dequeue()
+        let priority1 = unitsStrategy(dequeue1!)
+        let priority2 = unitsStrategy(dequeue2!)
+        let priority3 = unitsStrategy(dequeue3!)
+        let priority4 = unitsStrategy(dequeue4!)
+        let priority5 = unitsStrategy(dequeue5!)
+        
+        XCTAssertEqual(priority1, unitsPriority5, accuracy: 0.0001)
+        XCTAssertEqual(priority2, unitsPriority4, accuracy: 0.0001)
+        XCTAssertEqual(priority3, unitsPriority3, accuracy: 0.0001)
+        XCTAssertEqual(priority4, unitsPriority2, accuracy: 0.0001)
+        XCTAssertEqual(priority5, unitsPriority1, accuracy: 0.0001)
+    }
+    
+     
+     /*
     /// Test to verify when elements are added in reverse priority order that the priority queue prioritizes them correctly
     func testAddReverseOrderElements(){
         priorityQueue.removeAll()
