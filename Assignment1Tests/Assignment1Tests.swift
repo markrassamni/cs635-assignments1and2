@@ -651,6 +651,36 @@ class Assignment1Tests: XCTestCase{
         XCTAssertEqual(expectedOutput, unitsPriorityQueue.toArray())
     }
     
+    func testToString(){
+        let studentsToAdd = [student4, student1, student5, student2, student3]
+        combinationPriorityQueue = PriorityQueue(priorityStrategy: combinationStrategy)
+        gpaPriorityQueue = PriorityQueue(priorityStrategy: gpaStrategy)
+        unitsPriorityQueue = PriorityQueue(priorityStrategy: unitsStrategy)
+        XCTAssertEqual(combinationPriorityQueue.count, 0)
+        XCTAssertEqual(gpaPriorityQueue.count, 0)
+        XCTAssertEqual(unitsPriorityQueue.count, 0)
+        for student in studentsToAdd{
+            combinationPriorityQueue.enqueue(student)
+            gpaPriorityQueue.enqueue(student)
+            unitsPriorityQueue.enqueue(student)
+        }
+        // Calculate by hand to find expected order
+        let expectedOrder = [student5, student3, student4, student1, student2]
+        var expectedOutput = "["
+        for (index, student) in expectedOrder.enumerated() {
+            if index < expectedOrder.count - 1{
+                expectedOutput.append("\(student), ")
+            } else {
+                expectedOutput.append("\(student)]")
+            }
+        }
+        XCTAssertEqual("\(expectedOutput)", combinationPriorityQueue.toString())
+        XCTAssertEqual("\(expectedOutput)", gpaPriorityQueue.toString())
+        XCTAssertEqual("\(expectedOutput)", unitsPriorityQueue.toString())
+    }
+    
+    //TODO: Test Commands - undo, redo etc - follow directions
+    
     /*
      // TODO: recreate print method, not inside priority queue class
     /// Test to see if the order students were printed in is the correct priority order.

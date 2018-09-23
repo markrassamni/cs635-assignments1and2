@@ -145,9 +145,9 @@ class Heap<Element: Equatable>: Collection {
         var stringRepresentation = "["
         for (index, element) in nodes.enumerated() {
             if index < count - 1{
-                stringRepresentation.append("\(element), ")
+                stringRepresentation.append("\(element.value), ")
             } else {
-                stringRepresentation.append("\(element)]")
+                stringRepresentation.append("\(element.value)]")
             }
         }
         return stringRepresentation
