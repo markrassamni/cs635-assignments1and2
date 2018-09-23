@@ -11,9 +11,8 @@ import Foundation
 class GPAStrategy: Strategy {
     
     typealias Element = Student
-    private(set) var priority: Double
     
-    required init(element: Student) {
-        priority = element.gpa
+    func priority(element: Student) -> Double {
+        return element.gpa
     }
 }

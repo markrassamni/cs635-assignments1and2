@@ -9,11 +9,10 @@
 import Foundation
 
 class UnitsStrategy: Strategy {
-    
+
     typealias Element = Student
-    private(set) var priority: Double
-    
-    required init(element: Student) {
-        priority = Double(element.unitsTaken)
+
+    func priority(element: Student) -> Double {
+        return Double(element.unitsTaken)
     }
 }

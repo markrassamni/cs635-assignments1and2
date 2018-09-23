@@ -11,9 +11,8 @@ import Foundation
 class CombinationStrategy: Strategy {
     
     typealias Element = Student
-    private(set) var priority: Double
     
-    required init(element: Student) {
-        priority = Double(element.unitsTaken) * Student.unitsWeight / Double(Student.maxUnits) + element.gpa * Student.gpaWeight / Student.maxGPA
+    func priority(element: Student) -> Double {
+        return Double(element.unitsTaken) * Student.unitsWeight / Double(Student.maxUnits) + element.gpa * Student.gpaWeight / Student.maxGPA
     }
 }

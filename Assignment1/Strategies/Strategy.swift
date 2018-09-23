@@ -10,6 +10,5 @@ import Foundation
 
 protocol Strategy {
     associatedtype Element
-    var priority: Double { get }
-    init(element: Element)
+    func priority(element: Element) -> Double
 }
