@@ -9,8 +9,9 @@
 import XCTest
 @testable import Assignment1
 
-class Assignment1Tests: XCTestCase {
-    
+class Assignment1Tests<C: CombinationStrategy, G: GPAStrategy, U: UnitsStrategy>: XCTestCase where C.Element == Student, G.Element == Student, U.Element == Student{
+//class Assignment1Tests<S: Strategy>: XCTestCase where S.Element == Student{
+
     let testCount = 10000
     
     // Students to test with, in ascending priority order
@@ -20,7 +21,7 @@ class Assignment1Tests: XCTestCase {
     let student4: Student = Student(name: "Eddie", redId: "5", email: "eddie@eddie.com", unitsTaken: 100, gpa: 3.2)!
     let student5: Student = Student(name: "Mark", redId: "81723", email: "mark@mark.com", unitsTaken: 120, gpa: 4.0)!
     
-    // Priorities of the above students
+    // Respective priorities to the above students
     let priority1 = 0.1458
     let priority2 = 0.3158
     let priority3 = 0.5608
@@ -28,26 +29,35 @@ class Assignment1Tests: XCTestCase {
     let priority5 = 0.86
     
     
-    var priorityQueue: PriorityQueue<Student>!
+    var combinationPriorityQueue: PriorityQueue<Student, C>!
+    var gpaPriorityQueue: PriorityQueue<Student, G>!
+    var unitsPriorityQueue: PriorityQueue<Student, U>!
     var currentID: Int = 1
     
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        // Make sure priorityQueue is nil before each test run configures it below.
-        XCTAssertNil(priorityQueue)
-        // Init the priority queue and start numbering RedIDs at 1
-        priorityQueue = PriorityQueue()
-        XCTAssertEqual(priorityQueue.count, 0)
+        // Make sure priority queues are nil before each test run configures them below.
+        XCTAssertNil(combinationPriorityQueue)
+//        XCTAssertNil(gpaPriorityQueue)
+//        XCTAssertNil(unitsPriorityQueue)
+        // Init the priority queues and start numbering RedIDs at 1
+        combinationPriorityQueue = PriorityQueue<Student, C>(priorityStrategy: CombinationStrategy() as! C)
+        gpaPriorityQueue = PriorityQueue(priorityStrategy: GPAStrategy() as! G)
+        unitsPriorityQueue = PriorityQueue(priorityStrategy: UnitsStrategy() as! U)
+        XCTAssertEqual(combinationPriorityQueue.count, 0)
         currentID = 1
-        // Add provided amount of random students to the queue to test with
+        // Add provided amount of random students to the queues to test with
         addRandomStudents(count: testCount)
     }
     
+    
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
-        // Nullify priorityQueue and reset currentID to ensure values don't remain for future tests
-        priorityQueue = nil
+        // Nullify priority queues and reset currentID to ensure values don't remain for future tests
+        combinationPriorityQueue = nil
+        gpaPriorityQueue = nil
+        unitsPriorityQueue = nil
         currentID = 1
         super.tearDown()
     }
@@ -62,27 +72,29 @@ class Assignment1Tests: XCTestCase {
             let gpa = (Double(arc4random()) / 0xFFFFFFFF) * 4.0
             if let student = Student(name: name, redId: redID, email: email, unitsTaken: unitsTaken, gpa: gpa){
                 currentID += 1
-                priorityQueue.add(element: student, priority: student.priority)
+                combinationPriorityQueue.enqueue(student)
+                gpaPriorityQueue.enqueue(student)
+                unitsPriorityQueue.enqueue(student)
             }
         }
     }
     
     /// Test to ensure that the priority queue size grows when adding students
     func testAddGrowsQueue(){
-        var heapCount = priorityQueue.count
+        var heapCount = combinationPriorityQueue.count
         for _ in 0..<testCount {
             addRandomStudents(count: 1)
-            XCTAssertEqual(heapCount + 1, priorityQueue.count)
+            XCTAssertEqual(heapCount + 1, combinationPriorityQueue.count)
             heapCount += 1
         }
     }
-    
+    /*
     /// Test to ensure that the priority queue size shrinks when removing students
     func testRemoveShrinksQueue(){
-        var heapCount = priorityQueue.count
-        for _ in 0..<priorityQueue.count {
-            let _ = priorityQueue.removeHighest()
-            XCTAssertEqual(heapCount - 1, priorityQueue.count)
+        var heapCount = combinationPriorityQueue.count
+        for _ in 0..<combinationPriorityQueue.count {
+            let _ = combinationPriorityQueue.removeHighest()
+            XCTAssertEqual(heapCount - 1, combinationPriorityQueue.count)
             heapCount -= 1
         }
     }
@@ -90,8 +102,8 @@ class Assignment1Tests: XCTestCase {
     /// Test to verify that removing students always removes the highest priority first
     func testRemoveOrder(){
         var queue = [Double]()
-        for i in 0..<priorityQueue.count {
-            let student = priorityQueue.getHighestPriority()
+        for i in 0..<combinationPriorityQueue.count {
+            let student = combinationPriorityQueue.getHighestPriority()
             queue.append((student?.priority)!)
             if i > 0 {
                 XCTAssertGreaterThanOrEqual(queue[i-1], queue[i])
@@ -102,9 +114,9 @@ class Assignment1Tests: XCTestCase {
     /// Test to verify that code can return the correct highest priority element with random elements added in random priority order
     func testGetHighestElement() {
         var highest: Double = 0.0
-        for i in 0..<priorityQueue.count {
-            if priorityQueue.heap[i].key > highest {
-                highest = priorityQueue.heap[i].key
+        for i in 0..<combinationPriorityQueue.count {
+            if combinationPriorityQueue.heap[i].key > highest {
+                highest = combinationPriorityQueue.heap[i].key
             }
         }
         XCTAssertEqual(priorityQueue.getHighestPriority()?.priority, highest)
@@ -113,7 +125,7 @@ class Assignment1Tests: XCTestCase {
     /// Test to verify when elements are added in priority order that the priority queue prioritizes them correctly
     func testAddInOrderElements(){
         priorityQueue.removeAll()
-        XCTAssertEqual(priorityQueue.count, 0)
+        XCTAssertEqual(combinationPriorityQueue.count, 0)
         priorityQueue.add(element: student5, priority: student5.priority)
         priorityQueue.add(element: student4, priority: student4.priority)
         priorityQueue.add(element: student3, priority: student3.priority)
@@ -135,7 +147,7 @@ class Assignment1Tests: XCTestCase {
     /// Test to verify when elements are added in reverse priority order that the priority queue prioritizes them correctly
     func testAddReverseOrderElements(){
         priorityQueue.removeAll()
-        XCTAssertEqual(priorityQueue.count, 0)
+        XCTAssertEqual(combinationPriorityQueue.count, 0)
         priorityQueue.add(element: student1, priority: student1.priority)
         priorityQueue.add(element: student2, priority: student2.priority)
         priorityQueue.add(element: student3, priority: student3.priority)
@@ -157,7 +169,7 @@ class Assignment1Tests: XCTestCase {
     /// Test to verify when elements are added in random priority order that the priority queue prioritizes them correctly
     func testAddRandomOrderElements(){
         priorityQueue.removeAll()
-        XCTAssertEqual(priorityQueue.count, 0)
+        XCTAssertEqual(combinationPriorityQueue.count, 0)
         var students = [student1, student2, student3, student4, student5]
         for _ in 0..<students.count {
             let index = Int(arc4random_uniform(UInt32(students.count)))
@@ -184,22 +196,22 @@ class Assignment1Tests: XCTestCase {
     /// Test to verify that removing from an empty queue return nil
     func testRemoveEmptyQueue() {
         priorityQueue.removeAll()
-        XCTAssertEqual(priorityQueue.count, 0)
+        XCTAssertEqual(combinationPriorityQueue.count, 0)
         let dequeuedStudent = priorityQueue.removeHighest()
         XCTAssertNil(dequeuedStudent)
     }
     
     func testAddToEmptyQueue() {
         priorityQueue.removeAll()
-        XCTAssertEqual(priorityQueue.count, 0)
+        XCTAssertEqual(combinationPriorityQueue.count, 0)
         priorityQueue.add(element: student3, priority: student3.priority)
-        XCTAssertEqual(priorityQueue.count, 1)
-        XCTAssertEqual(priorityQueue.heap[0].value, student3)
+        XCTAssertEqual(combinationPriorityQueue.count, 1)
+        XCTAssertEqual(combinationPriorityQueue.heap[0].value, student3)
     }
     
     /// Verify that all students in the priority queue have between 0 and 150 units taken
     func testValidUnitsTaken(){
-        for student in priorityQueue.heap {
+        for student in combinationPriorityQueue.heap {
             XCTAssertLessThanOrEqual(student.value.unitsTaken, 150)
             XCTAssertGreaterThanOrEqual(student.value.unitsTaken, 0)
         }
@@ -207,7 +219,7 @@ class Assignment1Tests: XCTestCase {
     
     /// Verify that all students in the priority queue have between a 0.0 and 4.0 GPA
     func testValidGPA(){
-        for student in priorityQueue.heap {
+        for student in combinationPriorityQueue.heap {
             XCTAssertLessThanOrEqual(student.value.gpa, 4.0)
             XCTAssertGreaterThanOrEqual(student.value.gpa, 0.0)
         }
@@ -256,4 +268,5 @@ class Assignment1Tests: XCTestCase {
 //            previousPriority = student.priority()
 //        }
 //    }
+ */
 }
