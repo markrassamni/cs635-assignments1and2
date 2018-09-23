@@ -51,6 +51,8 @@ class Assignment1Tests: XCTestCase{
         Double(student.unitsTaken)
     }
     
+    var commandProcessor: CommandProcessor!
+    
     var combinationPriorityQueue: PriorityQueue<Student>!
     var gpaPriorityQueue: PriorityQueue<Student>!
     var unitsPriorityQueue: PriorityQueue<Student>!
@@ -63,16 +65,21 @@ class Assignment1Tests: XCTestCase{
         XCTAssertNil(combinationPriorityQueue)
         XCTAssertNil(gpaPriorityQueue)
         XCTAssertNil(unitsPriorityQueue)
+        XCTAssertNil(commandProcessor)
+        XCTAssertNil(commandProcessor)
         // Init the priority queues and start numbering RedIDs at 1
         combinationPriorityQueue = PriorityQueue(priorityStrategy: combinationStrategy)
         gpaPriorityQueue = PriorityQueue(priorityStrategy: gpaStrategy)
         unitsPriorityQueue = PriorityQueue(priorityStrategy: unitsStrategy)
+        commandProcessor = CommandProcessor()
         XCTAssertNotNil(combinationPriorityQueue)
         XCTAssertNotNil(gpaPriorityQueue)
         XCTAssertNotNil(unitsPriorityQueue)
         XCTAssertEqual(combinationPriorityQueue.count, 0)
         XCTAssertEqual(gpaPriorityQueue.count, 0)
         XCTAssertEqual(unitsPriorityQueue.count, 0)
+        XCTAssertEqual(commandProcessor.pastStack.count, 0)
+        XCTAssertEqual(commandProcessor.futureStack.count, 0)
         currentID = 1
         // Add provided amount of random students to the queues to test with
         addRandomStudents(count: testCount)
@@ -84,6 +91,7 @@ class Assignment1Tests: XCTestCase{
         combinationPriorityQueue = nil
         gpaPriorityQueue = nil
         unitsPriorityQueue = nil
+        commandProcessor = nil
         currentID = 1
         super.tearDown()
     }
@@ -98,27 +106,16 @@ class Assignment1Tests: XCTestCase{
             let gpa = (Double(arc4random()) / 0xFFFFFFFF) * 4.0
             if let student = Student(name: name, redId: redID, email: email, unitsTaken: unitsTaken, gpa: gpa){
                 currentID += 1
-                combinationPriorityQueue.enqueue(student)
-                gpaPriorityQueue.enqueue(student)
-                unitsPriorityQueue.enqueue(student)
+                let addCombinationCommand = AddCommand(priorityQueue: combinationPriorityQueue, element: student)
+                let addGPACommand = AddCommand(priorityQueue: gpaPriorityQueue, element: student)
+                let addUnitsCommand = AddCommand(priorityQueue: unitsPriorityQueue, element: student)
+                commandProcessor.execute(command: addCombinationCommand)
+                commandProcessor.execute(command: addGPACommand)
+                commandProcessor.execute(command: addUnitsCommand)
             }
         }
     }
     
-    /*
-    func testGetPriority(){
-        let p = priority(for: student1, with: GPAStrategy() as! S)
-        print(p)
-    }
-    
-    func priority(for student: Student, with strategy: S) -> Double {
-        return 2.0
-        
-        
-    }
- */
-    
-    /// Test to ensure that the priority queue sizes grow when adding students
     func testAddGrowsQueue(){
         var combinationCount = combinationPriorityQueue.count
         var gpaCount = gpaPriorityQueue.count
