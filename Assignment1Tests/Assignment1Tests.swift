@@ -160,12 +160,11 @@ class Assignment1Tests: XCTestCase{
     }
     
     //MARK: - Tests to verify that removing students always removes the highest priority first
-    // TODO: Check Wiki and see if we can just return association and do association.key to get priority for all of the below tests
     func testRemoveOrderCombination(){
         var queue = [Double]()
         for i in 0..<combinationPriorityQueue.count {
             if let student = combinationPriorityQueue.dequeue() {
-                let priority = CombinationStrategy().priority(element: student)
+                let priority = combinationStrategy(student)
                 queue.append(priority)
                 if i > 0 {
                     XCTAssertGreaterThanOrEqual(queue[i-1], queue[i])
@@ -180,7 +179,7 @@ class Assignment1Tests: XCTestCase{
         var queue = [Double]()
         for i in 0..<gpaPriorityQueue.count {
             if let student = gpaPriorityQueue.dequeue() {
-                let priority = GPAStrategy().priority(element: student)
+                let priority = gpaStrategy(student)
                 queue.append(priority)
                 if i > 0 {
                     XCTAssertGreaterThanOrEqual(queue[i-1], queue[i])
@@ -195,7 +194,7 @@ class Assignment1Tests: XCTestCase{
         var queue = [Double]()
         for i in 0..<unitsPriorityQueue.count {
             if let student = unitsPriorityQueue.dequeue() {
-                let priority = UnitsStrategy().priority(element: student)
+                let priority = unitsStrategy(student)
                 queue.append(priority)
                 if i > 0 {
                     XCTAssertGreaterThanOrEqual(queue[i-1], queue[i])
