@@ -206,18 +206,56 @@ class Assignment1Tests: XCTestCase{
     }
     
     
-    /*
-    /// Test to verify that code can return the correct highest priority element with random elements added in random priority order
-    func testGetHighestElement() {
-        var highest: Double = 0.0
+    
+    //MARK: - Tests to verify that code can return the correct highest priority element with random elements added in random priority order
+    func testGetHighestElementCombination() {
+        var highestPriority: Double = 0.0
         for i in 0..<combinationPriorityQueue.count {
-            if combinationPriorityQueue.heap[i].key > highest {
-                highest = combinationPriorityQueue.heap[i].key
+            if combinationPriorityQueue.heap[i].key > highestPriority {
+                highestPriority = combinationPriorityQueue.heap[i].key
             }
         }
-        XCTAssertEqual(priorityQueue.getHighestPriority()?.priority, highest)
+        if let dequeuedStudent = combinationPriorityQueue.dequeue() {
+            let dequeuedPriority = combinationStrategy(dequeuedStudent)
+            XCTAssertEqual(dequeuedPriority, highestPriority)
+        } else {
+            XCTAssertTrue(false)
+        }
     }
     
+    func testGetHighestElementGPA() {
+        var highestPriority: Double = 0.0
+        for i in 0..<gpaPriorityQueue.count {
+            if gpaPriorityQueue.heap[i].key > highestPriority {
+                highestPriority = gpaPriorityQueue.heap[i].key
+            }
+        }
+        if let dequeuedStudent = gpaPriorityQueue.dequeue() {
+            let dequeuedPriority = gpaStrategy(dequeuedStudent)
+            XCTAssertEqual(dequeuedPriority, highestPriority)
+        } else {
+            XCTAssertTrue(false)
+        }
+    }
+    
+    func testGetHighestElementUnits() {
+        var highestPriority: Double = 0.0
+        for i in 0..<unitsPriorityQueue.count {
+            if unitsPriorityQueue.heap[i].key > highestPriority {
+                highestPriority = unitsPriorityQueue.heap[i].key
+            }
+        }
+        if let dequeuedStudent = unitsPriorityQueue.dequeue() {
+            let dequeuedPriority = unitsStrategy(dequeuedStudent)
+            XCTAssertEqual(dequeuedPriority, highestPriority)
+        } else {
+            XCTAssertTrue(false)
+        }
+    }
+    
+    
+    
+    /*
     /// Test to verify when elements are added in priority order that the priority queue prioritizes them correctly
     func testAddInOrderElements(){
         priorityQueue.removeAll()
