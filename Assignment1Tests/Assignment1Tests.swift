@@ -9,7 +9,8 @@
 import XCTest
 @testable import Assignment1
 
-class Assignment1Tests<C: CombinationStrategy, G: GPAStrategy, U: UnitsStrategy>: XCTestCase where C.Element == Student, G.Element == Student, U.Element == Student{
+//class Assignment1Tests<C: CombinationStrategy, G: GPAStrategy, U: UnitsStrategy, S: Strategy>: XCTestCase where C.Element == Student, G.Element == Student, U.Element == Student{
+class Assignment1Tests: XCTestCase{
 
     let testCount = 10000
     
@@ -40,10 +41,43 @@ class Assignment1Tests<C: CombinationStrategy, G: GPAStrategy, U: UnitsStrategy>
     let unitsPriority5 = 20
     
     
-    var combinationPriorityQueue: PriorityQueue<Student, C>!
-    var gpaPriorityQueue: PriorityQueue<Student, G>!
-    var unitsPriorityQueue: PriorityQueue<Student, U>!
+    // TODO: Move weights to here instead of in student class?
+    let combinationStrategy = { (student: Student) -> Double in
+        Double(student.unitsTaken) * Student.unitsWeight / Double(Student.maxUnits) + student.gpa * Student.gpaWeight / Student.maxGPA
+    }
+    let gpaStrategy = { (student: Student) -> Double in
+        student.gpa
+    }
+    let unitsStrategy = { (student: Student) -> Double in
+        Double(student.unitsTaken)
+    }
+    
+    var combinationPriorityQueue: PriorityQueue<Student>!
+    var gpaPriorityQueue: PriorityQueue<Student>!
+    var unitsPriorityQueue: PriorityQueue<Student>!
     var currentID: Int = 1
+    
+    
+//    var a: PriorityQueue<Student, S>!
+    
+    func genericHelper<T>(strat: T){
+        let p = priority(for: student1, with: GPAStrategy())
+//        self.a = PriorityQueue(priorityStrategy: T)
+    }
+    
+//    @objc override class func initialize(){
+//
+//    }
+    
+
+    
+    func ab(){
+        genericHelper(strat: GPAStrategy())
+    }
+    
+    func priority(for: Student, with: GPAStrategy){
+        
+    }
     
     override func setUp() {
         super.setUp()
@@ -53,22 +87,43 @@ class Assignment1Tests<C: CombinationStrategy, G: GPAStrategy, U: UnitsStrategy>
         XCTAssertNil(gpaPriorityQueue)
         XCTAssertNil(unitsPriorityQueue)
         // Init the priority queues and start numbering RedIDs at 1
-        combinationPriorityQueue = PriorityQueue(priorityStrategy: CombinationStrategy() as! C)
-        gpaPriorityQueue = PriorityQueue(priorityStrategy: GPAStrategy() as! G)
-        unitsPriorityQueue = PriorityQueue(priorityStrategy: UnitsStrategy() as! U)
+        combinationPriorityQueue = PriorityQueue(priorityStrategy: combinationStrategy)
+        gpaPriorityQueue = PriorityQueue(priorityStrategy: gpaStrategy)
+        unitsPriorityQueue = PriorityQueue(priorityStrategy: unitsStrategy)
+        XCTAssertNotNil(combinationPriorityQueue)
+        XCTAssertNotNil(gpaPriorityQueue)
+        XCTAssertNotNil(unitsPriorityQueue)
         XCTAssertEqual(combinationPriorityQueue.count, 0)
+        XCTAssertEqual(gpaPriorityQueue.count, 0)
+        XCTAssertEqual(unitsPriorityQueue.count, 0)
         currentID = 1
         // Add provided amount of random students to the queues to test with
-        addRandomStudents(count: testCount)
+//        addRandomStudents(count: testCount)
+    }
+    
+    func testAdd(){
+        print(1)
+        print(2)
+    }
+    
+    func newPQ(){
+        let student1: Student = Student(name: "Ryan", redId: "1230", email: "ryan@ryan.com", unitsTaken: 20, gpa: 0.7)!
+        let priorityFunction = { (student: Student) -> Double in
+            student.gpa
+        }
+//        let pq = PriorityQueue<Student, S>(priorityFunction: priorityFunction)
+//        combinationPriorityQueue = PriorityQueue(priorityStrategy: priorityFunction)
+//        pq.enqueue(student1)
+//        combinationPriorityQueue.enqueue(student1)
     }
     
     
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         // Nullify priority queues and reset currentID to ensure values don't remain for future tests
-        combinationPriorityQueue = nil
-        gpaPriorityQueue = nil
-        unitsPriorityQueue = nil
+//        combinationPriorityQueue = nil
+//        gpaPriorityQueue = nil
+//        unitsPriorityQueue = nil
         currentID = 1
         super.tearDown()
     }
@@ -84,11 +139,24 @@ class Assignment1Tests<C: CombinationStrategy, G: GPAStrategy, U: UnitsStrategy>
             if let student = Student(name: name, redId: redID, email: email, unitsTaken: unitsTaken, gpa: gpa){
                 currentID += 1
                 combinationPriorityQueue.enqueue(student)
-                gpaPriorityQueue.enqueue(student)
-                unitsPriorityQueue.enqueue(student)
+//                gpaPriorityQueue.enqueue(student)
+//                unitsPriorityQueue.enqueue(student)
             }
         }
     }
+    /*
+    /*
+    func testGetPriority(){
+        let p = priority(for: student1, with: GPAStrategy() as! S)
+        print(p)
+    }
+    
+    func priority(for student: Student, with strategy: S) -> Double {
+        return 2.0
+        
+        
+    }
+ */
     
     /// Test to ensure that the priority queue size grows when adding students
     func testAddGrowsQueue(){
@@ -111,6 +179,7 @@ class Assignment1Tests<C: CombinationStrategy, G: GPAStrategy, U: UnitsStrategy>
     }
     
     //MARK: - Tests to verify that removing students always removes the highest priority first
+    // TODO: Check Wiki and see if we can just return association and do association.key to get priority for all of the below tests
     func testRemoveOrderCombination(){
         var queue = [Double]()
         for i in 0..<combinationPriorityQueue.count {
@@ -316,4 +385,6 @@ class Assignment1Tests<C: CombinationStrategy, G: GPAStrategy, U: UnitsStrategy>
 //        }
 //    }
  */
+ */
 }
+
