@@ -128,18 +128,13 @@ class Heap<Element, S: Strategy>: Collection where S.Element == Element {
         return nil
     }
     
-//     TODO: Implement function
-//    func toArray() -> [Element]{
-//        var nodesAsArray: [Element]
-//        for node in nodes {
-//            let val = node.value
-//            nodesAsArray.append(val)
-////            if let element = node.value as? Element {
-////                nodesAsArray.append(element)
-////            }
-//        }
-//        return nodesAsArray
-//    }
+    func toArray() -> [Element]{
+        var nodesAsArray = [Element]()
+        for node in nodes {
+            nodesAsArray.append(node.value)
+        }
+        return nodesAsArray
+    }
     
     // TODO: Implement function
     // https://docs.oracle.com/javase/7/docs/api/java/util/AbstractCollection.html#toString()
@@ -163,7 +158,7 @@ class Heap<Element, S: Strategy>: Collection where S.Element == Element {
         return nodes[position]
     }
     
-    // TODO: Pick a subscript to remove. Keep this one I think.
+    // TODO: Pick a subscript to remove. Keep this one I think. Might need both? Try commenting out the other
     subscript(position: Int) -> Element {
         return nodes[position].value
     }

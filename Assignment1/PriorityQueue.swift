@@ -48,10 +48,9 @@ class PriorityQueue<Element, S: Strategy>: Collection where S.Element == Element
         return heap.remove()
     }
     
-    // TODO: Implement toArray
-//    func toArray() -> [Element] {
-//        return heap.toArray()
-//    }
+    func toArray() -> [Element] {
+        return heap.toArray()
+    }
     
     func toString() -> String {
         return heap.toString()
