@@ -253,9 +253,7 @@ class Assignment1Tests: XCTestCase{
         }
     }
     
-    
-    
-    
+    // TODO: Replace the priorities comparison with just comparing to the student itself
     //MARK: - Tests to verify when elements are added in priority order that the priority queues prioritize them correctly
     func testAddInOrderElementsCombination(){
         // Create new PQ to clear all stored values to only use the 5 needed for testing
@@ -516,12 +514,13 @@ class Assignment1Tests: XCTestCase{
         XCTAssertEqual(priority5, unitsPriority1, accuracy: 0.0001)
     }
     
-    /*
-    /// Test to verify the root node has higher priority than both its children
     func testRootPriorityOverChildren() {
-        XCTAssertEqual(priorityQueue.highestPriorityIndex(for: 0), 0)
+        XCTAssertEqual(combinationPriorityQueue.heap.highestPriorityIndex(for: 0), 0)
+        XCTAssertEqual(gpaPriorityQueue.heap.highestPriorityIndex(for: 0), 0)
+        XCTAssertEqual(unitsPriorityQueue.heap.highestPriorityIndex(for: 0), 0)
     }
     
+    /*
     /// Test to verify that removing from an empty queue return nil
     func testRemoveEmptyQueue() {
         priorityQueue.removeAll()
