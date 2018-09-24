@@ -26,7 +26,6 @@ class Heap<Element: Equatable>: Collection {
         return nodes.first?.value
     }
     
-    // TODO start and end index based on priority? or just of heap?
     var startIndex: Int {
         return nodes.startIndex
     }
@@ -40,7 +39,6 @@ class Heap<Element: Equatable>: Collection {
         self.priorityStrategy = strategy
     }
     
-    // TODO return index of next element in priority order
     func index(after i: Int) -> Int {
         return i+1
     }
@@ -61,7 +59,6 @@ class Heap<Element: Equatable>: Collection {
         return (index - 1) / 2
     }
     
-    // TODO test this function. PQ is passing in a association not an element
     func add(_ element: Element){
         let priority = priorityStrategy(element)
         let association = Association(key: priority, value: element)
