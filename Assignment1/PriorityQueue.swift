@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+// TODO: Implement iterator
 class PriorityQueue<Element: Equatable>: Collection {
     
     private(set) var heap: Heap<Element>
@@ -74,5 +74,18 @@ class PriorityQueue<Element: Equatable>: Collection {
 extension PriorityQueue: Equatable {
     static func == (lhs: PriorityQueue<Element>, rhs: PriorityQueue<Element>) -> Bool {
         return lhs.heap == rhs.heap
+    }
+}
+
+extension PriorityQueue {
+    // TODO: testing with commands create copy of states and assertequal current to state, have to reimpliment equatable prot
+    func copy() -> PriorityQueue?{
+        guard let copy = PriorityQueue(priorityStrategy: self.priorityStrategy) else {
+            return nil
+        }
+        for element in self {
+            copy.enqueue(element)
+        }
+        return copy
     }
 }

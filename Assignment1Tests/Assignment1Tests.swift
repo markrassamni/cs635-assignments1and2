@@ -1085,17 +1085,3 @@ class Assignment1Tests: XCTestCase{
         }
     }
 }
-
-fileprivate extension PriorityQueue where Element == Student {
-    // TODO: testing with commands create copy of states and assertequal current to state, have to reimpliment equatable prot
-    func copy() -> PriorityQueue<Student>?{
-        guard let copy = PriorityQueue<Student>(priorityStrategy: self.priorityStrategy) else {
-            return nil
-        }
-        for student in self {
-            copy.enqueue(student)
-        }
-        return copy
-    }
-}
-
