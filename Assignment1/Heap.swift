@@ -83,13 +83,12 @@ class Heap<Element: Equatable>: Collection, IteratorProtocol {
         moveUp(nodeAtIndex: parentIndex)
     }
     
-    /// Remove and return the node with the highest priority
-    func remove() -> Element?{
+    func removeFirst() -> Element?{
         if isEmpty { return nil }
         if count == 1 {
             return nodes.removeLast().value
         }
-        swapElement(at: 0, with: count - 1) // Swap highest priority node with last node in the heap
+        swapElement(at: 0, with: count - 1)
         let node = nodes.removeLast().value
         moveDown(nodeAtIndex: 0) // Move the newly placed first node into its correct position
         return node
@@ -183,7 +182,7 @@ class Heap<Element: Equatable>: Collection, IteratorProtocol {
     }
     
     func next() -> Element? {
-        return remove()
+        return removeFirst()
     }
 
     subscript(position: Int) -> Element {

@@ -50,7 +50,7 @@ class PriorityQueue<Element: Equatable>: Collection, IteratorProtocol {
     }
     
     func dequeue() -> Element? {
-        return heap.remove()
+        return heap.removeFirst()
     }
     
     func toArray() -> [Element] {
@@ -61,7 +61,6 @@ class PriorityQueue<Element: Equatable>: Collection, IteratorProtocol {
         return heap.toString()
     }
     
-    // Used for removing a specific element with the undo command
     func remove(element: Element) -> Element?{
         return heap.remove(element: element)
     }
