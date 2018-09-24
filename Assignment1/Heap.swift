@@ -49,7 +49,7 @@ class Heap<Element: Equatable>: Collection {
     }
     
     func index(after i: Int) -> Int {
-        return i+1
+        return nodes.index(after: i)
     }
     
     func isRoot(index: Int) -> Bool {
