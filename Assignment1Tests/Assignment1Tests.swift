@@ -744,16 +744,19 @@ class Assignment1Tests: XCTestCase{
     func testAddRemoveUndoCombination(){
         combinationPriorityQueue = PriorityQueue(priorityStrategy: combinationStrategy)
         commandProcessor = CommandProcessor()
+        let state1 = combinationPriorityQueue.copy()
         XCTAssertEqual(combinationPriorityQueue.count, 0)
         XCTAssertEqual(commandProcessor.futureStack.count, 0)
         XCTAssertEqual(commandProcessor.pastStack.count, 0)
         
         addStudents(to: combinationPriorityQueue, count: 10)
+        let state2 = combinationPriorityQueue.copy()
         XCTAssertEqual(combinationPriorityQueue.count, 10)
         XCTAssertEqual(commandProcessor.futureStack.count, 0)
         XCTAssertEqual(commandProcessor.pastStack.count, 10)
         
         removeStudents(from: combinationPriorityQueue, count: 4)
+        let state3 = combinationPriorityQueue.copy()
         XCTAssertEqual(combinationPriorityQueue.count, 6)
         XCTAssertEqual(commandProcessor.futureStack.count, 0)
         XCTAssertEqual(commandProcessor.pastStack.count, 14)
@@ -771,6 +774,9 @@ class Assignment1Tests: XCTestCase{
             XCTAssertEqual(commandProcessor.futureStack.count, index + 1)
             XCTAssertEqual(commandProcessor.pastStack.count, pastStackCount1 - index - 1)
         }
+        // FIXME: Undoing an Add needs to resort the priorityqueue back to how it was before the add
+        XCTAssertEqual(combinationPriorityQueue, state3)
+        XCTAssertFalse(combinationPriorityQueue === state3)
         
         let queueCount2 = combinationPriorityQueue.count
         let pastStackCount2 = commandProcessor.pastStack.count
@@ -781,6 +787,8 @@ class Assignment1Tests: XCTestCase{
             XCTAssertEqual(commandProcessor.futureStack.count, futureStackCount1 + index + 1)
             XCTAssertEqual(commandProcessor.pastStack.count, pastStackCount2 - index - 1)
         }
+        XCTAssertEqual(combinationPriorityQueue, state2)
+        XCTAssertFalse(combinationPriorityQueue === state2)
         
         let queueCount3 = combinationPriorityQueue.count
         let pastStackCount3 = commandProcessor.pastStack.count
@@ -791,6 +799,8 @@ class Assignment1Tests: XCTestCase{
             XCTAssertEqual(commandProcessor.futureStack.count, futureStackCount2 + index + 1)
             XCTAssertEqual(commandProcessor.pastStack.count, pastStackCount3 - index - 1)
         }
+        XCTAssertEqual(combinationPriorityQueue, state1)
+        XCTAssertFalse(combinationPriorityQueue === state1)
     }
     
     func testAddRemoveUndoGPA(){
@@ -897,6 +907,7 @@ class Assignment1Tests: XCTestCase{
         }
     }
     
+    // MARK: - Tests for redo command
     func testRedoCombination(){
         combinationPriorityQueue = PriorityQueue(priorityStrategy: combinationStrategy)
         commandProcessor = CommandProcessor()

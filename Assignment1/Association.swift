@@ -18,3 +18,9 @@ class Association <K, V> {
         self.value = value
     }
 }
+
+extension Association: Equatable where K: Equatable, V: Equatable{
+    static func == (lhs: Association<K, V>, rhs: Association<K, V>) -> Bool {
+        return lhs.key == rhs.key && lhs.value == rhs.value
+    }
+}

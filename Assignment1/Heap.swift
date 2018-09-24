@@ -34,6 +34,15 @@ class Heap<Element: Equatable>: Collection {
         return nodes.endIndex
     }
     
+    // TODO: Change parameter to (T, T) -> Bool
+    //Call with something like this:
+    /*
+     let minGpaStrategy = { (student1: Student, student2: Student) -> Bool in
+        student1.gpa < student2.gpa
+    }
+     
+     Then the isHigherPriorityFunction calls strategy(2 comparables)
+ */
     init?<T: Equatable>(priorityStrategy: @escaping (T) -> Double) {
         guard let strategy = priorityStrategy as? (Element) -> Double else { return nil }
         self.priorityStrategy = strategy
@@ -101,6 +110,9 @@ class Heap<Element: Equatable>: Collection {
         nodes.swapAt(firstIndex, secondIndex)
     }
     
+    // TODO: Should init also take > or < for min/max heap as well as the priority?
+//    https://stackoverflow.com/questions/30017400/set-a-variable-to-the-less-than-operator-as-a-function-in-swift
+    
     func isHigherPriority(at firstIndex: Int, than secondIndex: Int) -> Bool {
         return nodes[firstIndex].key > nodes[secondIndex].key
     }
@@ -165,5 +177,11 @@ class Heap<Element: Equatable>: Collection {
 
     subscript(position: Int) -> Element {
         return nodes[position].value
+    }
+}
+
+extension Heap: Equatable {
+    static func == (lhs: Heap<Element>, rhs: Heap<Element>) -> Bool {
+        return lhs.nodes == rhs.nodes
     }
 }
