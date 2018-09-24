@@ -715,6 +715,78 @@ class Assignment1Tests: XCTestCase{
         }
     }
     
-    //TODO: Test Commands - undo, redo etc - follow directions
+    func addStudents(to priorityQueue: PriorityQueue<Student>, count: Int){
+        for _ in 0..<count {
+            let name = "Name_\(currentID)"
+            let redID = "\(currentID)"
+            let email = "\(name)@gmail.com"
+            let unitsTaken = Int(arc4random_uniform(151))
+            let gpa = (Double(arc4random()) / 0xFFFFFFFF) * 4.0
+            if let student = Student(name: name, redId: redID, email: email, unitsTaken: unitsTaken, gpa: gpa){
+                currentID += 1
+                let addCommand = AddCommand(priorityQueue: priorityQueue, element: student)
+                commandProcessor.execute(command: addCommand)
+            }
+        }
+    }
+    
+    func removeStudents(from priorityQueue: PriorityQueue<Student>, count: Int) {
+        for _ in 0..<count {
+            let removeCommand = RemoveCommand(priorityQueue: priorityQueue)
+            commandProcessor.execute(command: removeCommand)
+        }
+    }
+    
+    func testAddRemoveUndoCombination(){
+        combinationPriorityQueue = PriorityQueue(priorityStrategy: combinationStrategy)
+        commandProcessor = CommandProcessor()
+        XCTAssertEqual(combinationPriorityQueue.count, 0)
+        XCTAssertEqual(commandProcessor.futureStack.count, 0)
+        XCTAssertEqual(commandProcessor.pastStack.count, 0)
+        
+        addStudents(to: combinationPriorityQueue, count: 10)
+        XCTAssertEqual(combinationPriorityQueue.count, 10)
+        XCTAssertEqual(commandProcessor.futureStack.count, 0)
+        XCTAssertEqual(commandProcessor.pastStack.count, 10)
+        
+        removeStudents(from: combinationPriorityQueue, count: 4)
+        XCTAssertEqual(combinationPriorityQueue.count, 6)
+        XCTAssertEqual(commandProcessor.futureStack.count, 0)
+        XCTAssertEqual(commandProcessor.pastStack.count, 14)
+        
+        addStudents(to: combinationPriorityQueue, count: 12)
+        XCTAssertEqual(combinationPriorityQueue.count, 18)
+        XCTAssertEqual(commandProcessor.futureStack.count, 0)
+        XCTAssertEqual(commandProcessor.pastStack.count, 26)
+        
+        let queueCount1 = combinationPriorityQueue.count
+        let pastStackCount1 = commandProcessor.pastStack.count
+        for index in 0..<12 {
+            commandProcessor.undo()
+            XCTAssertEqual(combinationPriorityQueue.count, queueCount1 - index - 1)
+            XCTAssertEqual(commandProcessor.futureStack.count, index + 1)
+            XCTAssertEqual(commandProcessor.pastStack.count, pastStackCount1 - index - 1)
+        }
+        
+        let queueCount2 = combinationPriorityQueue.count
+        let pastStackCount2 = commandProcessor.pastStack.count
+        let futureStackCount1 = commandProcessor.futureStack.count
+        for index in 0..<4 {
+            commandProcessor.undo()
+            XCTAssertEqual(combinationPriorityQueue.count, queueCount2 + index + 1)
+            XCTAssertEqual(commandProcessor.futureStack.count, futureStackCount1 + index + 1)
+            XCTAssertEqual(commandProcessor.pastStack.count, pastStackCount2 - index - 1)
+        }
+        
+        let queueCount3 = combinationPriorityQueue.count
+        let pastStackCount3 = commandProcessor.pastStack.count
+        let futureStackCount2 = commandProcessor.futureStack.count
+        for index in 0..<10 {
+            commandProcessor.undo()
+            XCTAssertEqual(combinationPriorityQueue.count, queueCount3 - index - 1)
+            XCTAssertEqual(commandProcessor.futureStack.count, futureStackCount2 + index + 1)
+            XCTAssertEqual(commandProcessor.pastStack.count, pastStackCount3 - index - 1)
+        }
+    }
 }
 
