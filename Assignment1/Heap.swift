@@ -137,9 +137,6 @@ class Heap<Element: Equatable>: Collection {
         return nodesAsArray
     }
     
-    // TODO: Implement function
-    // https://docs.oracle.com/javase/7/docs/api/java/util/AbstractCollection.html#toString()
-    // TODO: Can I just do "[\(toArray())]" - does it add commas?
     func toString() -> String{
         guard count > 0 else { return "[]" }
         var stringRepresentation = "["

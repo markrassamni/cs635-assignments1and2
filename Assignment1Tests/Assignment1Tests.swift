@@ -671,6 +671,18 @@ class Assignment1Tests: XCTestCase{
         XCTAssertEqual("\(expectedOutput)", unitsPriorityQueue.toString())
     }
     
+    func testEmptyQueueToString(){
+        combinationPriorityQueue = PriorityQueue(priorityStrategy: combinationStrategy)
+        gpaPriorityQueue = PriorityQueue(priorityStrategy: gpaStrategy)
+        unitsPriorityQueue = PriorityQueue(priorityStrategy: unitsStrategy)
+        XCTAssertEqual(combinationPriorityQueue.count, 0)
+        XCTAssertEqual(gpaPriorityQueue.count, 0)
+        XCTAssertEqual(unitsPriorityQueue.count, 0)
+        XCTAssertEqual("[]", combinationPriorityQueue.toString())
+        XCTAssertEqual("[]", gpaPriorityQueue.toString())
+        XCTAssertEqual("[]", unitsPriorityQueue.toString())
+    }
+    
     //TODO: Test Commands - undo, redo etc - follow directions
     
     /*
