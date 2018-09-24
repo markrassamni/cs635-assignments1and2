@@ -39,6 +39,7 @@ class Assignment1Tests: XCTestCase{
     let unitsPriority4 = 100.0
     let unitsPriority5 = 120.0
     
+    // TODO: Replace all references to the strategies with PQ.strat
     static let unitsWeight = 0.7
     static let gpaWeight = 0.3
     let combinationStrategy = { (student: Student) -> Double in
@@ -249,7 +250,6 @@ class Assignment1Tests: XCTestCase{
         }
     }
     
-    // TODO: Replace the priorities comparison with just comparing to the student itself
     //MARK: - Tests to verify when elements are added in priority order that the priority queues prioritize them correctly
     func testAddInOrderElementsCombination(){
         // Create new PQ to clear all stored values to only use the 5 needed for testing
@@ -686,19 +686,36 @@ class Assignment1Tests: XCTestCase{
         XCTAssertEqual("[]", unitsPriorityQueue.toString())
     }
     
-    //TODO: Test Commands - undo, redo etc - follow directions
+    func printStudentsInOrder(priorityQueue: PriorityQueue<Student>) -> [(name: String, redID: String)]{
+        var orderedStudents = [(name: String, redID: String)]()
+        for _ in 0..<priorityQueue.count {
+            if let student = priorityQueue.dequeue() {
+                orderedStudents.append((name: student.name, redID: student.redID))
+            }
+        }
+        return orderedStudents
+    }
     
-    /*
-     // TODO: recreate print method, not inside priority queue class
-    /// Test to see if the order students were printed in is the correct priority order.
-//    func testPrintQueueInOrder(){
-//        let students = priorityQueue.printQueue()
-//        guard var previousPriority = students.first?.priority() else { return }
-//        for student in students {
-//            XCTAssertGreaterThanOrEqual(previousPriority, student.priority())
-//            previousPriority = student.priority()
-//        }
-//    }
- */
+    func testPrintStudentsInOrder(){
+        combinationPriorityQueue = PriorityQueue(priorityStrategy: combinationStrategy)
+        XCTAssertEqual(combinationPriorityQueue.count, 0)
+        
+        // Add test data in reverse priority order
+        combinationPriorityQueue.enqueue(student1)
+        combinationPriorityQueue.enqueue(student2)
+        combinationPriorityQueue.enqueue(student3)
+        combinationPriorityQueue.enqueue(student4)
+        combinationPriorityQueue.enqueue(student5)
+        
+        let orderedStudents = printStudentsInOrder(priorityQueue: combinationPriorityQueue)
+        let expectedOutput = [(name: "Mark", redID: "81723"), (name: "Eddie", redID: "5"), (name: "Tim", redID: "123012"), (name: "Kelly", redID: "52903"), (name: "Ryan", redID: "1230")]
+        
+        for index in 0..<orderedStudents.count {
+            XCTAssertEqual(orderedStudents[index].name, expectedOutput[index].name)
+            XCTAssertEqual(orderedStudents[index].redID, expectedOutput[index].redID)
+        }
+    }
+    
+    //TODO: Test Commands - undo, redo etc - follow directions
 }
 
