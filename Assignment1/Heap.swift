@@ -121,7 +121,7 @@ class Heap<Element: Equatable>: Collection {
     func highestPriorityIndex(for parent: Int) -> Int? {
         guard parent < count else { return nil }
         // Get highest priority between the left child and parent
-        if let leftChildParentMaxPriority = highestPriorityIndex(of: leftChildIndex(of: parent), and: parent){
+        if let leftChildParentMaxPriority = highestPriorityIndex(of: parent, and: leftChildIndex(of: parent)){
             // Get highest priority between the left child, right child, and parent
             let highestPriority = highestPriorityIndex(of: leftChildParentMaxPriority, and: rightChildIndex(of: parent))
             return highestPriority

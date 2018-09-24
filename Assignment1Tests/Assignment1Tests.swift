@@ -200,8 +200,6 @@ class Assignment1Tests: XCTestCase{
         }
     }
     
-    
-    
     //MARK: - Tests to verify that code can return the correct highest priority element with random elements added in random priority order
     func testGetHighestElementCombination() {
         var highestPriority: Double = 0.0
@@ -512,8 +510,7 @@ class Assignment1Tests: XCTestCase{
     func testRootPriorityOverChildren() {
         XCTAssertEqual(combinationPriorityQueue.heap.highestPriorityIndex(for: 0), 0)
         XCTAssertEqual(gpaPriorityQueue.heap.highestPriorityIndex(for: 0), 0)
-        // FIXME: Units PQ failing this.. Why?
-//        XCTAssertEqual(unitsPriorityQueue.heap.highestPriorityIndex(for: 0), 0)
+        XCTAssertEqual(unitsPriorityQueue.heap.highestPriorityIndex(for: 0), 0)
     }
     
     func testRemoveEmptyQueueReturnsNil() {
