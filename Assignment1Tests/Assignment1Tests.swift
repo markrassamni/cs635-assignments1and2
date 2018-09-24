@@ -1087,6 +1087,39 @@ class Assignment1Tests: XCTestCase{
             XCTAssertEqual(realQueue[index].redID, printedQueue[index].redID)
         }
     }
+    
+    func testMinHeap(){
+        let comparatorStrategy = { (priority1: Double, priority2: Double) -> Bool in
+            priority1 < priority2
+        }
+        guard let minQueue = PriorityQueue<Student>(priorityStrategy: gpaStrategy, comparatorStrategy: comparatorStrategy) else {
+            XCTAssertTrue(false)
+            return
+        }
+        XCTAssertEqual(minQueue.count, 0)
+        
+        minQueue.enqueue(student5)
+        minQueue.enqueue(student4)
+        minQueue.enqueue(student3)
+        minQueue.enqueue(student2)
+        minQueue.enqueue(student1)
+        let dequeue1 = minQueue.dequeue()
+        let dequeue2 = minQueue.dequeue()
+        let dequeue3 = minQueue.dequeue()
+        let dequeue4 = minQueue.dequeue()
+        let dequeue5 = minQueue.dequeue()
+        let priority1 = minQueue.priorityStrategy(dequeue1!)
+        let priority2 = minQueue.priorityStrategy(dequeue2!)
+        let priority3 = minQueue.priorityStrategy(dequeue3!)
+        let priority4 = minQueue.priorityStrategy(dequeue4!)
+        let priority5 = minQueue.priorityStrategy(dequeue5!)
+        
+        XCTAssertEqual(priority1, gpaPriority1, accuracy: 0.0001)
+        XCTAssertEqual(priority2, gpaPriority2, accuracy: 0.0001)
+        XCTAssertEqual(priority3, gpaPriority3, accuracy: 0.0001)
+        XCTAssertEqual(priority4, gpaPriority4, accuracy: 0.0001)
+        XCTAssertEqual(priority5, gpaPriority5, accuracy: 0.0001)
+    }
 }
 
 fileprivate extension PriorityQueue {

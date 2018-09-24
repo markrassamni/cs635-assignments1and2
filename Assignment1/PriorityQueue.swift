@@ -36,13 +36,17 @@ class PriorityQueue<Element: Equatable>: Collection, IteratorProtocol, CustomStr
         return heap.priorityStrategy
     }
     
+    var comparatorStrategy: (Double, Double) -> Bool {
+        return heap.comparatorStrategy
+    }
+    
     // Swift version of Java toString()
     var description: String {
         return heap.description
     }
     
-    init?<T: Equatable>(priorityStrategy: @escaping (T) -> Double){
-        guard let heap = Heap<Element>(priorityStrategy: priorityStrategy) else { return nil }
+    init?<T: Equatable>(priorityStrategy: @escaping (T) -> Double, comparatorStrategy: @escaping (Double, Double) -> Bool = (>)){
+        guard let heap = Heap<Element>(priorityStrategy: priorityStrategy, comparatorStrategy: comparatorStrategy) else { return nil }
         self.heap = heap
     }
     

@@ -13,6 +13,7 @@ class Heap<Element: Equatable>: Collection, IteratorProtocol, CustomStringConver
     
     private(set) var nodes = [Association<Double, Element>]()
     private(set) var priorityStrategy: (Element) -> Double
+    private(set) var comparatorStrategy: (Double, Double) -> Bool
     
     var isEmpty: Bool {
         return nodes.isEmpty
@@ -46,19 +47,13 @@ class Heap<Element: Equatable>: Collection, IteratorProtocol, CustomStringConver
         }
         return stringRepresentation
     }
-    
-    // TODO: Change parameter to (T, T) -> Bool
-    //Call with something like this:
-    /*
-     let minGpaStrategy = { (student1: Student, student2: Student) -> Bool in
-        student1.gpa < student2.gpa
-    }
-     
-     Then the isHigherPriorityFunction calls strategy(2 comparables)
- */
-    init?<T: Equatable>(priorityStrategy: @escaping (T) -> Double) {
+
+    /// priorityStrategy is a function used to calculate priority
+    /// comparatorStrategy parameter defaults to max heap but can be passed a closure for min heap
+    init?<T: Equatable>(priorityStrategy: @escaping (T) -> Double, comparatorStrategy: @escaping (Double, Double) -> Bool = (>)) {
         guard let strategy = priorityStrategy as? (Element) -> Double else { return nil }
         self.priorityStrategy = strategy
+        self.comparatorStrategy = comparatorStrategy
     }
     
     func index(after i: Int) -> Int {
@@ -122,11 +117,8 @@ class Heap<Element: Equatable>: Collection, IteratorProtocol, CustomStringConver
         nodes.swapAt(firstIndex, secondIndex)
     }
     
-    // TODO: Should init also take > or < for min/max heap as well as the priority?
-//    https://stackoverflow.com/questions/30017400/set-a-variable-to-the-less-than-operator-as-a-function-in-swift
-    
     func isHigherPriority(at firstIndex: Int, than secondIndex: Int) -> Bool {
-        return nodes[firstIndex].key > nodes[secondIndex].key
+        return comparatorStrategy(nodes[firstIndex].key, nodes[secondIndex].key)
     }
     
     /// Returns the index with higher priority between the parent and child indices. Returns nil if the parent index is not contained in the heap.
