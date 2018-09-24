@@ -161,7 +161,14 @@ class Heap<Element: Equatable>: Collection {
     
     func remove(element: Element) -> Element? {
         if let index = index(of: element){
-            return nodes.remove(at: index).value
+            swapElement(at: index, with: count - 1)
+            let removedElement = nodes.removeLast().value
+            if index < count {
+                // Move the last element that was swapped to our elements position to its correct location
+                moveUp(nodeAtIndex: index)
+                moveDown(nodeAtIndex: index)
+            }
+            return removedElement
         }
         return nil
     }

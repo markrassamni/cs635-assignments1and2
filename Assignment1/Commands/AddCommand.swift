@@ -20,10 +20,17 @@ class AddCommand<Element: Equatable>: Command {
     
     func execute() {
         // TODO: Store a heap of everything under the foundPosition. Make a copy first, then enqueue in original, find its index in original
+        /*
+        guard let copyBeforeEnqueue = priorityQueue.copy(), let heapWithElementRoot = Heap<Element>(priorityStrategy: priorityQueue.priorityStrategy) else { return }
+        priorityQueue.enqueue(element)
+        let positionShiftedTo = priorityQueue.indices.filter { priorityQueue[$0] == element }[0]
         
-        let copy = priorityQueue.copy()
+        // Now make a new heap using all elements under position as root parent
+
+        heapWithElementRoot.add(copyBeforeEnqueue[positionShiftedTo])
         
-        
+        // count = min int of 2^h+1 -1
+        // 2^h+1 = count + 1
         
         
         /*
@@ -42,10 +49,12 @@ class AddCommand<Element: Equatable>: Command {
                 break
             }
         }
-        
+        */
+         // This was sole existing command in previous func
         priorityQueue.enqueue(element)
  
          */
+        priorityQueue.enqueue(element)
     }
     
     func undo(){
