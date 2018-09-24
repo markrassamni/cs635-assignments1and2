@@ -62,6 +62,6 @@ class PriorityQueue<Element: Equatable>: Collection {
     }
     
     subscript(position: Int) -> Element {
-        return heap[position].value
+        return heap[position]
     }
 }

@@ -165,14 +165,7 @@ class Heap<Element: Equatable>: Collection {
         }
         return nil
     }
-    
-    // TODO: Should return priority order not just position in array.
-    // Also, should return just element, or association?
-    subscript(position: Int) -> Association<Double, Element> {
-        return nodes[position]
-    }
-    
-    // TODO: Pick a subscript to remove. Keep this one I think. Might need both? Try commenting out the other
+
     subscript(position: Int) -> Element {
         return nodes[position].value
     }

@@ -204,8 +204,9 @@ class Assignment1Tests: XCTestCase{
     func testGetHighestElementCombination() {
         var highestPriority: Double = 0.0
         for i in 0..<combinationPriorityQueue.count {
-            if combinationPriorityQueue.heap[i].key > highestPriority {
-                highestPriority = combinationPriorityQueue.heap[i].key
+            let priority = combinationStrategy(combinationPriorityQueue.heap[i])
+            if priority > highestPriority {
+                highestPriority = priority
             }
         }
         if let dequeuedStudent = combinationPriorityQueue.dequeue() {
@@ -219,8 +220,9 @@ class Assignment1Tests: XCTestCase{
     func testGetHighestElementGPA() {
         var highestPriority: Double = 0.0
         for i in 0..<gpaPriorityQueue.count {
-            if gpaPriorityQueue.heap[i].key > highestPriority {
-                highestPriority = gpaPriorityQueue.heap[i].key
+            let priority = gpaStrategy(gpaPriorityQueue.heap[i])
+            if priority > highestPriority {
+                highestPriority = priority
             }
         }
         if let dequeuedStudent = gpaPriorityQueue.dequeue() {
@@ -234,8 +236,9 @@ class Assignment1Tests: XCTestCase{
     func testGetHighestElementUnits() {
         var highestPriority: Double = 0.0
         for i in 0..<unitsPriorityQueue.count {
-            if unitsPriorityQueue.heap[i].key > highestPriority {
-                highestPriority = unitsPriorityQueue.heap[i].key
+            let priority = unitsStrategy(unitsPriorityQueue.heap[i])
+            if priority > highestPriority {
+                highestPriority = priority
             }
         }
         if let dequeuedStudent = unitsPriorityQueue.dequeue() {
@@ -541,9 +544,9 @@ class Assignment1Tests: XCTestCase{
         XCTAssertEqual(combinationPriorityQueue.count, 1)
         XCTAssertEqual(gpaPriorityQueue.count, 1)
         XCTAssertEqual(unitsPriorityQueue.count, 1)
-        XCTAssertEqual(combinationPriorityQueue.heap[0].value, student3)
-        XCTAssertEqual(gpaPriorityQueue.heap[0].value, student3)
-        XCTAssertEqual(unitsPriorityQueue.heap[0].value, student3)
+        XCTAssertEqual(combinationStrategy(combinationPriorityQueue.heap[0]), combinationStrategy(student3))
+        XCTAssertEqual(gpaStrategy(gpaPriorityQueue.heap[0]), gpaStrategy(student3))
+        XCTAssertEqual(unitsStrategy(unitsPriorityQueue.heap[0]), unitsStrategy(student3))
     }
     
     // MARK: - Verify that all students in the priority queues have between 0 and 150 units taken
