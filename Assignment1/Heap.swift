@@ -167,3 +167,9 @@ class Heap<Element: Equatable>: Collection {
         return nodes[position].value
     }
 }
+
+extension Heap: Equatable {
+    static func == (lhs: Heap<Element>, rhs: Heap<Element>) -> Bool {
+        return lhs.nodes == rhs.nodes
+    }
+}
