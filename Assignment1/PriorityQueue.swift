@@ -32,6 +32,10 @@ class PriorityQueue<Element: Equatable>: Collection {
         return heap.first
     }
     
+    var priorityStrategy: (Element) -> Double {
+        return heap.priorityStrategy
+    }
+    
     init?<T: Equatable>(priorityStrategy: @escaping (T) -> Double){
         guard let heap = Heap<Element>(priorityStrategy: priorityStrategy) else { return nil }
         self.heap = heap

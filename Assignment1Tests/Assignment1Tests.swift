@@ -39,7 +39,6 @@ class Assignment1Tests: XCTestCase{
     let unitsPriority4 = 100.0
     let unitsPriority5 = 120.0
     
-    // TODO: Replace all references to the strategies with PQ.strat
     static let unitsWeight = 0.7
     static let gpaWeight = 0.3
     let combinationStrategy = { (student: Student) -> Double in
@@ -160,7 +159,7 @@ class Assignment1Tests: XCTestCase{
         var queue = [Double]()
         for i in 0..<combinationPriorityQueue.count {
             if let student = combinationPriorityQueue.dequeue() {
-                let priority = combinationStrategy(student)
+                let priority = combinationPriorityQueue.priorityStrategy(student)
                 queue.append(priority)
                 if i > 0 {
                     XCTAssertGreaterThanOrEqual(queue[i-1], queue[i])
@@ -175,7 +174,7 @@ class Assignment1Tests: XCTestCase{
         var queue = [Double]()
         for i in 0..<gpaPriorityQueue.count {
             if let student = gpaPriorityQueue.dequeue() {
-                let priority = gpaStrategy(student)
+                let priority = gpaPriorityQueue.priorityStrategy(student)
                 queue.append(priority)
                 if i > 0 {
                     XCTAssertGreaterThanOrEqual(queue[i-1], queue[i])
@@ -190,7 +189,7 @@ class Assignment1Tests: XCTestCase{
         var queue = [Double]()
         for i in 0..<unitsPriorityQueue.count {
             if let student = unitsPriorityQueue.dequeue() {
-                let priority = unitsStrategy(student)
+                let priority = unitsPriorityQueue.priorityStrategy(student)
                 queue.append(priority)
                 if i > 0 {
                     XCTAssertGreaterThanOrEqual(queue[i-1], queue[i])
@@ -205,13 +204,13 @@ class Assignment1Tests: XCTestCase{
     func testGetHighestElementCombination() {
         var highestPriority: Double = 0.0
         for i in 0..<combinationPriorityQueue.count {
-            let priority = combinationStrategy(combinationPriorityQueue.heap[i])
+            let priority = combinationPriorityQueue.priorityStrategy(combinationPriorityQueue.heap[i])
             if priority > highestPriority {
                 highestPriority = priority
             }
         }
         if let dequeuedStudent = combinationPriorityQueue.dequeue() {
-            let dequeuedPriority = combinationStrategy(dequeuedStudent)
+            let dequeuedPriority = combinationPriorityQueue.priorityStrategy(dequeuedStudent)
             XCTAssertEqual(dequeuedPriority, highestPriority)
         } else {
             XCTAssertTrue(false)
@@ -221,13 +220,13 @@ class Assignment1Tests: XCTestCase{
     func testGetHighestElementGPA() {
         var highestPriority: Double = 0.0
         for i in 0..<gpaPriorityQueue.count {
-            let priority = gpaStrategy(gpaPriorityQueue.heap[i])
+            let priority = gpaPriorityQueue.priorityStrategy(gpaPriorityQueue.heap[i])
             if priority > highestPriority {
                 highestPriority = priority
             }
         }
         if let dequeuedStudent = gpaPriorityQueue.dequeue() {
-            let dequeuedPriority = gpaStrategy(dequeuedStudent)
+            let dequeuedPriority = gpaPriorityQueue.priorityStrategy(dequeuedStudent)
             XCTAssertEqual(dequeuedPriority, highestPriority)
         } else {
             XCTAssertTrue(false)
@@ -237,13 +236,13 @@ class Assignment1Tests: XCTestCase{
     func testGetHighestElementUnits() {
         var highestPriority: Double = 0.0
         for i in 0..<unitsPriorityQueue.count {
-            let priority = unitsStrategy(unitsPriorityQueue.heap[i])
+            let priority = unitsPriorityQueue.priorityStrategy(unitsPriorityQueue.heap[i])
             if priority > highestPriority {
                 highestPriority = priority
             }
         }
         if let dequeuedStudent = unitsPriorityQueue.dequeue() {
-            let dequeuedPriority = unitsStrategy(dequeuedStudent)
+            let dequeuedPriority = unitsPriorityQueue.priorityStrategy(dequeuedStudent)
             XCTAssertEqual(dequeuedPriority, highestPriority)
         } else {
             XCTAssertTrue(false)
@@ -266,11 +265,11 @@ class Assignment1Tests: XCTestCase{
         let dequeue3 = combinationPriorityQueue.dequeue()
         let dequeue4 = combinationPriorityQueue.dequeue()
         let dequeue5 = combinationPriorityQueue.dequeue()
-        let priority1 = combinationStrategy(dequeue1!)
-        let priority2 = combinationStrategy(dequeue2!)
-        let priority3 = combinationStrategy(dequeue3!)
-        let priority4 = combinationStrategy(dequeue4!)
-        let priority5 = combinationStrategy(dequeue5!)
+        let priority1 = combinationPriorityQueue.priorityStrategy(dequeue1!)
+        let priority2 = combinationPriorityQueue.priorityStrategy(dequeue2!)
+        let priority3 = combinationPriorityQueue.priorityStrategy(dequeue3!)
+        let priority4 = combinationPriorityQueue.priorityStrategy(dequeue4!)
+        let priority5 = combinationPriorityQueue.priorityStrategy(dequeue5!)
         
         XCTAssertEqual(priority1, combinationPriority5, accuracy: 0.0001)
         XCTAssertEqual(priority2, combinationPriority4, accuracy: 0.0001)
@@ -294,11 +293,11 @@ class Assignment1Tests: XCTestCase{
         let dequeue3 = gpaPriorityQueue.dequeue()
         let dequeue4 = gpaPriorityQueue.dequeue()
         let dequeue5 = gpaPriorityQueue.dequeue()
-        let priority1 = gpaStrategy(dequeue1!)
-        let priority2 = gpaStrategy(dequeue2!)
-        let priority3 = gpaStrategy(dequeue3!)
-        let priority4 = gpaStrategy(dequeue4!)
-        let priority5 = gpaStrategy(dequeue5!)
+        let priority1 = gpaPriorityQueue.priorityStrategy(dequeue1!)
+        let priority2 = gpaPriorityQueue.priorityStrategy(dequeue2!)
+        let priority3 = gpaPriorityQueue.priorityStrategy(dequeue3!)
+        let priority4 = gpaPriorityQueue.priorityStrategy(dequeue4!)
+        let priority5 = gpaPriorityQueue.priorityStrategy(dequeue5!)
         
         XCTAssertEqual(priority1, gpaPriority5, accuracy: 0.0001)
         XCTAssertEqual(priority2, gpaPriority4, accuracy: 0.0001)
@@ -322,11 +321,11 @@ class Assignment1Tests: XCTestCase{
         let dequeue3 = unitsPriorityQueue.dequeue()
         let dequeue4 = unitsPriorityQueue.dequeue()
         let dequeue5 = unitsPriorityQueue.dequeue()
-        let priority1 = unitsStrategy(dequeue1!)
-        let priority2 = unitsStrategy(dequeue2!)
-        let priority3 = unitsStrategy(dequeue3!)
-        let priority4 = unitsStrategy(dequeue4!)
-        let priority5 = unitsStrategy(dequeue5!)
+        let priority1 = unitsPriorityQueue.priorityStrategy(dequeue1!)
+        let priority2 = unitsPriorityQueue.priorityStrategy(dequeue2!)
+        let priority3 = unitsPriorityQueue.priorityStrategy(dequeue3!)
+        let priority4 = unitsPriorityQueue.priorityStrategy(dequeue4!)
+        let priority5 = unitsPriorityQueue.priorityStrategy(dequeue5!)
         
         XCTAssertEqual(priority1, unitsPriority5, accuracy: 0.0001)
         XCTAssertEqual(priority2, unitsPriority4, accuracy: 0.0001)
@@ -352,11 +351,11 @@ class Assignment1Tests: XCTestCase{
         let dequeue3 = combinationPriorityQueue.dequeue()
         let dequeue4 = combinationPriorityQueue.dequeue()
         let dequeue5 = combinationPriorityQueue.dequeue()
-        let priority1 = combinationStrategy(dequeue1!)
-        let priority2 = combinationStrategy(dequeue2!)
-        let priority3 = combinationStrategy(dequeue3!)
-        let priority4 = combinationStrategy(dequeue4!)
-        let priority5 = combinationStrategy(dequeue5!)
+        let priority1 = combinationPriorityQueue.priorityStrategy(dequeue1!)
+        let priority2 = combinationPriorityQueue.priorityStrategy(dequeue2!)
+        let priority3 = combinationPriorityQueue.priorityStrategy(dequeue3!)
+        let priority4 = combinationPriorityQueue.priorityStrategy(dequeue4!)
+        let priority5 = combinationPriorityQueue.priorityStrategy(dequeue5!)
         
         XCTAssertEqual(priority1, combinationPriority5, accuracy: 0.0001)
         XCTAssertEqual(priority2, combinationPriority4, accuracy: 0.0001)
@@ -380,11 +379,11 @@ class Assignment1Tests: XCTestCase{
         let dequeue3 = gpaPriorityQueue.dequeue()
         let dequeue4 = gpaPriorityQueue.dequeue()
         let dequeue5 = gpaPriorityQueue.dequeue()
-        let priority1 = gpaStrategy(dequeue1!)
-        let priority2 = gpaStrategy(dequeue2!)
-        let priority3 = gpaStrategy(dequeue3!)
-        let priority4 = gpaStrategy(dequeue4!)
-        let priority5 = gpaStrategy(dequeue5!)
+        let priority1 = gpaPriorityQueue.priorityStrategy(dequeue1!)
+        let priority2 = gpaPriorityQueue.priorityStrategy(dequeue2!)
+        let priority3 = gpaPriorityQueue.priorityStrategy(dequeue3!)
+        let priority4 = gpaPriorityQueue.priorityStrategy(dequeue4!)
+        let priority5 = gpaPriorityQueue.priorityStrategy(dequeue5!)
         
         XCTAssertEqual(priority1, gpaPriority5, accuracy: 0.0001)
         XCTAssertEqual(priority2, gpaPriority4, accuracy: 0.0001)
@@ -408,11 +407,11 @@ class Assignment1Tests: XCTestCase{
         let dequeue3 = unitsPriorityQueue.dequeue()
         let dequeue4 = unitsPriorityQueue.dequeue()
         let dequeue5 = unitsPriorityQueue.dequeue()
-        let priority1 = unitsStrategy(dequeue1!)
-        let priority2 = unitsStrategy(dequeue2!)
-        let priority3 = unitsStrategy(dequeue3!)
-        let priority4 = unitsStrategy(dequeue4!)
-        let priority5 = unitsStrategy(dequeue5!)
+        let priority1 = unitsPriorityQueue.priorityStrategy(dequeue1!)
+        let priority2 = unitsPriorityQueue.priorityStrategy(dequeue2!)
+        let priority3 = unitsPriorityQueue.priorityStrategy(dequeue3!)
+        let priority4 = unitsPriorityQueue.priorityStrategy(dequeue4!)
+        let priority5 = unitsPriorityQueue.priorityStrategy(dequeue5!)
         
         XCTAssertEqual(priority1, unitsPriority5, accuracy: 0.0001)
         XCTAssertEqual(priority2, unitsPriority4, accuracy: 0.0001)
@@ -439,11 +438,11 @@ class Assignment1Tests: XCTestCase{
         let dequeue3 = combinationPriorityQueue.dequeue()
         let dequeue4 = combinationPriorityQueue.dequeue()
         let dequeue5 = combinationPriorityQueue.dequeue()
-        let priority1 = combinationStrategy(dequeue1!)
-        let priority2 = combinationStrategy(dequeue2!)
-        let priority3 = combinationStrategy(dequeue3!)
-        let priority4 = combinationStrategy(dequeue4!)
-        let priority5 = combinationStrategy(dequeue5!)
+        let priority1 = combinationPriorityQueue.priorityStrategy(dequeue1!)
+        let priority2 = combinationPriorityQueue.priorityStrategy(dequeue2!)
+        let priority3 = combinationPriorityQueue.priorityStrategy(dequeue3!)
+        let priority4 = combinationPriorityQueue.priorityStrategy(dequeue4!)
+        let priority5 = combinationPriorityQueue.priorityStrategy(dequeue5!)
         
         XCTAssertEqual(priority1, combinationPriority5, accuracy: 0.0001)
         XCTAssertEqual(priority2, combinationPriority4, accuracy: 0.0001)
@@ -468,11 +467,11 @@ class Assignment1Tests: XCTestCase{
         let dequeue3 = gpaPriorityQueue.dequeue()
         let dequeue4 = gpaPriorityQueue.dequeue()
         let dequeue5 = gpaPriorityQueue.dequeue()
-        let priority1 = gpaStrategy(dequeue1!)
-        let priority2 = gpaStrategy(dequeue2!)
-        let priority3 = gpaStrategy(dequeue3!)
-        let priority4 = gpaStrategy(dequeue4!)
-        let priority5 = gpaStrategy(dequeue5!)
+        let priority1 = gpaPriorityQueue.priorityStrategy(dequeue1!)
+        let priority2 = gpaPriorityQueue.priorityStrategy(dequeue2!)
+        let priority3 = gpaPriorityQueue.priorityStrategy(dequeue3!)
+        let priority4 = gpaPriorityQueue.priorityStrategy(dequeue4!)
+        let priority5 = gpaPriorityQueue.priorityStrategy(dequeue5!)
         
         XCTAssertEqual(priority1, gpaPriority5, accuracy: 0.0001)
         XCTAssertEqual(priority2, gpaPriority4, accuracy: 0.0001)
@@ -497,11 +496,11 @@ class Assignment1Tests: XCTestCase{
         let dequeue3 = unitsPriorityQueue.dequeue()
         let dequeue4 = unitsPriorityQueue.dequeue()
         let dequeue5 = unitsPriorityQueue.dequeue()
-        let priority1 = unitsStrategy(dequeue1!)
-        let priority2 = unitsStrategy(dequeue2!)
-        let priority3 = unitsStrategy(dequeue3!)
-        let priority4 = unitsStrategy(dequeue4!)
-        let priority5 = unitsStrategy(dequeue5!)
+        let priority1 = unitsPriorityQueue.priorityStrategy(dequeue1!)
+        let priority2 = unitsPriorityQueue.priorityStrategy(dequeue2!)
+        let priority3 = unitsPriorityQueue.priorityStrategy(dequeue3!)
+        let priority4 = unitsPriorityQueue.priorityStrategy(dequeue4!)
+        let priority5 = unitsPriorityQueue.priorityStrategy(dequeue5!)
         
         XCTAssertEqual(priority1, unitsPriority5, accuracy: 0.0001)
         XCTAssertEqual(priority2, unitsPriority4, accuracy: 0.0001)
@@ -544,9 +543,9 @@ class Assignment1Tests: XCTestCase{
         XCTAssertEqual(combinationPriorityQueue.count, 1)
         XCTAssertEqual(gpaPriorityQueue.count, 1)
         XCTAssertEqual(unitsPriorityQueue.count, 1)
-        XCTAssertEqual(combinationStrategy(combinationPriorityQueue.heap[0]), combinationStrategy(student3))
-        XCTAssertEqual(gpaStrategy(gpaPriorityQueue.heap[0]), gpaStrategy(student3))
-        XCTAssertEqual(unitsStrategy(unitsPriorityQueue.heap[0]), unitsStrategy(student3))
+        XCTAssertEqual(combinationPriorityQueue.priorityStrategy(combinationPriorityQueue.heap[0]), combinationStrategy(student3))
+        XCTAssertEqual(gpaPriorityQueue.priorityStrategy(gpaPriorityQueue.heap[0]), gpaStrategy(student3))
+        XCTAssertEqual(unitsPriorityQueue.priorityStrategy(unitsPriorityQueue.heap[0]), unitsStrategy(student3))
     }
     
     // MARK: - Verify that all students in the priority queues have between 0 and 150 units taken
