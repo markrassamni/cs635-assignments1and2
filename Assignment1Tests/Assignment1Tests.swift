@@ -897,7 +897,7 @@ class Assignment1Tests: XCTestCase{
         }
     }
     
-    func testCombinationRedo(){
+    func testRedoCombination(){
         combinationPriorityQueue = PriorityQueue(priorityStrategy: combinationStrategy)
         commandProcessor = CommandProcessor()
         XCTAssertEqual(combinationPriorityQueue.count, 0)
@@ -949,6 +949,124 @@ class Assignment1Tests: XCTestCase{
         // Test redo again when there should be nothing else to redo
         commandProcessor.redo()
         printedQueue = printStudentsInOrder(priorityQueue: combinationPriorityQueue)
+        XCTAssertEqual(realQueue.count, printedQueue.count)
+        for index in 0..<realQueue.count {
+            XCTAssertEqual(realQueue[index].name, printedQueue[index].name)
+            XCTAssertEqual(realQueue[index].redID, printedQueue[index].redID)
+        }
+    }
+    
+    func testRedoGPA(){
+        gpaPriorityQueue = PriorityQueue(priorityStrategy: gpaStrategy)
+        commandProcessor = CommandProcessor()
+        XCTAssertEqual(gpaPriorityQueue.count, 0)
+        XCTAssertEqual(commandProcessor.futureStack.count, 0)
+        XCTAssertEqual(commandProcessor.pastStack.count, 0)
+        
+        var realQueue = [(name: String, redID: String)]()
+        var printedQueue = printStudentsInOrder(priorityQueue: gpaPriorityQueue)
+        XCTAssertEqual(realQueue.count, printedQueue.count)
+        
+        let add1 = AddCommand(priorityQueue: gpaPriorityQueue, element: student1)
+        commandProcessor.execute(command: add1)
+        realQueue.append((name: student1.name, redID: student1.redID))
+        printedQueue = printStudentsInOrder(priorityQueue: gpaPriorityQueue)
+        XCTAssertEqual(realQueue.count, printedQueue.count)
+        for index in 0..<realQueue.count {
+            XCTAssertEqual(realQueue[index].name, printedQueue[index].name)
+            XCTAssertEqual(realQueue[index].redID, printedQueue[index].redID)
+        }
+        
+        let add2 = AddCommand(priorityQueue: gpaPriorityQueue, element: student2)
+        commandProcessor.execute(command: add2)
+        realQueue.insert((name: student2.name, redID: student2.redID), at: 0)
+        printedQueue = printStudentsInOrder(priorityQueue: gpaPriorityQueue)
+        XCTAssertEqual(realQueue.count, printedQueue.count)
+        for index in 0..<realQueue.count {
+            XCTAssertEqual(realQueue[index].name, printedQueue[index].name)
+            XCTAssertEqual(realQueue[index].redID, printedQueue[index].redID)
+        }
+        
+        commandProcessor.undo()
+        realQueue.removeFirst()
+        printedQueue = printStudentsInOrder(priorityQueue: gpaPriorityQueue)
+        XCTAssertEqual(realQueue.count, printedQueue.count)
+        for index in 0..<realQueue.count {
+            XCTAssertEqual(realQueue[index].name, printedQueue[index].name)
+            XCTAssertEqual(realQueue[index].redID, printedQueue[index].redID)
+        }
+        
+        commandProcessor.redo()
+        realQueue.insert((name: student2.name, redID: student2.redID), at: 0)
+        printedQueue = printStudentsInOrder(priorityQueue: gpaPriorityQueue)
+        XCTAssertEqual(realQueue.count, printedQueue.count)
+        for index in 0..<realQueue.count {
+            XCTAssertEqual(realQueue[index].name, printedQueue[index].name)
+            XCTAssertEqual(realQueue[index].redID, printedQueue[index].redID)
+        }
+        
+        // Test redo again when there should be nothing else to redo
+        commandProcessor.redo()
+        printedQueue = printStudentsInOrder(priorityQueue: gpaPriorityQueue)
+        XCTAssertEqual(realQueue.count, printedQueue.count)
+        for index in 0..<realQueue.count {
+            XCTAssertEqual(realQueue[index].name, printedQueue[index].name)
+            XCTAssertEqual(realQueue[index].redID, printedQueue[index].redID)
+        }
+    }
+    
+    func testRedoUnits(){
+        unitsPriorityQueue = PriorityQueue(priorityStrategy: unitsStrategy)
+        commandProcessor = CommandProcessor()
+        XCTAssertEqual(unitsPriorityQueue.count, 0)
+        XCTAssertEqual(commandProcessor.futureStack.count, 0)
+        XCTAssertEqual(commandProcessor.pastStack.count, 0)
+        
+        var realQueue = [(name: String, redID: String)]()
+        var printedQueue = printStudentsInOrder(priorityQueue: unitsPriorityQueue)
+        XCTAssertEqual(realQueue.count, printedQueue.count)
+        
+        let add1 = AddCommand(priorityQueue: unitsPriorityQueue, element: student1)
+        commandProcessor.execute(command: add1)
+        realQueue.append((name: student1.name, redID: student1.redID))
+        printedQueue = printStudentsInOrder(priorityQueue: unitsPriorityQueue)
+        XCTAssertEqual(realQueue.count, printedQueue.count)
+        for index in 0..<realQueue.count {
+            XCTAssertEqual(realQueue[index].name, printedQueue[index].name)
+            XCTAssertEqual(realQueue[index].redID, printedQueue[index].redID)
+        }
+        
+        let add2 = AddCommand(priorityQueue: unitsPriorityQueue, element: student2)
+        commandProcessor.execute(command: add2)
+        realQueue.insert((name: student2.name, redID: student2.redID), at: 0)
+        printedQueue = printStudentsInOrder(priorityQueue: unitsPriorityQueue)
+        XCTAssertEqual(realQueue.count, printedQueue.count)
+        for index in 0..<realQueue.count {
+            XCTAssertEqual(realQueue[index].name, printedQueue[index].name)
+            XCTAssertEqual(realQueue[index].redID, printedQueue[index].redID)
+        }
+        
+        commandProcessor.undo()
+        realQueue.removeFirst()
+        printedQueue = printStudentsInOrder(priorityQueue: unitsPriorityQueue)
+        XCTAssertEqual(realQueue.count, printedQueue.count)
+        for index in 0..<realQueue.count {
+            XCTAssertEqual(realQueue[index].name, printedQueue[index].name)
+            XCTAssertEqual(realQueue[index].redID, printedQueue[index].redID)
+        }
+        
+        commandProcessor.redo()
+        realQueue.insert((name: student2.name, redID: student2.redID), at: 0)
+        printedQueue = printStudentsInOrder(priorityQueue: unitsPriorityQueue)
+        XCTAssertEqual(realQueue.count, printedQueue.count)
+        for index in 0..<realQueue.count {
+            XCTAssertEqual(realQueue[index].name, printedQueue[index].name)
+            XCTAssertEqual(realQueue[index].redID, printedQueue[index].redID)
+        }
+        
+        // Test redo again when there should be nothing else to redo
+        commandProcessor.redo()
+        printedQueue = printStudentsInOrder(priorityQueue: unitsPriorityQueue)
         XCTAssertEqual(realQueue.count, printedQueue.count)
         for index in 0..<realQueue.count {
             XCTAssertEqual(realQueue[index].name, printedQueue[index].name)
