@@ -69,9 +69,3 @@ class PriorityQueue<Element: Equatable>: Collection {
         return heap[position]
     }
 }
-
-extension PriorityQueue: Equatable {
-    static func == (lhs: PriorityQueue<Element>, rhs: PriorityQueue<Element>) -> Bool {
-        return lhs.heap == rhs.heap
-    }
-}
