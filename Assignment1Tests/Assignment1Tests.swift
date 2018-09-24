@@ -131,6 +131,15 @@ class Assignment1Tests: XCTestCase{
         }
     }
     
+    func testAddGrowsCommandStack(){
+        self.commandProcessor = CommandProcessor()
+        for _ in 0..<testCount {
+            addRandomStudents(count: 1)
+        }
+        XCTAssertEqual(commandProcessor.pastStack.count, 3 * testCount)
+        XCTAssertEqual(commandProcessor.futureStack.count, 0)
+    }
+    
     /// Test to ensure that the priority queue size shrinks when removing students
     func testRemoveShrinksQueue(){
         var combinationCount = combinationPriorityQueue.count
