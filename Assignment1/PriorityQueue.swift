@@ -7,8 +7,8 @@
 //
 
 import Foundation
-// TODO: Implement iterator
-class PriorityQueue<Element: Equatable>: Collection {
+
+class PriorityQueue<Element: Equatable>: Collection, IteratorProtocol {
     
     private(set) var heap: Heap<Element>
     
@@ -64,6 +64,10 @@ class PriorityQueue<Element: Equatable>: Collection {
     // Used for removing a specific element with the undo command
     func remove(element: Element) -> Element?{
         return heap.remove(element: element)
+    }
+    
+    func next() -> Element? {
+        return heap.next()
     }
     
     subscript(position: Int) -> Element {

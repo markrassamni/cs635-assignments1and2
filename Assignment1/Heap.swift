@@ -9,7 +9,7 @@
 import Foundation
 
 
-class Heap<Element: Equatable>: Collection {
+class Heap<Element: Equatable>: Collection, IteratorProtocol {
     
     private(set) var nodes = [Association<Double, Element>]()
     private(set) var priorityStrategy: (Element) -> Double
@@ -180,6 +180,10 @@ class Heap<Element: Equatable>: Collection {
             }
         }
         return nil
+    }
+    
+    func next() -> Element? {
+        return remove()
     }
 
     subscript(position: Int) -> Element {
