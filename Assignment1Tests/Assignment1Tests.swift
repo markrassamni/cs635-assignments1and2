@@ -788,5 +788,109 @@ class Assignment1Tests: XCTestCase{
             XCTAssertEqual(commandProcessor.pastStack.count, pastStackCount3 - index - 1)
         }
     }
+    
+    func testAddRemoveUndoGPA(){
+        gpaPriorityQueue = PriorityQueue(priorityStrategy: gpaStrategy)
+        commandProcessor = CommandProcessor()
+        XCTAssertEqual(gpaPriorityQueue.count, 0)
+        XCTAssertEqual(commandProcessor.futureStack.count, 0)
+        XCTAssertEqual(commandProcessor.pastStack.count, 0)
+        
+        addStudents(to: gpaPriorityQueue, count: 10)
+        XCTAssertEqual(gpaPriorityQueue.count, 10)
+        XCTAssertEqual(commandProcessor.futureStack.count, 0)
+        XCTAssertEqual(commandProcessor.pastStack.count, 10)
+        
+        removeStudents(from: gpaPriorityQueue, count: 4)
+        XCTAssertEqual(gpaPriorityQueue.count, 6)
+        XCTAssertEqual(commandProcessor.futureStack.count, 0)
+        XCTAssertEqual(commandProcessor.pastStack.count, 14)
+        
+        addStudents(to: gpaPriorityQueue, count: 12)
+        XCTAssertEqual(gpaPriorityQueue.count, 18)
+        XCTAssertEqual(commandProcessor.futureStack.count, 0)
+        XCTAssertEqual(commandProcessor.pastStack.count, 26)
+        
+        let queueCount1 = gpaPriorityQueue.count
+        let pastStackCount1 = commandProcessor.pastStack.count
+        for index in 0..<12 {
+            commandProcessor.undo()
+            XCTAssertEqual(gpaPriorityQueue.count, queueCount1 - index - 1)
+            XCTAssertEqual(commandProcessor.futureStack.count, index + 1)
+            XCTAssertEqual(commandProcessor.pastStack.count, pastStackCount1 - index - 1)
+        }
+        
+        let queueCount2 = gpaPriorityQueue.count
+        let pastStackCount2 = commandProcessor.pastStack.count
+        let futureStackCount1 = commandProcessor.futureStack.count
+        for index in 0..<4 {
+            commandProcessor.undo()
+            XCTAssertEqual(gpaPriorityQueue.count, queueCount2 + index + 1)
+            XCTAssertEqual(commandProcessor.futureStack.count, futureStackCount1 + index + 1)
+            XCTAssertEqual(commandProcessor.pastStack.count, pastStackCount2 - index - 1)
+        }
+        
+        let queueCount3 = gpaPriorityQueue.count
+        let pastStackCount3 = commandProcessor.pastStack.count
+        let futureStackCount2 = commandProcessor.futureStack.count
+        for index in 0..<10 {
+            commandProcessor.undo()
+            XCTAssertEqual(gpaPriorityQueue.count, queueCount3 - index - 1)
+            XCTAssertEqual(commandProcessor.futureStack.count, futureStackCount2 + index + 1)
+            XCTAssertEqual(commandProcessor.pastStack.count, pastStackCount3 - index - 1)
+        }
+    }
+    
+    func testAddRemoveUndoUnits(){
+        unitsPriorityQueue = PriorityQueue(priorityStrategy: unitsStrategy)
+        commandProcessor = CommandProcessor()
+        XCTAssertEqual(unitsPriorityQueue.count, 0)
+        XCTAssertEqual(commandProcessor.futureStack.count, 0)
+        XCTAssertEqual(commandProcessor.pastStack.count, 0)
+        
+        addStudents(to: unitsPriorityQueue, count: 10)
+        XCTAssertEqual(unitsPriorityQueue.count, 10)
+        XCTAssertEqual(commandProcessor.futureStack.count, 0)
+        XCTAssertEqual(commandProcessor.pastStack.count, 10)
+        
+        removeStudents(from: unitsPriorityQueue, count: 4)
+        XCTAssertEqual(unitsPriorityQueue.count, 6)
+        XCTAssertEqual(commandProcessor.futureStack.count, 0)
+        XCTAssertEqual(commandProcessor.pastStack.count, 14)
+        
+        addStudents(to: unitsPriorityQueue, count: 12)
+        XCTAssertEqual(unitsPriorityQueue.count, 18)
+        XCTAssertEqual(commandProcessor.futureStack.count, 0)
+        XCTAssertEqual(commandProcessor.pastStack.count, 26)
+        
+        let queueCount1 = unitsPriorityQueue.count
+        let pastStackCount1 = commandProcessor.pastStack.count
+        for index in 0..<12 {
+            commandProcessor.undo()
+            XCTAssertEqual(unitsPriorityQueue.count, queueCount1 - index - 1)
+            XCTAssertEqual(commandProcessor.futureStack.count, index + 1)
+            XCTAssertEqual(commandProcessor.pastStack.count, pastStackCount1 - index - 1)
+        }
+        
+        let queueCount2 = unitsPriorityQueue.count
+        let pastStackCount2 = commandProcessor.pastStack.count
+        let futureStackCount1 = commandProcessor.futureStack.count
+        for index in 0..<4 {
+            commandProcessor.undo()
+            XCTAssertEqual(unitsPriorityQueue.count, queueCount2 + index + 1)
+            XCTAssertEqual(commandProcessor.futureStack.count, futureStackCount1 + index + 1)
+            XCTAssertEqual(commandProcessor.pastStack.count, pastStackCount2 - index - 1)
+        }
+        
+        let queueCount3 = unitsPriorityQueue.count
+        let pastStackCount3 = commandProcessor.pastStack.count
+        let futureStackCount2 = commandProcessor.futureStack.count
+        for index in 0..<10 {
+            commandProcessor.undo()
+            XCTAssertEqual(unitsPriorityQueue.count, queueCount3 - index - 1)
+            XCTAssertEqual(commandProcessor.futureStack.count, futureStackCount2 + index + 1)
+            XCTAssertEqual(commandProcessor.pastStack.count, pastStackCount3 - index - 1)
+        }
+    }
 }
 
