@@ -667,9 +667,12 @@ class Assignment1Tests: XCTestCase{
                 expectedOutput.append("\(student)]")
             }
         }
-        XCTAssertEqual("\(expectedOutput)", combinationPriorityQueue.toString())
-        XCTAssertEqual("\(expectedOutput)", gpaPriorityQueue.toString())
-        XCTAssertEqual("\(expectedOutput)", unitsPriorityQueue.toString())
+        if expectedOutput == "[" {
+            expectedOutput = "[]"
+        }
+        XCTAssertEqual("\(expectedOutput)", combinationPriorityQueue.description)
+        XCTAssertEqual("\(expectedOutput)", gpaPriorityQueue.description)
+        XCTAssertEqual("\(expectedOutput)", unitsPriorityQueue.description)
     }
     
     func testEmptyQueueToString(){
@@ -679,9 +682,9 @@ class Assignment1Tests: XCTestCase{
         XCTAssertEqual(combinationPriorityQueue.count, 0)
         XCTAssertEqual(gpaPriorityQueue.count, 0)
         XCTAssertEqual(unitsPriorityQueue.count, 0)
-        XCTAssertEqual("[]", combinationPriorityQueue.toString())
-        XCTAssertEqual("[]", gpaPriorityQueue.toString())
-        XCTAssertEqual("[]", unitsPriorityQueue.toString())
+        XCTAssertEqual("[]", combinationPriorityQueue.description)
+        XCTAssertEqual("[]", gpaPriorityQueue.description)
+        XCTAssertEqual("[]", unitsPriorityQueue.description)
     }
     
    

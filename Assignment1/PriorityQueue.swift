@@ -8,7 +8,7 @@
 
 import Foundation
 
-class PriorityQueue<Element: Equatable>: Collection, IteratorProtocol {
+class PriorityQueue<Element: Equatable>: Collection, IteratorProtocol, CustomStringConvertible {
     
     private(set) var heap: Heap<Element>
     
@@ -36,6 +36,11 @@ class PriorityQueue<Element: Equatable>: Collection, IteratorProtocol {
         return heap.priorityStrategy
     }
     
+    // Swift version of Java toString()
+    var description: String {
+        return heap.description
+    }
+    
     init?<T: Equatable>(priorityStrategy: @escaping (T) -> Double){
         guard let heap = Heap<Element>(priorityStrategy: priorityStrategy) else { return nil }
         self.heap = heap
@@ -55,10 +60,6 @@ class PriorityQueue<Element: Equatable>: Collection, IteratorProtocol {
     
     func toArray() -> [Element] {
         return heap.toArray()
-    }
-    
-    func toString() -> String {
-        return heap.toString()
     }
     
     func remove(element: Element) -> Element?{

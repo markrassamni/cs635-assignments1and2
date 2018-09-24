@@ -9,7 +9,7 @@
 import Foundation
 
 
-class Heap<Element: Equatable>: Collection, IteratorProtocol {
+class Heap<Element: Equatable>: Collection, IteratorProtocol, CustomStringConvertible {
     
     private(set) var nodes = [Association<Double, Element>]()
     private(set) var priorityStrategy: (Element) -> Double
@@ -32,6 +32,19 @@ class Heap<Element: Equatable>: Collection, IteratorProtocol {
     
     var endIndex: Int {
         return nodes.endIndex
+    }
+    
+    var description: String {
+        guard count > 0 else { return "[]" }
+        var stringRepresentation = "["
+        for (index, element) in nodes.enumerated() {
+            if index < count - 1{
+                stringRepresentation.append("\(element.value), ")
+            } else {
+                stringRepresentation.append("\(element.value)]")
+            }
+        }
+        return stringRepresentation
     }
     
     // TODO: Change parameter to (T, T) -> Bool
@@ -143,19 +156,6 @@ class Heap<Element: Equatable>: Collection, IteratorProtocol {
             nodesAsArray.append(node.value)
         }
         return nodesAsArray
-    }
-    
-    func toString() -> String{
-        guard count > 0 else { return "[]" }
-        var stringRepresentation = "["
-        for (index, element) in nodes.enumerated() {
-            if index < count - 1{
-                stringRepresentation.append("\(element.value), ")
-            } else {
-                stringRepresentation.append("\(element.value)]")
-            }
-        }
-        return stringRepresentation
     }
     
     func remove(element: Element) -> Element? {
