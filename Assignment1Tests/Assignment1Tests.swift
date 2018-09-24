@@ -13,7 +13,6 @@ class Assignment1Tests: XCTestCase{
 
     let testCount = 10000
     
-    // Students to test with, in ascending priority order
     let student1: Student = Student(name: "Ryan", redId: "1230", email: "ryan@ryan.com", unitsTaken: 20, gpa: 0.7)!
     let student2: Student = Student(name: "Kelly", redId: "52903", email: "kelly@kelly.com", unitsTaken: 50, gpa: 1.1)!
     let student3: Student = Student(name: "Tim", redId: "123012", email: "tim@tim.com", unitsTaken: 80, gpa: 2.5)!
@@ -685,10 +684,14 @@ class Assignment1Tests: XCTestCase{
         XCTAssertEqual("[]", unitsPriorityQueue.toString())
     }
     
+   
+    
     func printStudentsInOrder(priorityQueue: PriorityQueue<Student>) -> [(name: String, redID: String)]{
+        // Make a copy of the PQ to dequeue and print from to not alter the real PQ
+        guard let copy = priorityQueue.copy() else { return [] }
         var orderedStudents = [(name: String, redID: String)]()
-        for _ in 0..<priorityQueue.count {
-            if let student = priorityQueue.dequeue() {
+        for _ in 0..<copy.count {
+            if let student = copy.dequeue() {
                 orderedStudents.append((name: student.name, redID: student.redID))
             }
         }
@@ -737,6 +740,7 @@ class Assignment1Tests: XCTestCase{
         }
     }
     
+    // MARK: - Tests for using add remove and undo commands
     func testAddRemoveUndoCombination(){
         combinationPriorityQueue = PriorityQueue(priorityStrategy: combinationStrategy)
         commandProcessor = CommandProcessor()
@@ -891,6 +895,78 @@ class Assignment1Tests: XCTestCase{
             XCTAssertEqual(commandProcessor.futureStack.count, futureStackCount2 + index + 1)
             XCTAssertEqual(commandProcessor.pastStack.count, pastStackCount3 - index - 1)
         }
+    }
+    
+    func testCombinationRedo(){
+        combinationPriorityQueue = PriorityQueue(priorityStrategy: combinationStrategy)
+        commandProcessor = CommandProcessor()
+        XCTAssertEqual(combinationPriorityQueue.count, 0)
+        XCTAssertEqual(commandProcessor.futureStack.count, 0)
+        XCTAssertEqual(commandProcessor.pastStack.count, 0)
+        
+        var realQueue = [(name: String, redID: String)]()
+        var printedQueue = printStudentsInOrder(priorityQueue: combinationPriorityQueue)
+        XCTAssertEqual(realQueue.count, printedQueue.count)
+        
+        let add1 = AddCommand(priorityQueue: combinationPriorityQueue, element: student1)
+        commandProcessor.execute(command: add1)
+        realQueue.append((name: student1.name, redID: student1.redID))
+        printedQueue = printStudentsInOrder(priorityQueue: combinationPriorityQueue)
+        XCTAssertEqual(realQueue.count, printedQueue.count)
+        for index in 0..<realQueue.count {
+            XCTAssertEqual(realQueue[index].name, printedQueue[index].name)
+            XCTAssertEqual(realQueue[index].redID, printedQueue[index].redID)
+        }
+        
+        let add2 = AddCommand(priorityQueue: combinationPriorityQueue, element: student2)
+        commandProcessor.execute(command: add2)
+        realQueue.insert((name: student2.name, redID: student2.redID), at: 0)
+        printedQueue = printStudentsInOrder(priorityQueue: combinationPriorityQueue)
+        XCTAssertEqual(realQueue.count, printedQueue.count)
+        for index in 0..<realQueue.count {
+            XCTAssertEqual(realQueue[index].name, printedQueue[index].name)
+            XCTAssertEqual(realQueue[index].redID, printedQueue[index].redID)
+        }
+        
+        commandProcessor.undo()
+        realQueue.removeFirst()
+        printedQueue = printStudentsInOrder(priorityQueue: combinationPriorityQueue)
+        XCTAssertEqual(realQueue.count, printedQueue.count)
+        for index in 0..<realQueue.count {
+            XCTAssertEqual(realQueue[index].name, printedQueue[index].name)
+            XCTAssertEqual(realQueue[index].redID, printedQueue[index].redID)
+        }
+        
+        commandProcessor.redo()
+        realQueue.insert((name: student2.name, redID: student2.redID), at: 0)
+        printedQueue = printStudentsInOrder(priorityQueue: combinationPriorityQueue)
+        XCTAssertEqual(realQueue.count, printedQueue.count)
+        for index in 0..<realQueue.count {
+            XCTAssertEqual(realQueue[index].name, printedQueue[index].name)
+            XCTAssertEqual(realQueue[index].redID, printedQueue[index].redID)
+        }
+        
+        // Test redo again when there should be nothing else to redo
+        commandProcessor.redo()
+        printedQueue = printStudentsInOrder(priorityQueue: combinationPriorityQueue)
+        XCTAssertEqual(realQueue.count, printedQueue.count)
+        for index in 0..<realQueue.count {
+            XCTAssertEqual(realQueue[index].name, printedQueue[index].name)
+            XCTAssertEqual(realQueue[index].redID, printedQueue[index].redID)
+        }
+    }
+}
+
+fileprivate extension PriorityQueue where Element == Student {
+    // TODO: testing with commands create copy of states and assertequal current to state, have to reimpliment equatable prot
+    func copy() -> PriorityQueue<Student>?{
+        guard let copy = PriorityQueue<Student>(priorityStrategy: self.priorityStrategy) else {
+            return nil
+        }
+        for student in self {
+            copy.enqueue(student)
+        }
+        return copy
     }
 }
 

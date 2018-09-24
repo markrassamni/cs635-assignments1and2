@@ -61,6 +61,7 @@ class PriorityQueue<Element: Equatable>: Collection {
         return heap.toString()
     }
     
+    // Used for removing a specific element with the undo command
     func remove(element: Element) -> Element?{
         return heap.remove(element: element)
     }
