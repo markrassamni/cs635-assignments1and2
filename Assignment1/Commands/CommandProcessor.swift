@@ -16,6 +16,7 @@ class CommandProcessor {
     func execute(command: Command){
         command.execute()
         pastStack.append(command)
+        futureStack = [Command]()
     }
     
     func undo(){
