@@ -8,17 +8,14 @@
 
 import Foundation
 
-// TODO: Remove equatable?
 struct Student: Equatable {
     private(set) var name: String
     private(set) var redID: String
     private(set) var email: String
     private(set) var unitsTaken: Int
     private(set) var gpa: Double
-    static let unitsWeight = 0.7
     static let maxUnits = 150
     static let minUnits = 0
-    static let gpaWeight = 0.3
     static let maxGPA = 4.0
     static let minGPA = 0.0
     

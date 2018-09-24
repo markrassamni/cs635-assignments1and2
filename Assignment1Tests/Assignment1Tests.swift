@@ -39,10 +39,10 @@ class Assignment1Tests: XCTestCase{
     let unitsPriority4 = 100.0
     let unitsPriority5 = 120.0
     
-    
-    // TODO: Move weights to here instead of in student class?
+    static let unitsWeight = 0.7
+    static let gpaWeight = 0.3
     let combinationStrategy = { (student: Student) -> Double in
-        Double(student.unitsTaken) * Student.unitsWeight / Double(Student.maxUnits) + student.gpa * Student.gpaWeight / Student.maxGPA
+        Double(student.unitsTaken) * unitsWeight / Double(Student.maxUnits) + student.gpa * gpaWeight / Student.maxGPA
     }
     let gpaStrategy = { (student: Student) -> Double in
         student.gpa
