@@ -140,28 +140,17 @@ class Assignment1Tests: XCTestCase{
         XCTAssertEqual(commandProcessor.futureStack.count, 0)
     }
     
-    /// Test to ensure that the priority queue size shrinks when removing students
     func testRemoveShrinksQueue(){
-        var combinationCount = combinationPriorityQueue.count
-        var gpaCount = gpaPriorityQueue.count
-        var unitsCount = gpaPriorityQueue.count
-        let maxCount = max(combinationCount, max(gpaCount, unitsCount))
-        for _ in 0..<maxCount {
-            let combinationStudent = combinationPriorityQueue.dequeue()
-            let gpaStudent = gpaPriorityQueue.dequeue()
-            let unitsStudent = unitsPriorityQueue.dequeue()
-            XCTAssertEqual(combinationCount - 1, combinationPriorityQueue.count)
-            XCTAssertEqual(gpaCount - 1, gpaPriorityQueue.count)
-            XCTAssertEqual(unitsCount - 1, unitsPriorityQueue.count)
-            if combinationStudent != nil {
-                combinationCount -= 1
-            }
-            if gpaStudent != nil {
-                gpaCount -= 1
-            }
-            if unitsStudent != nil {
-                unitsCount -= 1
-            }
+        for index in (0..<testCount).reversed() {
+            let removeCombinationCommand = RemoveCommand(priorityQueue: combinationPriorityQueue)
+            let removeGPACommand = RemoveCommand(priorityQueue: gpaPriorityQueue)
+            let removeUnitsCommand = RemoveCommand(priorityQueue: unitsPriorityQueue)
+            commandProcessor.execute(command: removeCombinationCommand)
+            commandProcessor.execute(command: removeGPACommand)
+            commandProcessor.execute(command: removeUnitsCommand)
+            XCTAssertEqual(index, combinationPriorityQueue.count)
+            XCTAssertEqual(index, gpaPriorityQueue.count)
+            XCTAssertEqual(index, unitsPriorityQueue.count)
         }
     }
     
