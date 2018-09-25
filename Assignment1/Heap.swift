@@ -35,6 +35,7 @@ class Heap<Element: Equatable>: Collection, CustomStringConvertible {
         return nodes.endIndex
     }
     
+    // Swift version of Java toString()
     var description: String {
         guard count > 0 else { return "[]" }
         var stringRepresentation = "["
@@ -187,5 +188,17 @@ extension Heap: Equatable {
             association1.key > association2.key
         }        
         return lhs.first == rhs.first && lhs.count == rhs.count && lhs.nodes.sorted(by: sort) == rhs.nodes.sorted(by: sort)
+    }
+}
+
+// Swift version of Java toArray()
+extension Array {
+    init?<E>(heap: Heap<E>) where Element == Heap<E> {
+        var nodesAsArray = [E]()
+        for node in heap.nodes{
+            nodesAsArray.append(node.value)
+        }
+        guard let array = nodesAsArray as? Array<Heap<E>> else { return nil }
+        self = array
     }
 }
