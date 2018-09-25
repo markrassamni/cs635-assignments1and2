@@ -190,15 +190,3 @@ extension Heap: Equatable {
         return lhs.first == rhs.first && lhs.count == rhs.count && lhs.nodes.sorted(by: sort) == rhs.nodes.sorted(by: sort)
     }
 }
-
-// Swift version of Java toArray()
-extension Array {
-    init?<E>(heap: Heap<E>) where Element == Heap<E> {
-        var nodesAsArray = [E]()
-        for node in heap.nodes{
-            nodesAsArray.append(node.value)
-        }
-        guard let array = nodesAsArray as? Array<Heap<E>> else { return nil }
-        self = array
-    }
-}

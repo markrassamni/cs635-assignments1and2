@@ -85,10 +85,3 @@ extension PriorityQueue: Equatable {
     }
 }
 
-// Swift version of Java toArray()
-extension Array {
-    init?<E>(priorityQueue: PriorityQueue<E>) where Element == Heap<E> {
-        guard let array = Array(heap: priorityQueue.heap) else { return nil }
-        self = array
-    }
-}
