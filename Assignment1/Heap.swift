@@ -155,7 +155,6 @@ class Heap<Element: Equatable>: Collection, IteratorProtocol, CustomStringConver
             swapElement(at: index, with: count - 1)
             let removedElement = nodes.removeLast().value
             if index < count {
-                // Move the last element that was swapped to our elements position to its correct location
                 moveUp(nodeAtIndex: index)
                 moveDown(nodeAtIndex: index)
             }
