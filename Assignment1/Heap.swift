@@ -183,6 +183,9 @@ class Heap<Element: Equatable>: Collection, IteratorProtocol, CustomStringConver
 
 extension Heap: Equatable {
     static func == (lhs: Heap<Element>, rhs: Heap<Element>) -> Bool {
-        return lhs.nodes == rhs.nodes
+        let sort = { (association1: Association<Double, Element>, association2: Association<Double, Element>) -> Bool in
+            association1.key > association2.key
+        }        
+        return lhs.first == rhs.first && lhs.count == rhs.count && lhs.nodes.sorted(by: sort) == rhs.nodes.sorted(by: sort)
     }
 }

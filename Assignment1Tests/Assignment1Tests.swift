@@ -789,7 +789,7 @@ class Assignment1Tests: XCTestCase{
             XCTAssertEqual(commandProcessor.futureStack.count, futureStackCount1 + index + 1)
             XCTAssertEqual(commandProcessor.pastStack.count, pastStackCount2 - index - 1)
         }
-        // FIXME: Undoing a remove need re-add the element into its correct position
+        
         XCTAssertEqual(combinationPriorityQueue, state2)
         XCTAssertFalse(combinationPriorityQueue === state2)
         
@@ -1149,9 +1149,6 @@ class Assignment1Tests: XCTestCase{
         XCTAssertEqual(unitsPriorityQueue, state2)
         XCTAssertFalse(unitsPriorityQueue === state2)
         
-//        let queueCount = combinationPriorityQueue.count
-//        let pastStackCount = commandProcessor.pastStack.count
-//        let futureStackCount = commandProcessor.futureStack.count
         for index in 0..<addCount {
             commandProcessor.undo()
             XCTAssertEqual(unitsPriorityQueue.count, addCount - index - 1)
@@ -1164,7 +1161,6 @@ class Assignment1Tests: XCTestCase{
 }
 
 fileprivate extension PriorityQueue {
-    // TODO: testing with commands create copy of states and assertequal current to state, have to reimpliment equatable prot
     func copy() -> PriorityQueue?{
         guard let copy = PriorityQueue(priorityStrategy: self.priorityStrategy) else {
             return nil
