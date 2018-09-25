@@ -9,7 +9,7 @@
 import Foundation
 
 
-class Heap<Element: Equatable>: Collection, IteratorProtocol, CustomStringConvertible {
+class Heap<Element: Equatable>: Collection, CustomStringConvertible {
     
     private(set) var nodes = [Association<Double, Element>]()
     private(set) var priorityStrategy: (Element) -> Double
@@ -163,6 +163,10 @@ class Heap<Element: Equatable>: Collection, IteratorProtocol, CustomStringConver
         return nil
     }
     
+    func makeIterator() -> IndexingIterator<Heap> {
+        return IndexingIterator(_elements: self)
+    }
+    
     func index(of element: Element) -> Int?{
         for (index, node) in nodes.enumerated(){
             if node.value == element {
@@ -170,10 +174,6 @@ class Heap<Element: Equatable>: Collection, IteratorProtocol, CustomStringConver
             }
         }
         return nil
-    }
-    
-    func next() -> Element? {
-        return removeFirst()
     }
 
     subscript(position: Int) -> Element {

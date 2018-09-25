@@ -8,7 +8,7 @@
 
 import Foundation
 
-class PriorityQueue<Element: Equatable>: Collection, IteratorProtocol, CustomStringConvertible {
+class PriorityQueue<Element: Equatable>: Collection, CustomStringConvertible {
     
     private(set) var heap: Heap<Element>
     
@@ -70,8 +70,8 @@ class PriorityQueue<Element: Equatable>: Collection, IteratorProtocol, CustomStr
         return heap.remove(element: element)
     }
     
-    func next() -> Element? {
-        return heap.next()
+    func makeIterator() -> IndexingIterator<Heap<Element>> {
+        return heap.makeIterator()
     }
     
     subscript(position: Int) -> Element {
