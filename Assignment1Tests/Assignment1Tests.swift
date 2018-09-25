@@ -1158,6 +1158,66 @@ class Assignment1Tests: XCTestCase{
         XCTAssertEqual(unitsPriorityQueue, state1)
         XCTAssertFalse(unitsPriorityQueue === state1)
     }
+    
+    func testIteratorForIn(){
+        // Create new PQ to clear all stored values to only use the 5 needed for testing
+        combinationPriorityQueue = PriorityQueue(priorityStrategy: combinationStrategy)
+        XCTAssertEqual(combinationPriorityQueue.count, 0)
+        
+        combinationPriorityQueue.enqueue(student1)
+        combinationPriorityQueue.enqueue(student2)
+        combinationPriorityQueue.enqueue(student3)
+        combinationPriorityQueue.enqueue(student4)
+        combinationPriorityQueue.enqueue(student5)
+        
+        let expectedStudentOrder = [student5, student4, student2, student1, student3]
+        let iterator = combinationPriorityQueue.makeIterator()
+        
+        for (index, student) in iterator.enumerated() {
+            XCTAssertEqual(expectedStudentOrder[index], student)
+        }
+    }
+    
+    func testIteratorForEach(){
+        // Create new PQ to clear all stored values to only use the 5 needed for testing
+        combinationPriorityQueue = PriorityQueue(priorityStrategy: combinationStrategy)
+        XCTAssertEqual(combinationPriorityQueue.count, 0)
+        
+        combinationPriorityQueue.enqueue(student1)
+        combinationPriorityQueue.enqueue(student2)
+        combinationPriorityQueue.enqueue(student3)
+        combinationPriorityQueue.enqueue(student4)
+        combinationPriorityQueue.enqueue(student5)
+        
+        let expectedStudentOrder = [student5, student4, student2, student1, student3]
+        let iterator = combinationPriorityQueue.makeIterator()
+        
+        iterator.enumerated().forEach { (index: Int, student: Student) in
+            XCTAssertEqual(expectedStudentOrder[index], student)
+        }
+    }
+    
+    func testIteratorNext(){
+        // Create new PQ to clear all stored values to only use the 5 needed for testing
+        combinationPriorityQueue = PriorityQueue(priorityStrategy: combinationStrategy)
+        XCTAssertEqual(combinationPriorityQueue.count, 0)
+        
+        combinationPriorityQueue.enqueue(student1)
+        combinationPriorityQueue.enqueue(student2)
+        combinationPriorityQueue.enqueue(student3)
+        combinationPriorityQueue.enqueue(student4)
+        combinationPriorityQueue.enqueue(student5)
+        
+        let expectedStudentOrder = [student5, student4, student2, student1, student3]
+        var iterator = combinationPriorityQueue.makeIterator()
+        
+        XCTAssertEqual(expectedStudentOrder[0], iterator.next())
+        XCTAssertEqual(expectedStudentOrder[1], iterator.next())
+        XCTAssertEqual(expectedStudentOrder[2], iterator.next())
+        XCTAssertEqual(expectedStudentOrder[3], iterator.next())
+        XCTAssertEqual(expectedStudentOrder[4], iterator.next())
+        XCTAssertNil(iterator.next())
+    }
 }
 
 fileprivate extension PriorityQueue {

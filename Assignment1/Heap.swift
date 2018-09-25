@@ -164,8 +164,15 @@ class Heap<Element: Equatable>: Collection, CustomStringConvertible {
         return nil
     }
     
-    func makeIterator() -> IndexingIterator<Heap> {
-        return IndexingIterator(_elements: self)
+    func makeIterator() -> AnySequence<Element> {
+        return AnySequence<Element> { () -> AnyIterator<Element> in
+            var index = 0
+            return AnyIterator {
+                let element = self.nodes[index].value
+                index += 1
+                return element
+            }
+        }
     }
     
     func index(of element: Element) -> Int?{
