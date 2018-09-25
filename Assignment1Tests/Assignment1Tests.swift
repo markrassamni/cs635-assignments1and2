@@ -1120,6 +1120,47 @@ class Assignment1Tests: XCTestCase{
         XCTAssertEqual(priority4, gpaPriority4, accuracy: 0.0001)
         XCTAssertEqual(priority5, gpaPriority5, accuracy: 0.0001)
     }
+    
+    func testAdd4Remove1UndoCombination(){
+        let addCount = 4
+        let removeCount = 1
+        unitsPriorityQueue = PriorityQueue(priorityStrategy: unitsStrategy)
+        commandProcessor = CommandProcessor()
+        let state1 = unitsPriorityQueue.copy()
+        XCTAssertEqual(unitsPriorityQueue.count, 0)
+        XCTAssertEqual(commandProcessor.futureStack.count, 0)
+        XCTAssertEqual(commandProcessor.pastStack.count, 0)
+        
+        addStudents(to: unitsPriorityQueue, count: addCount)
+        let state2 = unitsPriorityQueue.copy()
+        XCTAssertEqual(unitsPriorityQueue.count, addCount)
+        XCTAssertEqual(commandProcessor.futureStack.count, 0)
+        XCTAssertEqual(commandProcessor.pastStack.count, addCount)
+        
+        removeStudents(from: unitsPriorityQueue, count: removeCount)
+        XCTAssertEqual(unitsPriorityQueue.count, addCount - removeCount)
+        XCTAssertEqual(commandProcessor.futureStack.count, 0)
+        XCTAssertEqual(commandProcessor.pastStack.count, addCount + removeCount)
+        
+        commandProcessor.undo()
+        XCTAssertEqual(unitsPriorityQueue.count, addCount)
+        XCTAssertEqual(commandProcessor.futureStack.count, 1)
+        XCTAssertEqual(commandProcessor.pastStack.count, addCount)
+        XCTAssertEqual(unitsPriorityQueue, state2)
+        XCTAssertFalse(unitsPriorityQueue === state2)
+        
+//        let queueCount = combinationPriorityQueue.count
+//        let pastStackCount = commandProcessor.pastStack.count
+//        let futureStackCount = commandProcessor.futureStack.count
+        for index in 0..<addCount {
+            commandProcessor.undo()
+            XCTAssertEqual(unitsPriorityQueue.count, addCount - index - 1)
+            XCTAssertEqual(commandProcessor.futureStack.count, index + 2)
+            XCTAssertEqual(commandProcessor.pastStack.count, addCount - index - 1)
+        }
+        XCTAssertEqual(unitsPriorityQueue, state1)
+        XCTAssertFalse(unitsPriorityQueue === state1)
+    }
 }
 
 fileprivate extension PriorityQueue {
