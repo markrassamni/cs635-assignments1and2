@@ -15,7 +15,13 @@
 		F961417B2135DBFA00A3A8BE /* Assignment1Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F961417A2135DBFA00A3A8BE /* Assignment1Tests.swift */; };
 		F96141862135DBFA00A3A8BE /* Assignment1UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F96141852135DBFA00A3A8BE /* Assignment1UITests.swift */; };
 		F96141942135DC3000A3A8BE /* Student.swift in Sources */ = {isa = PBXBuildFile; fileRef = F96141932135DC3000A3A8BE /* Student.swift */; };
+		F96495D121504D0D007287B8 /* Association.swift in Sources */ = {isa = PBXBuildFile; fileRef = F96495D021504D0D007287B8 /* Association.swift */; };
 		F9B66C0F213C766900120AB1 /* PriorityQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B66C0E213C766900120AB1 /* PriorityQueue.swift */; };
+		F9D3748921560FBF005EDB51 /* Heap.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9D3748821560FBF005EDB51 /* Heap.swift */; };
+		F9D37496215794D6005EDB51 /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9D37495215794D6005EDB51 /* Command.swift */; };
+		F9D37498215794E4005EDB51 /* CommandProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9D37497215794E4005EDB51 /* CommandProcessor.swift */; };
+		F9D3749A21579596005EDB51 /* AddCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9D3749921579596005EDB51 /* AddCommand.swift */; };
+		F9D3749C2157984A005EDB51 /* RemoveCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9D3749B2157984A005EDB51 /* RemoveCommand.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,7 +56,13 @@
 		F96141852135DBFA00A3A8BE /* Assignment1UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assignment1UITests.swift; sourceTree = "<group>"; };
 		F96141872135DBFA00A3A8BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F96141932135DC3000A3A8BE /* Student.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Student.swift; sourceTree = "<group>"; };
+		F96495D021504D0D007287B8 /* Association.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Association.swift; sourceTree = "<group>"; };
 		F9B66C0E213C766900120AB1 /* PriorityQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriorityQueue.swift; sourceTree = "<group>"; };
+		F9D3748821560FBF005EDB51 /* Heap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Heap.swift; sourceTree = "<group>"; };
+		F9D37495215794D6005EDB51 /* Command.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Command.swift; sourceTree = "<group>"; };
+		F9D37497215794E4005EDB51 /* CommandProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandProcessor.swift; sourceTree = "<group>"; };
+		F9D3749921579596005EDB51 /* AddCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCommand.swift; sourceTree = "<group>"; };
+		F9D3749B2157984A005EDB51 /* RemoveCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveCommand.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,7 +113,10 @@
 		F96141642135DBF900A3A8BE /* Assignment1 */ = {
 			isa = PBXGroup;
 			children = (
+				F9D37494215794C4005EDB51 /* Commands */,
+				F96495D021504D0D007287B8 /* Association.swift */,
 				F9B66C0E213C766900120AB1 /* PriorityQueue.swift */,
+				F9D3748821560FBF005EDB51 /* Heap.swift */,
 				F96141932135DC3000A3A8BE /* Student.swift */,
 				F96141652135DBF900A3A8BE /* AppDelegate.swift */,
 				F96141672135DBF900A3A8BE /* ViewController.swift */,
@@ -131,6 +146,17 @@
 			path = Assignment1UITests;
 			sourceTree = "<group>";
 		};
+		F9D37494215794C4005EDB51 /* Commands */ = {
+			isa = PBXGroup;
+			children = (
+				F9D37495215794D6005EDB51 /* Command.swift */,
+				F9D37497215794E4005EDB51 /* CommandProcessor.swift */,
+				F9D3749921579596005EDB51 /* AddCommand.swift */,
+				F9D3749B2157984A005EDB51 /* RemoveCommand.swift */,
+			);
+			path = Commands;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -141,6 +167,7 @@
 				F961415E2135DBF900A3A8BE /* Sources */,
 				F961415F2135DBF900A3A8BE /* Frameworks */,
 				F96141602135DBF900A3A8BE /* Resources */,
+				F9D3749321578F90005EDB51 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -260,6 +287,26 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		F9D3749321578F90005EDB51 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\nTAGS=\"TODO:|FIXME:\"\nERRORTAG=\"ERROR:\"\nfind \"${SRCROOT}\" \\( -name \"*.h\" -or -name \"*.m\" -or -name \"*.swift\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($TAGS).*\\$|($ERRORTAG).*\\$\" | perl -p -e \"s/($TAGS)/ warning: \\$1/\" | perl -p -e \"s/($ERRORTAG)/ error: \\$1/\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		F961415E2135DBF900A3A8BE /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -267,7 +314,13 @@
 			files = (
 				F96141682135DBF900A3A8BE /* ViewController.swift in Sources */,
 				F9B66C0F213C766900120AB1 /* PriorityQueue.swift in Sources */,
+				F9D37498215794E4005EDB51 /* CommandProcessor.swift in Sources */,
+				F96495D121504D0D007287B8 /* Association.swift in Sources */,
+				F9D3749C2157984A005EDB51 /* RemoveCommand.swift in Sources */,
+				F9D3748921560FBF005EDB51 /* Heap.swift in Sources */,
 				F96141942135DC3000A3A8BE /* Student.swift in Sources */,
+				F9D3749A21579596005EDB51 /* AddCommand.swift in Sources */,
+				F9D37496215794D6005EDB51 /* Command.swift in Sources */,
 				F96141662135DBF900A3A8BE /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -8,141 +8,80 @@
 
 import Foundation
 
-struct PriorityQueue {
+class PriorityQueue<Element: Equatable>: Collection, CustomStringConvertible {
     
-    private var heap: [Student]
+    private(set) var heap: Heap<Element>
     
-    var Heap: [Student] {
-        get {
-            return heap
-        }
+    var isEmpty: Bool {
+        return heap.isEmpty
     }
     
-    /// Return how many elements are in the heap
     var count: Int {
         return heap.count
     }
-    
-    /// Initialize the priority queue with the given students. If no students provided, create an empty heap.
-    init(students: [Student] = []) {
-        self.heap = students
-        createHeap()
+
+    var startIndex: Int {
+        return heap.startIndex
     }
     
-    /// Remove all of the elements from the heap
-    mutating func clear(){
-        heap = [Student]()
+    var endIndex: Int {
+        return heap.endIndex
     }
     
-    /// Return the student with the highest priority. If the heap is empty, return nil.
-    func getHighestPriority() -> Student? {
+    var first: Element? {
         return heap.first
     }
     
-    /// A boolean value indicating if index is the root node of the heap.
-    func isRoot(index: Int) -> Bool {
-        return index == 0
+    var priorityStrategy: (Element) -> Double {
+        return heap.priorityStrategy
     }
     
-    /// Given a parent index, get the index of the left child node.
-    func getLeftChildIndex(of index: Int) -> Int {
-        return 2 * index + 1
+    var comparatorStrategy: (Double, Double) -> Bool {
+        return heap.comparatorStrategy
     }
     
-    /// Given a parent index, get the index of the right child node.
-    func getRightChildIndex(of index: Int) -> Int {
-        return 2 * index + 2
+    // Swift version of Java toString()
+    var description: String {
+        return heap.description
     }
     
-    /// Given the index of a child, return the parent index.
-    func getParentIndex(of index: Int) -> Int {
-        return (index - 1) / 2
+    init?<T: Equatable>(priorityStrategy: @escaping (T) -> Double, comparatorStrategy: @escaping (Double, Double) -> Bool = (>)){
+        guard let heap = Heap<Element>(priorityStrategy: priorityStrategy, comparatorStrategy: comparatorStrategy) else { return nil }
+        self.heap = heap
     }
     
-    /// Return a boolean indicating if the node at the first index is higher priority than the second index node.
-    func isHigherPriority(at firstIndex: Int, than secondIndex: Int) -> Bool {
-        return heap[firstIndex].priority() > heap[secondIndex].priority()
+    func index(after i: Int) -> Int {
+        return heap.index(after: i)
     }
     
-    /// Returns the index with higher priority between the parent and child indices. Returns nil if the parent index is not contained in the heap.
-    func highestPriorityIndex(of parentIndex: Int, and childIndex: Int) -> Int? {
-        guard parentIndex < count else { return nil }
-        if childIndex < count && isHigherPriority(at: childIndex, than: parentIndex) {
-            return childIndex
-        }
-        return parentIndex
+    func enqueue(_ element: Element){
+        heap.add(element)
     }
     
-    /// Returns the index of the highest priority element of a parent and its children. Returns nil if the parent index is outside of heap bounds.
-    func highestPriorityIndex(for parent: Int) -> Int? {
-        guard parent < count else { return nil }
-        // Get highest priority between the left child and parent
-        if let leftChildParentMaxPriority = highestPriorityIndex(of: getLeftChildIndex(of: parent), and: parent){
-            // Get highest priority between the left child, right child, and parent
-            let highestPriority = highestPriorityIndex(of: leftChildParentMaxPriority, and: getRightChildIndex(of: parent))
-            return highestPriority
-        }
-        return nil
+    func dequeue() -> Element? {
+        return heap.removeFirst()
     }
     
-    /// Add a new element to the heap
-    mutating func add(student: Student) {
-        heap.append(student)
-        moveUp(studentAtIndex: count - 1) // Move the new student into its correct position
+    func toArray() -> [Element] {
+        return heap.toArray()
     }
     
-    /// Takes a newly added student from its bottom position and moves it up to its appropriate priority position. Recursive function repeats until student is located at correct index.
-    mutating func moveUp(studentAtIndex index: Int) {
-        let parent = getParentIndex(of: index)
-        if isRoot(index: index) || !isHigherPriority(at: index, than: parent) { return } // Stops recursive calling
-        swapElement(at: index, with: parent)
-        moveUp(studentAtIndex: parent)
+    func remove(element: Element) -> Element?{
+        return heap.remove(element: element)
     }
     
-    /// Remove and return the student with highest priority
-    mutating func removeHighest() -> Student? {
-        if heap.isEmpty { return nil }
-        swapElement(at: 0, with: count - 1) // Swap highest priority student with last student in the heap
-        let student = heap.removeLast()
-        moveDown(studentAtIndex: 0) // Move the newly placed first student into its correct position
-        return student
+    func makeIterator() -> IndexingIterator<Heap<Element>> {
+        return heap.makeIterator()
     }
     
-    /// Create the heap given the students provided at initialization time.
-    mutating func createHeap() {
-        // Move all parent elements down to their correct positionss
-        for index in (0 ..< count / 2).reversed() {
-            moveDown(studentAtIndex: index)
-        }
-    }
-    
-    /// Moves a low priority student from the top of the heap down to its correct priority position. Recursive function repeats until student is located at correct index.
-    mutating func moveDown(studentAtIndex index: Int) {
-        guard count > 0 else { return }
-        if let childIndex = highestPriorityIndex(for: index){
-            if index == childIndex { return } // Stops recursive calling
-            swapElement(at: index, with: childIndex)
-            moveDown(studentAtIndex: childIndex)
-        }
-    }
-    
-    /// Swap positions in the heap of the first index with the second index.
-    mutating func swapElement(at firstIndex: Int, with secondIndex: Int) {
-        heap.swapAt(firstIndex, secondIndex)
-    }
-    
-    /// Prints the name and red ID of all students in the heap in priority order. Returns the students in a priority order sorted array.
-    mutating func printQueue() -> [Student]{
-        // Create a copy of the original heap. Loop removing the highest priority and printing it. Restore heap when done.
-        let heapCopy = heap
-        var students = [Student]()
-        for (index, _) in heap.enumerated() {
-            if let student = removeHighest(){
-                students.append(student)
-                print("\(index + 1). Red ID: \(student.RedID), Name: \(student.Name).")
-            }
-        }
-        heap = heapCopy
-        return students
+    subscript(position: Int) -> Element {
+        return heap[position]
     }
 }
+
+extension PriorityQueue: Equatable {
+    static func == (lhs: PriorityQueue<Element>, rhs: PriorityQueue<Element>) -> Bool {
+        return lhs.heap == rhs.heap
+    }
+}
+
